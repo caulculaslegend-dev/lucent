@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Lucent player</title>
+<style>
+html,body{margin:0;height:100%;background:#000;overflow:hidden}
+#bg{position:fixed;inset:-40px;background:#000 center/cover no-repeat;filter:blur(40px) brightness(.55) saturate(1.3);opacity:0;transition:opacity .8s}
+body.tall #bg{opacity:1}
+#wrap{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:max(100vw,177.78vh);height:max(100vh,56.25vw);pointer-events:none;opacity:0;transition:opacity 1s ease}
+body.tall #wrap{width:min(100vw,56.25vh);height:100vh}
+body.contain #wrap{width:min(100vw,177.78vh);height:min(100vh,56.25vw)}
+body.on #wrap{opacity:1}
+#wrap iframe,#wrap>div{width:100%;height:100%;border:0;display:block}
+</style>
+</head>
+<body>
+<div id="bg"></div>
+<div id="wrap"><div id="yt"></div></div>
+<script>
+// Plays one YouTube video full screen for Lucent's YouTube wallpapers.
+// Lucent talks to it with window messages: {lucentYTcmd:{...}} in, {lucentYT:{...}} out.
+(function () {
+  const q = new URLSearchParams(location.hash.slice(1) || location.search.slice(1));
+  let vid = q.get('v') || '';
+  const fit = q.get('fit') || 'cover';
+  let player = null; let ready = false; let pending = null;
+  const out = (type, extra) => { try { window.postMessage({ lucentYT: { type, ...extra } }, '*'); } catch (e) {} try { if (window.parent !== window) window.parent.postMessage({ lucentYT: { type, ...extra } }, '*'); } catch (e) {} };
+  function setFit(tall) { document.body.classList.toggle('tall', !!tall); document.body.classList.toggle('contain', !tall && fit === 'contain'); }
+  setFit(q.get('tall') === '1');
+  if (vid) document.getElementById('bg').style.backgroundImage = `url(https://i.ytimg.com/vi/${vid}/hqdefault.jpg)`;
+  const tag = document.createElement('script'); tag.src = 'https://www.youtube.com/iframe_api'; document.head.appendChild(tag);
+  window.onYouTubeIframeAPIReady = function () {
+    player = new YT.Player('yt', {
+      videoId: vid || undefined,
+      host: 'https://www.youtube-nocookie.com',
+      playerVars: { autoplay: 1, controls: 0, disablekb: 1, fs: 0, iv_load_policy: 3, playsinline: 1, rel: 0, mute: q.get('mute') === '1' ? 1 : 0, start: +q.get('t') || 0 },
+      events: {
+        onReady: () => {
+          ready = true;
+          const vol = Math.max(0, Math.min(100, +(q.get('vol') || 40)));
+          player.setVolume(vol);
+          if (q.get('mute') === '1') player.mute();
+          player.playVideo();
+          out('ready', info());
+          if (pending) { run(pending); pending = null; }
+        },
+        onStateChange: (e) => {
+          if (e.data === 1) document.body.classList.add('on');
+          const names = { '-1': 'unstarted', 0: 'ended', 1: 'playing', 2: 'paused', 3: 'buffering', 5: 'cued' };
+          out('state', { state: names[e.data] || String(e.data), ...info() });
+          if (e.data === 0) out('ended', info());
+        },
+        onError: (e) => out('error', { code: e.data, videoId: vid })
+      }
+    });
+  };
+  function info() {
+    if (!player || !ready) return { videoId: vid };
+    let d = {}; try { d = player.getVideoData() || {}; } catch (e) {}
+    return { videoId: d.video_id || vid, title: d.title || '', author: d.author || '', muted: player.isMuted(), volume: player.getVolume(), time: player.getCurrentTime() || 0, duration: player.getDuration() || 0 };
+  }
+  function run(c) {
+    if (!ready) { pending = c; return; }
+    switch (c.cmd) {
+      case 'play': player.playVideo(); break;
+      case 'pause': player.pauseVideo(); break;
+      case 'toggle': if (player.getPlayerState() === 1) player.pauseVideo(); else player.playVideo(); break;
+      case 'mute': player.mute(); out('state', { state: 'muted', ...info() }); break;
+      case 'unmute': player.unMute(); out('state', { state: 'unmuted', ...info() }); break;
+      case 'volume': player.setVolume(Math.max(0, Math.min(100, +c.value || 0))); break;
+      case 'seek': player.seekTo(+c.value || 0, true); break;
+      case 'load':
+        vid = c.videoId; setFit(!!c.tall);
+        document.getElementById('bg').style.backgroundImage = `url(https://i.ytimg.com/vi/${vid}/hqdefault.jpg)`;
+        document.body.classList.remove('on');
+        player.loadVideoById({ videoId: vid, startSeconds: +c.start || 0 });
+        break;
+      case 'info': out('info', info()); break;
+    }
+  }
+  window.addEventListener('message', (e) => { const c = e.data && e.data.lucentYTcmd; if (c) run(c); });
+  setInterval(() => { if (ready) out('tick', info()); }, 5000);
+})();
+</script>
+</body>
+</html>

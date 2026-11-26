@@ -8,11 +8,11 @@
 <meta name="theme-color" content="#120e26">
 <meta property="og:title" content="Lucent">
 <meta property="og:description" content="Moving wallpapers, a Dynamic Island around your notch, widgets anywhere and a dock that replaces yours. Free for Mac and Windows.">
-<meta property="og:image" content="assets/shots/home.webp?v=231">
-<link rel="icon" type="image/png" href="assets/icon-64.png?v=231">
-<link rel="icon" type="image/svg+xml" href="assets/logo.svg?v=231">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=231">
-<link rel="preload" as="image" href="assets/walls/trestle-full.webp?v=231">
+<meta property="og:image" content="assets/shots/home.webp?v=240">
+<link rel="icon" type="image/png" href="assets/icon-64.png?v=240">
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg?v=240">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=240">
+<link rel="preload" as="image" href="assets/walls/trestle-full.webp?v=240">
 <style>
 :root {
   --night: #120e26; --night-2: #1b1634; --night-3: #241e42;
@@ -155,7 +155,7 @@ h3 { margin: 0 0 10px; font: 700 clamp(26px, 2.6vw, 34px)/1.1 var(--sys-d); lett
 .install li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--night-3); font-weight: 700; font-size: 14px; }
 .install li b { display: block; font-size: 17px; }
 .install li span { color: var(--haze); font-size: 16px; }
-.install li img { margin-top: 14px; width: min(100%, 360px); border-radius: 12px; box-shadow: 0 0 0 1px var(--line); }
+.install li img { margin-top: 14px; width: min(100%, 360px); height: auto; border-radius: 12px; box-shadow: 0 0 0 1px var(--line); }
 .install .go { margin-top: 4px; height: 44px; padding: 0 18px; border-radius: 12px; background: rgba(255, 255, 255, .08); box-shadow: inset 0 0 0 1px var(--line); font-size: 15px; opacity: 1; }
 .install .go:hover { background: rgba(255, 255, 255, .13); text-decoration: none; }
 
@@ -206,7 +206,7 @@ footer a { color: var(--ink); }
 .stage p { margin: 0; color: var(--haze); font-size: 16px; }
 .stage p b { color: var(--ink); }
 .fig { justify-self: center; width: 100%; max-width: 400px; }
-.fig > img { width: 100%; border-radius: 12px; box-shadow: 0 0 0 1px var(--line); }
+.fig > img { width: 100%; height: auto; border-radius: 12px; box-shadow: 0 0 0 1px var(--line); }
 .fileRow { display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 14px; background: #24232b; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); font-size: 14px; }
 .fileRow img { width: 40px; height: 40px; flex: none; }
 .fileRow small { display: block; color: #98989f; }
@@ -267,13 +267,80 @@ footer a { color: var(--ink); }
   .wall, .notch, .panel, .sheet { transition: none; }
   .eq i { animation: none; }
 }
+
+/* ---------- 2.4: numbers, most popular, categories, shop, update popup ---------- */
+.numbers { padding: 26px 0; border-bottom: 1px solid var(--line); background: linear-gradient(180deg, rgba(36, 30, 66, .55), transparent); }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 18px; }
+.stats div { padding: 6px 4px; }
+.stats b { display: block; font: 750 clamp(30px, 3.6vw, 44px)/1 var(--sys-d); letter-spacing: -.04em; background: var(--lotus); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.stats span { display: block; margin-top: 6px; color: var(--haze); font-size: 15px; }
+.phead { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 30px; }
+.phead h2 { margin-bottom: 8px; }
+.arrows { display: flex; gap: 8px; flex: none; }
+.arrows button { width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(244, 241, 255, .08); color: var(--ink); font-size: 26px; line-height: 1; cursor: pointer; box-shadow: inset 0 0 0 1px var(--line); }
+.arrows button:hover { background: rgba(244, 241, 255, .16); }
+.ptrack { display: grid; grid-auto-flow: column; grid-auto-columns: min(430px, 78vw); gap: 26px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 8px 2px 18px; scrollbar-width: none; }
+.ptrack::-webkit-scrollbar { display: none; }
+.pcard { position: relative; display: block; aspect-ratio: 16 / 10; border-radius: 24px; overflow: hidden; scroll-snap-align: start; text-decoration: none; background: var(--night-3); box-shadow: 0 24px 50px -28px rgba(0, 0, 0, .8), inset 0 0 0 1px var(--line); }
+.pcard img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.pcard:hover img { transform: scale(1.04); }
+.pcard::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, .18), transparent 40%, rgba(0, 0, 0, .62)); pointer-events: none; }
+.pcard .rank { position: absolute; left: 16px; top: -4px; z-index: 2; font: 900 clamp(92px, 9vw, 128px)/1 var(--sys-d); letter-spacing: -.07em; color: #fff; text-shadow: 0 10px 34px rgba(0, 0, 0, .45); -webkit-mask: linear-gradient(180deg, #000 50%, rgba(0, 0, 0, .1) 98%); mask: linear-gradient(180deg, #000 50%, rgba(0, 0, 0, .1) 98%); }
+.pcard .pinfo { position: absolute; left: 18px; right: 18px; bottom: 14px; z-index: 2; }
+.pcard .pinfo b { display: block; font-size: 17px; }
+.pcard .pinfo span { font-size: 13.5px; color: rgba(255, 255, 255, .75); }
+.pcard .pl { color: #ff9bb5; font-weight: 700; margin-right: 8px; }
+.cats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.ctile { position: relative; aspect-ratio: 16 / 9.4; border: 0; padding: 0; border-radius: 24px; overflow: hidden; cursor: pointer; text-align: left; background: var(--night-3); color: #fff; box-shadow: inset 0 0 0 1px var(--line); }
+.ctile img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.ctile:hover img { transform: scale(1.05); }
+.ctile::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, .66)); }
+.ctile b { position: absolute; left: 24px; bottom: 34px; z-index: 2; font: 800 clamp(30px, 3.4vw, 46px)/1 var(--sys-d); letter-spacing: -.035em; }
+.ctile span { position: absolute; left: 26px; bottom: 14px; z-index: 2; font-size: 14px; color: rgba(255, 255, 255, .8); }
+.ctile:focus-visible, .pcard:focus-visible, .wchips button:focus-visible, .shoplist button:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.wchips { display: flex; flex-wrap: wrap; gap: 8px; margin: -14px 0 26px; }
+.wchips button, .shoplist button { border: 0; cursor: pointer; padding: 8px 15px; border-radius: 999px; background: rgba(244, 241, 255, .07); color: var(--ink); font-size: 15px; box-shadow: inset 0 0 0 1px var(--line); }
+.wchips button[aria-pressed="true"], .shoplist button.on { background: var(--ink); color: var(--night); box-shadow: none; }
+.sub-h { margin: 70px 0 8px; font: 700 28px/1.1 var(--sys-d); letter-spacing: -.02em; }
+.walls.shared figure { position: relative; }
+.walls.shared .live { position: absolute; top: 10px; left: 10px; font-style: normal; font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 999px; background: rgba(0, 0, 0, .55); color: #7dffb0; }
+.shopbox { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 60px; align-items: center; }
+.shoplist { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.shoplist button { display: inline-flex; gap: 8px; align-items: baseline; }
+.shoplist small { font-size: 13px; opacity: .7; }
+.shop-stage { display: grid; place-items: center; min-height: 460px; border-radius: 32px; background: radial-gradient(90% 70% at 50% 20%, rgba(164, 77, 255, .35), transparent 70%), radial-gradient(80% 60% at 70% 90%, rgba(255, 94, 126, .25), transparent 70%), var(--night-2); box-shadow: inset 0 0 0 1px var(--line); }
+.sc-card { position: relative; width: min(330px, 80vw); border-radius: 26px; text-align: center; padding-bottom: 26px; background: rgba(16, 13, 32, .92); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12), 0 30px 60px -24px rgba(0, 0, 0, .8); --acc: #a44dff; }
+.sc-card .banner { height: 104px; border-radius: 26px 26px 0 0; background: var(--lotus); }
+.sc-card .av { width: 92px; height: 92px; margin: -48px auto 0; border-radius: 50%; display: grid; place-items: center; font: 800 34px/1 var(--sys-d); background: linear-gradient(135deg, #ffb347, #a44dff); border: 5px solid rgb(16, 13, 32); }
+.sc-card .nm { margin-top: 12px; font: 800 24px/1.1 var(--sys-d); letter-spacing: -.02em; }
+.sc-card .nm span { position: relative; display: inline-block; }
+.sc-card .un { color: var(--haze); font-size: 15px; margin-top: 4px; }
+.sc-card .bio { margin-top: 14px; font-size: 15px; color: rgba(244, 241, 255, .85); }
+.upd { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 20px; background: rgba(8, 6, 18, .55); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); opacity: 0; transition: opacity .3s ease; }
+.upd.on { opacity: 1; }
+.upd-card { position: relative; width: min(460px, 100%); padding: 26px 26px 22px; border-radius: 26px; background: var(--night-2); box-shadow: inset 0 0 0 1px var(--line), 0 40px 80px -30px #000; transform: translateY(14px) scale(.98); transition: transform .35s cubic-bezier(.2, .9, .3, 1.1); }
+.upd.on .upd-card { transform: none; }
+.upd-top { display: flex; gap: 14px; align-items: center; }
+.upd-top img { border-radius: 14px; }
+.upd-tag { display: inline-block; font-size: 13px; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--lotus); color: #fff; }
+.upd h3 { margin: 6px 0 0; font: 750 24px/1.15 var(--sys-d); letter-spacing: -.02em; }
+.upd ul { margin: 18px 0 0; padding-left: 20px; color: rgba(244, 241, 255, .9); font-size: 15.5px; }
+.upd li { margin: 4px 0; }
+.upd-note { margin: 14px 0 0; color: var(--haze); font-size: 14px; }
+.upd-row { display: flex; gap: 10px; margin-top: 20px; }
+.upd-go { flex: 1; height: 48px; border: 0; border-radius: 14px; background: var(--lotus); color: #fff; font-weight: 700; cursor: pointer; }
+.upd-later { height: 48px; padding: 0 18px; border: 0; border-radius: 14px; background: rgba(244, 241, 255, .08); cursor: pointer; }
+.upd-x { position: absolute; right: 14px; top: 12px; width: 34px; height: 34px; border: 0; border-radius: 50%; background: rgba(244, 241, 255, .08); font-size: 22px; line-height: 1; cursor: pointer; }
+@media (max-width: 900px) { .cats { grid-template-columns: repeat(2, minmax(0, 1fr)); } .shopbox { grid-template-columns: 1fr; gap: 36px; } }
+@media (max-width: 560px) { .cats { grid-template-columns: 1fr; } .phead { align-items: flex-start; } .arrows { display: none; } }
+@media (prefers-reduced-motion: reduce) { .pcard img, .ctile img, .upd, .upd-card { transition: none; } }
 </style>
 </head>
 <body>
 
 <header class="bar" id="bar">
-  <a class="me" href="#top"><img src="assets/icon-64.png?v=231" alt="">Lucent</a>
-  <nav aria-label="Sections"><a href="#features">Features</a><a href="#wallpapers">Wallpapers</a><a href="#install">Install</a><a href="#faq">Questions</a></nav>
+  <a class="me" href="#top"><img src="assets/icon-64.png?v=240" alt="">Lucent</a>
+  <nav aria-label="Sections"><a href="#features">Features</a><a href="#popular">Popular</a><a href="#wallpapers">Wallpapers</a><a href="#shop">Shop</a><a href="#install">Install</a><a href="#faq">Questions</a></nav>
   <div class="end"><button class="get" type="button" data-dl="auto">Download</button><span class="when date" id="barDate"></span><span class="when" id="barTime"></span></div>
 </header>
 
@@ -281,15 +348,15 @@ footer a { color: var(--ink); }
   <div class="wall on" id="wallA"></div>
   <div class="wall" id="wallB"></div>
   <div class="notch island" id="notch" tabindex="0" aria-label="Dynamic Island: Slow Tide is playing. Hover or focus to open.">
-    <div class="wing l"><i class="art" style="background-image:url('assets/walls/pier.webp?v=231')"></i>Slow Tide</div>
+    <div class="wing l"><i class="art" style="background-image:url('assets/walls/pier.webp?v=240')"></i>Slow Tide</div>
     <div class="wing r"><span class="eq"><i></i><i></i><i></i><i></i></span></div>
-    <div class="player"><i class="big" style="background-image:url('assets/walls/pier.webp?v=231')"></i><div style="flex:1;min-width:0"><b>Slow Tide</b><span>Lucent Demo</span><div class="prog"><i></i></div></div></div>
+    <div class="player"><i class="big" style="background-image:url('assets/walls/pier.webp?v=240')"></i><div style="flex:1;min-width:0"><b>Slow Tide</b><span>Lucent Demo</span><div class="prog"><i></i></div></div></div>
   </div>
 
   <div class="desk">
     <div class="clock" id="clock" aria-label="The time where you are"></div>
     <p class="today" id="today"></p>
-    <h1><img src="assets/icon-256.png?v=231" alt="">Lucent</h1>
+    <h1><img src="assets/icon-256.png?v=240" alt="">Lucent</h1>
     <p class="lede">Wallpapers that move, a Dynamic Island around your notch, widgets you can put anywhere and a dock that replaces yours.</p>
     <div class="ctas">
       <button class="btn main" type="button" data-dl="auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 19h16"/></svg><span><span id="heroDl">Download Lucent</span><small id="heroDlS">For Mac and Windows</small></span></button>
@@ -299,63 +366,74 @@ footer a { color: var(--ink); }
   </div>
 
   <div class="dock" id="dock" aria-hidden="true">
-    <div class="it"><img src="assets/dock/files.png?v=231" alt=""><span class="tip">Files</span></div>
-    <div class="it on"><img src="assets/dock/browser.png?v=231" alt=""><span class="tip">Browser</span></div>
-    <div class="it on"><img src="assets/dock/chat.png?v=231" alt=""><span class="tip">Chat</span></div>
-    <div class="it on"><img src="assets/dock/music.png?v=231" alt=""><span class="tip">Music</span></div>
-    <div class="it"><img src="assets/dock/photos.png?v=231" alt=""><span class="tip">Photos</span></div>
-    <div class="it"><img src="assets/dock/notes.png?v=231" alt=""><span class="tip">Notes</span></div>
-    <div class="it on"><img src="assets/dock/code.png?v=231" alt=""><span class="tip">Code</span></div>
-    <div class="it"><img src="assets/dock/games.png?v=231" alt=""><span class="tip">Games</span></div>
+    <div class="it"><img src="assets/dock/files.png?v=240" alt=""><span class="tip">Files</span></div>
+    <div class="it on"><img src="assets/dock/browser.png?v=240" alt=""><span class="tip">Browser</span></div>
+    <div class="it on"><img src="assets/dock/chat.png?v=240" alt=""><span class="tip">Chat</span></div>
+    <div class="it on"><img src="assets/dock/music.png?v=240" alt=""><span class="tip">Music</span></div>
+    <div class="it"><img src="assets/dock/photos.png?v=240" alt=""><span class="tip">Photos</span></div>
+    <div class="it"><img src="assets/dock/notes.png?v=240" alt=""><span class="tip">Notes</span></div>
+    <div class="it on"><img src="assets/dock/code.png?v=240" alt=""><span class="tip">Code</span></div>
+    <div class="it"><img src="assets/dock/games.png?v=240" alt=""><span class="tip">Games</span></div>
     <span class="sep"></span>
-    <div class="np"><i class="art" style="background-image:url('assets/walls/pier.webp?v=231')"></i><div>Slow Tide<span>Lucent Demo</span></div><span class="eq" style="margin-left:6px"><i></i><i></i><i></i><i></i></span></div>
+    <div class="np"><i class="art" style="background-image:url('assets/walls/pier.webp?v=240')"></i><div>Slow Tide<span>Lucent Demo</span></div><span class="eq" style="margin-left:6px"><i></i><i></i><i></i><i></i></span></div>
     <span class="sep"></span>
-    <div class="it"><img src="assets/dock/downloads.png?v=231" alt=""><span class="tip">Downloads</span></div>
-    <div class="it"><img src="assets/dock/trash.png?v=231" alt=""><span class="tip">Trash</span></div>
+    <div class="it"><img src="assets/dock/downloads.png?v=240" alt=""><span class="tip">Downloads</span></div>
+    <div class="it"><img src="assets/dock/trash.png?v=240" alt=""><span class="tip">Trash</span></div>
   </div>
   <p class="credit" id="credit"></p>
 </section>
 
 <main>
+<section class="numbers" aria-label="Lucent in numbers"><div class="wrap"><div class="stats" id="stats"></div></div></section>
 <section class="band" id="tour">
   <div class="wrap">
     <div class="head"><h2>See it in 55 seconds</h2><p class="lede">YouTube and websites as wallpapers, two wallpapers at once, the island around your notch and the dock that takes over from yours.</p></div>
     <div class="tour" id="tourBox">
-      <video id="promo" src="assets/lucent-promo.mp4?v=231" poster="assets/video-poster.webp?v=231" playsinline preload="metadata"></video>
+      <video id="promo" src="assets/lucent-promo.mp4?v=240" poster="assets/video-poster.webp?v=240" playsinline preload="metadata"></video>
       <button class="play" type="button" id="playTour"><span><svg viewBox="0 0 24 24"><path d="M7 4.8v14.4L19 12Z" fill="currentColor"/></svg>Play with sound</span></button>
     </div>
     <p class="tour-note">Music: “Afterglow”, made for Lucent.</p>
   </div>
 </section>
 
+<section class="band" id="popular">
+  <div class="wrap">
+    <div class="phead"><div><h2>Most popular wallpapers</h2><p class="lede" id="popSub">Ranked by likes from people using Lucent.</p></div>
+      <div class="arrows"><button type="button" id="popPrev" aria-label="Scroll back">‹</button><button type="button" id="popNext" aria-label="Scroll on">›</button></div></div>
+    <div class="ptrack" id="popTrack" aria-label="Most popular wallpapers, ranked"></div>
+    <div class="phead" style="margin-top:72px"><div><h2>Categories</h2><p class="lede">Browse the free wallpapers by mood.</p></div></div>
+    <div class="cats" id="catGrid"></div>
+  </div>
+</section>
+
 <section class="band" id="features" style="padding-top:0">
   <div class="wrap">
     <article class="feature">
-      <div class="media"><video data-clip src="assets/clips/dock.mp4?v=231" poster="assets/clips/dock.webp?v=231" muted loop playsinline preload="none"></video></div>
+      <div class="media"><video data-clip src="assets/clips/dock.mp4?v=240" poster="assets/clips/dock.webp?v=240" muted loop playsinline preload="none"></video></div>
       <div><h3>A dock that replaces yours</h3><p>Lucent hides the Mac Dock and brings your apps into its own, with open apps marked, plus a clock, the weather and what’s playing right next to them.</p><p>Turn it off and the normal Dock comes straight back. On Windows it tucks the taskbar away instead.</p></div>
     </article>
     <article class="feature flip">
-      <div class="media"><video data-clip src="assets/clips/notch.mp4?v=231" poster="assets/clips/notch.webp?v=231" muted loop playsinline preload="none"></video></div>
+      <div class="media"><video data-clip src="assets/clips/notch.mp4?v=240" poster="assets/clips/notch.webp?v=240" muted loop playsinline preload="none"></video></div>
       <div><h3>An island around your notch</h3><p>The top of your screen shows the song that’s playing, the time and your battery. Hover over it for music controls, a calendar, notes, a timer and more.</p><p>Pick its shape, size, colours and what each side shows.</p></div>
     </article>
     <article class="feature">
-      <div class="media"><video data-clip src="assets/clips/youtube.mp4?v=231" poster="assets/clips/youtube.webp?v=231" muted loop playsinline preload="none"></video></div>
+      <div class="media"><video data-clip src="assets/clips/youtube.mp4?v=240" poster="assets/clips/youtube.webp?v=240" muted loop playsinline preload="none"></video></div>
       <div><h3>YouTube as your wallpaper</h3><p>Pick a video and it plays behind your windows. When it ends the next one starts, like your For You page, and the island shows what’s on.</p></div>
     </article>
     <article class="feature flip">
-      <div class="media"><video data-clip src="assets/clips/websites.mp4?v=231" poster="assets/clips/websites.webp?v=231" muted loop playsinline preload="none"></video></div>
+      <div class="media"><video data-clip src="assets/clips/websites.mp4?v=240" poster="assets/clips/websites.webp?v=240" muted loop playsinline preload="none"></video></div>
       <div><h3>Any website, live on your desktop</h3><p>Your bio page, your server list or anything else. Click into it when you want to use it, and press Esc when you’re done.</p></div>
     </article>
     <article class="feature">
-      <div class="media"><video data-clip src="assets/clips/two.mp4?v=231" poster="assets/clips/two.webp?v=231" muted loop playsinline preload="none"></video></div>
+      <div class="media"><video data-clip src="assets/clips/two.mp4?v=240" poster="assets/clips/two.webp?v=240" muted loop playsinline preload="none"></video></div>
       <div><h3>Two wallpapers at once</h3><p>Side by side, one in a corner or blended together. One click to use a wallpaper, another to take it off.</p></div>
     </article>
     <article class="feature flip">
-      <div class="media"><video data-clip src="assets/clips/widgets.mp4?v=231" poster="assets/clips/widgets.webp?v=231" muted loop playsinline preload="none"></video></div>
+      <div class="media"><video data-clip src="assets/clips/widgets.mp4?v=240" poster="assets/clips/widgets.webp?v=240" muted loop playsinline preload="none"></video></div>
       <div><h3>Widgets you can put anywhere</h3><p>Clock, weather, music, calendar, to-dos and more, right on your wallpaper. Drag them where you want them and right-click any of them for its options.</p></div>
     </article>
     <article class="feature">
-      <div class="media"><img src="assets/shots/standby.webp?v=231" alt="StandBy: a big clock over the Neon Bridge wallpaper, with the song that’s playing" loading="lazy" width="1600" height="1000"></div>
+      <div class="media"><img src="assets/shots/standby.webp?v=240" alt="StandBy: a big clock over the Neon Bridge wallpaper, with the song that’s playing" loading="lazy" width="1600" height="1000"></div>
       <div><h3>StandBy when you step away</h3><p>Leave your Mac for a few minutes and the desktop turns into a big clock over your wallpaper, with what’s playing. Move the mouse and you’re back.</p><p class="note">It never covers a video or a call. Mac only for now.</p></div>
     </article>
   </div>
@@ -364,8 +442,10 @@ footer a { color: var(--ink); }
 <section class="band" id="wallpapers" style="background:var(--night-2)">
   <div class="wrap">
     <div class="head"><h2>56 free wallpapers, built in</h2><p class="lede">Collections picked from GNOME, KDE, Budgie and elementary OS, each credited to who made it. Explore also brings you the community’s favourites from Wallhaven every month.</p></div>
+    <div class="wchips" id="wchips" role="group" aria-label="Show wallpapers"></div>
     <div class="walls" id="walls"></div>
     <p class="walls-foot">Free to use under their own licenses. <a href="#credits">See who made them</a>.</p>
+    <div id="sharedWrap" hidden><h3 class="sub-h">Shared by people using Lucent</h3><p class="lede" style="margin-bottom:24px">Publish your own from the app: right-click a wallpaper in your Library, then Publish.</p><div class="walls shared" id="shared"></div></div>
   </div>
 </section>
 
@@ -378,11 +458,23 @@ footer a { color: var(--ink); }
       <div><dt>Weather on any wallpaper</dt><dd>Snow, rain, sakura, fireflies and embers drift over whatever you’re using.</dd></div>
       <div><dt>Your music, full screen</dt><dd>The Now Playing wallpaper turns your desktop into the album cover with big controls.</dd></div>
       <div><dt>Every display</dt><dd>A different wallpaper on each monitor if you like.</dd></div>
-      <div><dt>Easy on battery</dt><dd>Moving wallpapers pause on battery, and one click pauses everything.</dd></div>
+      <div><dt>Always live</dt><dd>A moving wallpaper keeps moving until you pause it. One click pauses everything, and you can have it pause on battery.</dd></div>
       <div><dt>Updates itself</dt><dd>New versions download in the background and install when you say so.</dd></div>
       <div><dt>Sounds</dt><dd>Soft clicks and chimes as you use it. Off in Settings if you’d rather not.</dd></div>
       <div><dt>Clock that matches yours</dt><dd>12 or 24 hours, whatever your computer uses.</dd></div>
     </dl>
+  </div>
+</section>
+
+<section class="band" id="shop">
+  <div class="wrap shopbox">
+    <div class="shop-copy">
+      <h2>Dress up your profile card</h2>
+      <p class="lede">Fairy lights for December, a jack-o’-lantern for October, a crown whenever you like. Try everything on in Lucent’s Shop for free, then buy the ones you want to show on your page.</p>
+      <div class="shoplist" id="shopList" aria-label="Accessories"></div>
+      <p class="fine" style="margin-top:18px">Buy once, keep forever. Payments by Stripe.</p>
+    </div>
+    <div class="shop-stage"><div class="sc-card" id="shopCard"><div class="banner"></div><div class="av">L</div><div class="nm"><span>Your name</span></div><div class="un">@you</div><div class="bio">your setup, your page</div></div></div>
   </div>
 </section>
 
@@ -394,7 +486,7 @@ footer a { color: var(--ink); }
         <h3>On a Mac</h3>
         <ol>
           <li><b>Open the file you downloaded</b><span>It’s in your Downloads folder.</span></li>
-          <li><b>Drag Lucent into Applications</b><span>The same as any other Mac app.</span><img src="assets/shots/dmg-window.webp?v=231" alt="The Lucent installer window: drag the Lucent icon onto the Applications folder" width="660" height="448" loading="lazy"></li>
+          <li><b>Drag Lucent into Applications</b><span>The same as any other Mac app.</span><img src="assets/shots/dmg-window.webp?v=240" alt="The Lucent installer window: drag the Lucent icon onto the Applications folder" width="660" height="448" loading="lazy"></li>
           <li><b>Open Lucent, then click Done</b><span>The first time, macOS says it can’t check it, because it isn’t from the App Store.</span></li>
           <li><b>Click Open Anyway</b><span>In System Settings, Privacy &amp; Security, scroll down and click Open Anyway next to Lucent.</span></li>
           <li><b>Confirm once</b><span>Click Open Anyway again. After that it opens like any other app.</span></li>
@@ -426,7 +518,9 @@ footer a { color: var(--ink); }
         <details><summary>How do I get the normal Dock back?</summary><p>Turn the Lucent dock off in Settings, or quit Lucent, and the Mac Dock comes back the way you had it.</p></details>
       </div>
       <div>
-        <details><summary>Will it slow my computer down?</summary><p>Still wallpapers use almost nothing. Moving ones pause on battery (you can turn that off) and you can pause everything from the island or the menu bar.</p></details>
+        <details><summary>What’s in the Shop?</summary><p>Accessories for your profile card, like fairy lights, a Santa hat, snow, frames and a crown. You can try every one on for free in the app. When you buy one it’s yours for good, tied to your Lucent account, and it shows on your public page.</p></details>
+        <details><summary>How do I share my own wallpapers?</summary><p>In Lucent, right-click a picture or video in your Library and choose Publish. Everyone can then find it in Explore under Shared, like it and set it as their wallpaper. Only share things you made or are allowed to share.</p></details>
+        <details><summary>Will it slow my computer down?</summary><p>Still wallpapers use almost nothing. Moving ones keep playing until you pause them from the island, the dock or the menu bar, and you can turn on pausing while you’re on battery in Settings.</p></details>
         <details><summary>Where do the wallpapers come from?</summary><p>The built-in collections come from GNOME, KDE, Budgie and elementary OS, free to use and credited. Explore shows the community’s top-rated, safe-for-work wallpapers from Wallhaven, and you can add your own files.</p></details>
         <details><summary>Does it work with more than one display?</summary><p>Yes. Each display can have its own wallpaper.</p></details>
         <details><summary>Which Mac should I download for?</summary><p>Open the Apple menu and choose About This Mac. Apple M1, M2, M3 or M4 means Apple Silicon. Intel means the Intel version. The download picks the right one for you when it can.</p></details>
@@ -439,7 +533,7 @@ footer a { color: var(--ink); }
 <section class="band" id="download" style="background:var(--night-2)">
   <div class="wrap dl">
     <div>
-      <img class="icon" src="assets/icon-256.png?v=231" alt="" width="120" height="120">
+      <img class="icon" src="assets/icon-256.png?v=240" alt="" width="120" height="120">
       <h2>Download Lucent</h2>
       <p class="lede">Free, no ads, and it keeps itself up to date.</p>
       <p class="ver" id="ver"></p>
@@ -455,7 +549,7 @@ footer a { color: var(--ink); }
 
 <footer>
   <div class="wrap">
-    <div class="me"><img src="assets/icon-64.png?v=231" alt="">Lucent</div>
+    <div class="me"><img src="assets/icon-64.png?v=240" alt="">Lucent</div>
     <p>Moving wallpapers, a Dynamic Island, widgets and a better dock for Mac and Windows. © 2026 Lucent.</p>
     <p id="credits">Wallpapers on this page and in the app’s collections: photos by Ashim D’Silva, Luca Bravo, Leigh Kendell, Carmine De Fazio, Rob Bye, Ryan Schroeder and Mr. Lee (public domain), Viktor Forgacs, Tj Holowaychuk, Nattu Adnan, Martin Adams, Aniket Deole, Peter Thomas and David Emrich (Unsplash License), a Pexels photo of Half Dome (Pexels License) and the Budgie Backgrounds collection, including NASA’s Saturn (CC0). Artwork from the GNOME Project (<a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="noopener">CC BY-SA 3.0</a>) and KDE Plasma by axo1otl, Louis Durrant, Krystian Zajdel, Lucas Andrade, Ken Vermette, ruvkr and Sandra Smukaste (<a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">CC BY-SA 4.0</a>), resized for the web. The app icons in the dock on this page are placeholders. Spotify and Apple Music are trademarks of their owners.</p>
   </div>
@@ -463,7 +557,7 @@ footer a { color: var(--ink); }
 
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetT" hidden>
   <div class="panel">
-    <div class="top"><img src="assets/icon-64.png?v=231" alt=""><div><h2 id="sheetT">Install Lucent on your Mac</h2><p id="sheetS">Have a look at the steps first. The download starts at the end.</p></div><button class="x" type="button" id="sheetX" aria-label="Close">×</button></div>
+    <div class="top"><img src="assets/icon-64.png?v=240" alt=""><div><h2 id="sheetT">Install Lucent on your Mac</h2><p id="sheetS">Have a look at the steps first. The download starts at the end.</p></div><button class="x" type="button" id="sheetX" aria-label="Close">×</button></div>
     <div class="oss" role="tablist" aria-label="Your computer"><button type="button" role="tab" data-os="mac">Mac</button><button type="button" role="tab" data-os="win">Windows</button></div>
     <div id="sheetBody"></div>
   </div>
@@ -507,7 +601,7 @@ window.LUCENT_RELEASES = 'caulculaslegend-dev/lucent';
     ['pastel', 'Pastel Sky', 'Viktor Forgacs (Unsplash License)'],
     ['pier', 'Pier at Sunset', 'Unsplash (public domain)']
   ];
-  const url = (k) => `assets/walls/${k}-full.webp?v=231`;
+  const url = (k) => `assets/walls/${k}-full.webp?v=240`;
   let wi = 0; let front = $('#wallA'); let back = $('#wallB');
   front.style.backgroundImage = `url('${url(WALLS[0][0])}')`;
   const credit = () => { $('#credit').textContent = `Wallpaper: ${WALLS[wi][1]}, ${WALLS[wi][2]}`; };
@@ -568,10 +662,19 @@ window.LUCENT_RELEASES = 'caulculaslegend-dev/lucent';
 
   // ---------- wallpapers from the built-in collections ----------
   const PICK = ['scarlet-tree', 'neon-bridge', 'glass-chip', 'antelope-canyon', 'pastel-tubes', 'saturn', 'pink-dahlia', 'orionids', 'fold', 'safe-landing', 'red-dune', 'blend-pills'];
-  fetch('collections.json?v=231').then((r) => r.json()).then((j) => {
-    const by = Object.fromEntries((j.items || []).map((x) => [x.id, x]));
-    $('#walls').innerHTML = PICK.map((k) => by[k]).filter(Boolean).map((x) =>
-      `<figure><img src="${x.thumb}?v=231" alt="${x.title}" loading="lazy" width="640" height="400"><figcaption>${x.title}<span>${x.author}</span></figcaption></figure>`).join('');
+  fetch('collections.json?v=240').then((r) => r.json()).then((j) => {
+    const all = j.items || [];
+    const by = Object.fromEntries(all.map((x) => [x.id, x]));
+    const fig = (x) => `<figure><img src="${x.thumb}?v=240" alt="${x.title}" loading="lazy" width="640" height="400"><figcaption>${x.title}<span>${x.author}</span></figcaption></figure>`;
+    const show = (set) => {
+      const list = set ? all.filter((x) => (x.sets || []).includes(set)).slice(0, 12) : PICK.map((k) => by[k]).filter(Boolean);
+      $('#walls').innerHTML = list.map(fig).join('');
+      $$('#wchips button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.set === (set || ''))));
+    };
+    $('#wchips').innerHTML = [['', 'Our picks'], ...(j.sets || []).filter((x) => x.id).map((x) => [x.id, x.name])].map(([id, n]) => `<button type="button" data-set="${id}" aria-pressed="${id === ''}">${n}</button>`).join('');
+    $('#wchips').addEventListener('click', (e) => { const b = e.target.closest('[data-set]'); if (b) show(b.dataset.set); });
+    window.LucentWalls = { show };
+    show('');
   }).catch(() => { $('#wallpapers .walls-foot').hidden = true; });
 
   // ---------- downloads: the steps first, then the file ----------
@@ -608,16 +711,16 @@ window.LUCENT_RELEASES = 'caulculaslegend-dev/lucent';
 
   const STEPS = {
     mac: (k) => [
-      { h: 'Open the file you downloaded', p: `When the download finishes, open <b>${FILES[k]}</b> from your Downloads folder.`, fig: `<div class="fileRow"><img src="assets/icon-64.png?v=231" alt=""><div><b>${FILES[k]}</b><small>Downloads</small></div></div>` },
-      { h: 'Drag Lucent into Applications', p: 'A window opens. Drag the Lucent icon onto the <b>Applications</b> folder, like any other Mac app.', fig: '<img src="assets/shots/dmg-window.webp?v=231" alt="Drag Lucent into Applications">' },
-      { h: 'Open Lucent, then click Done', p: 'Open Lucent from Applications or Launchpad. The first time, macOS says it couldn’t check it, because it isn’t from the App Store. Click <b>Done</b>.', fig: '<div class="alertM"><img src="assets/icon-256.png?v=231" alt=""><b>“Lucent” Not Opened</b>Apple could not verify “Lucent” is free of malware that may harm your Mac or compromise your privacy.<div class="bt"><span>Move to Bin</span><span class="blue">Done</span></div></div>' },
+      { h: 'Open the file you downloaded', p: `When the download finishes, open <b>${FILES[k]}</b> from your Downloads folder.`, fig: `<div class="fileRow"><img src="assets/icon-64.png?v=240" alt=""><div><b>${FILES[k]}</b><small>Downloads</small></div></div>` },
+      { h: 'Drag Lucent into Applications', p: 'A window opens. Drag the Lucent icon onto the <b>Applications</b> folder, like any other Mac app.', fig: '<img src="assets/shots/dmg-window.webp?v=240" alt="Drag Lucent into Applications">' },
+      { h: 'Open Lucent, then click Done', p: 'Open Lucent from Applications or Launchpad. The first time, macOS says it couldn’t check it, because it isn’t from the App Store. Click <b>Done</b>.', fig: '<div class="alertM"><img src="assets/icon-256.png?v=240" alt=""><b>“Lucent” Not Opened</b>Apple could not verify “Lucent” is free of malware that may harm your Mac or compromise your privacy.<div class="bt"><span>Move to Bin</span><span class="blue">Done</span></div></div>' },
       { h: 'Click Open Anyway', p: 'Open <b>System Settings</b>, then <b>Privacy &amp; Security</b>. Scroll down and click <b>Open Anyway</b> next to Lucent, then use your password or Touch ID.', fig: '<div class="mockM"><div class="h">Privacy &amp; Security</div><div class="row"><span>“Lucent” was blocked to protect your Mac.</span><span>Open Anyway</span></div></div>' },
-      { h: 'Confirm, and you’re in', p: 'macOS asks once more. Click <b>Open Anyway</b>. From then on Lucent opens like any other app and keeps itself up to date.', fig: '<div class="alertM"><img src="assets/icon-256.png?v=231" alt=""><b>Open “Lucent”?</b>Only open it if you trust where it came from.<div class="bt"><span>Move to Bin</span><span class="blue">Open Anyway</span></div></div>' }
+      { h: 'Confirm, and you’re in', p: 'macOS asks once more. Click <b>Open Anyway</b>. From then on Lucent opens like any other app and keeps itself up to date.', fig: '<div class="alertM"><img src="assets/icon-256.png?v=240" alt=""><b>Open “Lucent”?</b>Only open it if you trust where it came from.<div class="bt"><span>Move to Bin</span><span class="blue">Open Anyway</span></div></div>' }
     ],
     win: () => [
-      { h: 'Run the installer', p: `When the download finishes, open <b>${FILES.win}</b> from your Downloads. If your browser asks whether to keep it, choose <b>Keep</b>.`, fig: `<div class="fileRow"><img src="assets/icon-64.png?v=231" alt=""><div><b>${FILES.win}</b><small>Downloads</small></div></div>` },
+      { h: 'Run the installer', p: `When the download finishes, open <b>${FILES.win}</b> from your Downloads. If your browser asks whether to keep it, choose <b>Keep</b>.`, fig: `<div class="fileRow"><img src="assets/icon-64.png?v=240" alt=""><div><b>${FILES.win}</b><small>Downloads</small></div></div>` },
       { h: 'Click More info, then Run anyway', p: 'Windows shows this for new apps it hasn’t seen many times yet. Click <b>More info</b>, then <b>Run anyway</b>.', fig: '<div class="winM"><div class="h">Windows protected your PC</div>Microsoft Defender SmartScreen prevented an unrecognised app from starting.<br><u>More info</u><div class="f"><span>Run anyway</span><span>Don’t run</span></div></div>' },
-      { h: 'That’s it', p: 'Lucent installs in a few seconds, without an admin password, and opens straight away. Next time, find it in the Start menu.', fig: `<div class="fileRow"><img src="assets/icon-64.png?v=231" alt=""><div><b>Lucent</b><small>Start menu</small></div></div>` }
+      { h: 'That’s it', p: 'Lucent installs in a few seconds, without an admin password, and opens straight away. Next time, find it in the Start menu.', fig: `<div class="fileRow"><img src="assets/icon-64.png?v=240" alt=""><div><b>Lucent</b><small>Start menu</small></div></div>` }
     ]
   };
   const sheet = $('#sheet');
@@ -687,5 +790,7 @@ window.LUCENT_RELEASES = 'caulculaslegend-dev/lucent';
   });
 }
 </script>
+<script src="assets/accessories.js?v=240"></script>
+<script src="assets/home.js?v=240"></script>
 </body>
 </html>

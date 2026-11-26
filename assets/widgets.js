@@ -34,11 +34,11 @@
   };
 
   const CATALOG = {
-    clock: { name: 'Clock', w: 300, h: 150, props: { mode: 'digital', seconds: false, h12: false, showDate: true, label: '' } },
+    clock: { name: 'Clock', w: 300, h: 150, props: { mode: 'digital', seconds: false, showDate: true, label: '' } },
     date: { name: 'Date', w: 180, h: 180, props: {} },
     greeting: { name: 'Greeting', w: 460, h: 110, props: { name: '' } },
     weather: { name: 'Weather', w: 260, h: 150, props: { city: '', units: 'c' } },
-    nowplaying: { name: 'Now Playing', w: 360, h: 132, props: {} },
+    nowplaying: { name: 'Now Playing', w: 360, h: 132, props: { onlyPlaying: true, controls: true, progress: true } },
     system: { name: 'System', w: 250, h: 120, props: {} },
     battery: { name: 'Battery', w: 150, h: 150, props: {} },
     calendar: { name: 'Calendar', w: 260, h: 250, props: {} },
@@ -67,10 +67,13 @@
   const pomodoro = {};   // per-widget runtime timer state
 
   function clockHTML(w, now) {
-    const p = w.props;
+    let p = w.props;
     let h = now.getHours(); const m = now.getMinutes(); const s = now.getSeconds();
     const ampm = h >= 12 ? 'PM' : 'AM';
-    if (p.h12) h = h % 12 || 12;
+    // No choice made: use the computer's own 12/24-hour setting.
+    const h12 = p.h12 == null ? !window.LucentWidgets.sys24 : !!p.h12;
+    p = { ...p, h12 };
+    if (h12) h = h % 12 || 12;
     const dateLine = p.showDate ? `<div class="lw-sub">${DAYS[now.getDay()]}, ${now.getDate()} ${MONTHS[now.getMonth()]}</div>` : '';
     const label = p.label ? `<div class="lw-label">${esc(p.label)}</div>` : '';
     if (p.mode === 'analog') {
@@ -100,7 +103,8 @@
     }
     const prog = mediaProgress(m);
     const pos = m.duration * prog;
-    return `<div class="lw-np${m.playing ? ' playing' : ''}">
+    const p = w.props || {};
+    return `<div class="lw-np${m.playing ? ' playing' : ''}${p.controls === false ? ' no-ctl' : ''}${p.progress === false ? ' no-bar' : ''}">
       <div class="art" style="${m.art ? `background-image:url('${esc(m.art)}')` : ''}">${m.art ? '' : I.music}</div>
       <div class="meta">
         <div class="ttl">${esc(m.title)}</div>
@@ -264,6 +268,12 @@
     }
 
     function paint(node, w, force) {
+      // Now Playing can hide itself while nothing is playing (on by default; right-click it in Edit Desktop to change).
+      if (w.type === 'nowplaying') {
+        const idle = (w.props || {}).onlyPlaying !== false && !(state.ctx.media && state.ctx.media.playing);
+        node.classList.toggle('lw-off', idle && !state.editable);
+        node.classList.toggle('lw-idle', idle && !!state.editable);
+      }
       const html = contentHTML(w, state.ctx, node, state.interactive, new Date());
       if (force || node._html !== html) {
         // Keep focus inside editable widgets while typing.
@@ -411,5 +421,5 @@
     };
   }
 
-  window.LucentWidgets = { TEXT_ANIMS, mount, CATALOG, FONTS, icons: I, hexA };
+  window.LucentWidgets = { TEXT_ANIMS, mount, CATALOG, FONTS, icons: I, hexA, sys24: (() => { try { const hc = new Intl.DateTimeFormat(undefined, { hour: 'numeric' }).resolvedOptions().hourCycle; return hc === 'h23' || hc === 'h24'; } catch { return false; } })() };
 })();

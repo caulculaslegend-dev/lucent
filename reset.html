@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reset your password · Lucent</title>
+<link rel="icon" type="image/png" href="assets/icon-64.png">
+<style>
+:root{color-scheme:dark;--acc:#5ef0ff;--acc2:#8b6bff;--acc3:#ff5fb8}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;min-height:100%;background:#05050a;color:#f4f4f6;font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+body{display:grid;place-items:center;min-height:100vh;padding:24px;background:radial-gradient(60% 50% at 25% 25%,rgba(94,240,255,.14),transparent 70%),radial-gradient(60% 60% at 80% 75%,rgba(255,95,184,.12),transparent 70%),#05050a}
+.card{width:min(400px,100%);padding:30px 28px 24px;border-radius:28px;background:rgba(18,18,26,.6);-webkit-backdrop-filter:blur(30px);backdrop-filter:blur(30px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12),0 40px 100px -30px rgba(0,0,0,.85);text-align:center}
+.card img{width:68px;height:68px;filter:drop-shadow(0 14px 26px rgba(139,107,255,.45))}
+h1{font-size:23px;letter-spacing:-.02em;margin:12px 0 4px}
+p{color:#a3a3ad;margin:0 0 18px}
+label{display:block;text-align:left;font-size:12px;font-weight:600;color:rgba(255,255,255,.7);margin:0 0 6px}
+input{width:100%;padding:12px 14px;border:0;border-radius:13px;background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);color:#fff;font:inherit;outline:none;margin-bottom:12px}
+input:focus{box-shadow:inset 0 0 0 1.5px var(--acc2),0 0 0 4px rgba(139,107,255,.18)}
+button{width:100%;height:46px;border:0;border-radius:14px;background:#f2f2f4;color:#111;font:inherit;font-weight:750;cursor:pointer}
+button:disabled{opacity:.6;cursor:default}
+.err{color:#fda4af;min-height:20px;font-size:13px;margin:2px 0 8px}
+.ok{color:#4ade80}
+a{color:#fff}
+</style>
+</head>
+<body>
+<main class="card">
+  <img src="assets/icon-256.png" alt="">
+  <h1 id="title">Reset your password</h1>
+  <p id="sub">Checking your reset link…</p>
+  <form id="form" hidden>
+    <label for="pw">New password</label>
+    <input id="pw" type="password" autocomplete="new-password" minlength="8" required>
+    <label for="pw2">Type it again</label>
+    <input id="pw2" type="password" autocomplete="new-password" minlength="8" required>
+    <div class="err" id="err"></div>
+    <button id="go" type="submit">Save new password</button>
+  </form>
+</main>
+<script src="assets/supabase.js"></script>
+<script>
+(async function () {
+  const $ = (s) => document.querySelector(s);
+  const say = (t, s) => { $('#title').textContent = t; $('#sub').innerHTML = s; };
+  let cfg = null;
+  try { cfg = await (await fetch('lucent.json', { cache: 'no-store' })).json(); } catch (e) {}
+  if (!cfg || !cfg.supabaseUrl) return say('Something went wrong', 'Accounts aren’t set up on this site yet.');
+  const sb = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, { auth: { persistSession: false, detectSessionInUrl: true } });
+  const hash = new URLSearchParams(location.hash.slice(1));
+  if (hash.get('error')) return say('This link has expired', 'Ask for a new one from Lucent: Log in, then Forgot password.');
+  let ready = false;
+  const show = () => { if (ready) return; ready = true; say('Choose a new password', 'At least 8 characters.'); $('#form').hidden = false; $('#pw').focus(); };
+  sb.auth.onAuthStateChange((ev, session) => { if (session && (ev === 'PASSWORD_RECOVERY' || ev === 'SIGNED_IN' || ev === 'INITIAL_SESSION')) show(); });
+  setTimeout(async () => { const { data } = await sb.auth.getSession(); if (data && data.session) show(); else if (!ready) say('This link has expired', 'Ask for a new one from Lucent: Log in, then Forgot password.'); }, 1500);
+  $('#form').onsubmit = async (e) => {
+    e.preventDefault();
+    const a = $('#pw').value; const b = $('#pw2').value;
+    if (a.length < 8) { $('#err').textContent = 'Use at least 8 characters.'; return; }
+    if (a !== b) { $('#err').textContent = 'The two passwords don’t match.'; return; }
+    $('#go').disabled = true; $('#err').textContent = '';
+    const { error } = await sb.auth.updateUser({ password: a });
+    if (error) { $('#go').disabled = false; $('#err').textContent = error.message || 'Couldn’t save it. Try again.'; return; }
+    await sb.auth.signOut().catch(() => {});
+    $('#form').hidden = true;
+    say('Password changed', '<span class="ok">All set.</span> Go back to Lucent and log in with your new password.');
+  };
+})();
+</script>
+</body>
+</html>

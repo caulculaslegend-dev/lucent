@@ -1,0 +1,885 @@
+{
+ "version": 1,
+ "updated": "2026-11-27",
+ "sets": [
+  {
+   "id": "aesthetic",
+   "name": "Aesthetic"
+  },
+  {
+   "id": "night",
+   "name": "After dark"
+  },
+  {
+   "id": "abstract",
+   "name": "Abstract & 3D"
+  },
+  {
+   "id": "illustrated",
+   "name": "Illustrated"
+  },
+  {
+   "id": "scenery",
+   "name": "Scenery"
+  }
+ ],
+ "items": [
+  {
+   "id": "marina-bay",
+   "title": "Marina Bay Lights",
+   "author": "Budgie Backgrounds",
+   "license": "CC0 (public domain)",
+   "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "source": "https://github.com/BuddiesOfBudgie/budgie-backgrounds",
+   "sets": [
+    "night"
+   ],
+   "full": "collections/marina-bay.jpg",
+   "thumb": "collections/thumbs/marina-bay.webp",
+   "w": 3200,
+   "h": 1800
+  },
+  {
+   "id": "neon-bridge",
+   "title": "Neon Bridge",
+   "author": "Budgie Backgrounds",
+   "license": "CC0 (public domain)",
+   "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "source": "https://github.com/BuddiesOfBudgie/budgie-backgrounds",
+   "sets": [
+    "night"
+   ],
+   "full": "collections/neon-bridge.jpg",
+   "thumb": "collections/thumbs/neon-bridge.webp",
+   "w": 3200,
+   "h": 2133
+  },
+  {
+   "id": "saturn",
+   "title": "Saturn",
+   "author": "NASA, via Budgie Backgrounds",
+   "license": "CC0 (public domain)",
+   "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "source": "https://github.com/BuddiesOfBudgie/budgie-backgrounds",
+   "sets": [
+    "night"
+   ],
+   "full": "collections/saturn.jpg",
+   "thumb": "collections/thumbs/saturn.webp",
+   "w": 3200,
+   "h": 1800
+  },
+  {
+   "id": "city-sunrise",
+   "title": "City Sunrise",
+   "author": "Budgie Backgrounds",
+   "license": "CC0 (public domain)",
+   "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "source": "https://github.com/BuddiesOfBudgie/budgie-backgrounds",
+   "sets": [
+    "night",
+    "scenery"
+   ],
+   "full": "collections/city-sunrise.jpg",
+   "thumb": "collections/thumbs/city-sunrise.webp",
+   "w": 3200,
+   "h": 1800
+  },
+  {
+   "id": "golden-courtyard",
+   "title": "Golden Courtyard",
+   "author": "Budgie Backgrounds",
+   "license": "CC0 (public domain)",
+   "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "source": "https://github.com/BuddiesOfBudgie/budgie-backgrounds",
+   "sets": [
+    "scenery"
+   ],
+   "full": "collections/golden-courtyard.jpg",
+   "thumb": "collections/thumbs/golden-courtyard.webp",
+   "w": 3200,
+   "h": 2133
+  },
+  {
+   "id": "midnight-waves",
+   "title": "Midnight Waves",
+   "author": "Budgie Backgrounds",
+   "license": "CC0 (public domain)",
+   "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "source": "https://github.com/BuddiesOfBudgie/budgie-backgrounds",
+   "sets": [
+    "aesthetic",
+    "abstract"
+   ],
+   "full": "collections/midnight-waves.jpg",
+   "thumb": "collections/thumbs/midnight-waves.webp",
+   "w": 3200,
+   "h": 1800
+  },
+  {
+   "id": "midnight-valley",
+   "title": "Midnight Valley",
+   "author": "Budgie Backgrounds",
+   "license": "CC0 (public domain)",
+   "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "source": "https://github.com/BuddiesOfBudgie/budgie-backgrounds",
+   "sets": [
+    "aesthetic",
+    "abstract"
+   ],
+   "full": "collections/midnight-valley.jpg",
+   "thumb": "collections/thumbs/midnight-valley.webp",
+   "w": 3200,
+   "h": 1800
+  },
+  {
+   "id": "red-dune",
+   "title": "Red Dune",
+   "author": "Budgie Backgrounds",
+   "license": "CC0 (public domain)",
+   "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "source": "https://github.com/BuddiesOfBudgie/budgie-backgrounds",
+   "sets": [
+    "scenery"
+   ],
+   "full": "collections/red-dune.jpg",
+   "thumb": "collections/thumbs/red-dune.webp",
+   "w": 3200,
+   "h": 2133
+  },
+  {
+   "id": "great-wave",
+   "title": "Great Wave",
+   "author": "Budgie Backgrounds",
+   "license": "CC0 (public domain)",
+   "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "source": "https://github.com/BuddiesOfBudgie/budgie-backgrounds",
+   "sets": [
+    "aesthetic"
+   ],
+   "full": "collections/great-wave.jpg",
+   "thumb": "collections/thumbs/great-wave.webp",
+   "w": 3200,
+   "h": 1800
+  },
+  {
+   "id": "spiral",
+   "title": "Spiral",
+   "author": "Budgie Backgrounds",
+   "license": "CC0 (public domain)",
+   "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "source": "https://github.com/BuddiesOfBudgie/budgie-backgrounds",
+   "sets": [
+    "abstract"
+   ],
+   "full": "collections/spiral.jpg",
+   "thumb": "collections/thumbs/spiral.webp",
+   "w": 3200,
+   "h": 1800
+  },
+  {
+   "id": "skyline-ring",
+   "title": "Skyline Ring",
+   "author": "Budgie Backgrounds",
+   "license": "CC0 (public domain)",
+   "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "source": "https://github.com/BuddiesOfBudgie/budgie-backgrounds",
+   "sets": [
+    "night"
+   ],
+   "full": "collections/skyline-ring.jpg",
+   "thumb": "collections/thumbs/skyline-ring.webp",
+   "w": 3200,
+   "h": 2133
+  },
+  {
+   "id": "glacier-lake",
+   "title": "Glacier Lake",
+   "author": "Budgie Backgrounds",
+   "license": "CC0 (public domain)",
+   "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "source": "https://github.com/BuddiesOfBudgie/budgie-backgrounds",
+   "sets": [
+    "scenery"
+   ],
+   "full": "collections/glacier-lake.jpg",
+   "thumb": "collections/thumbs/glacier-lake.webp",
+   "w": 3200,
+   "h": 1800
+  },
+  {
+   "id": "tea-hills",
+   "title": "Tea Hills",
+   "author": "Budgie Backgrounds",
+   "license": "CC0 (public domain)",
+   "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "source": "https://github.com/BuddiesOfBudgie/budgie-backgrounds",
+   "sets": [
+    "scenery"
+   ],
+   "full": "collections/tea-hills.jpg",
+   "thumb": "collections/thumbs/tea-hills.webp",
+   "w": 3200,
+   "h": 2133
+  },
+  {
+   "id": "forget-me-nots",
+   "title": "Forget-me-nots",
+   "author": "Budgie Backgrounds",
+   "license": "CC0 (public domain)",
+   "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "source": "https://github.com/BuddiesOfBudgie/budgie-backgrounds",
+   "sets": [
+    "aesthetic"
+   ],
+   "full": "collections/forget-me-nots.jpg",
+   "thumb": "collections/thumbs/forget-me-nots.webp",
+   "w": 3200,
+   "h": 2133
+  },
+  {
+   "id": "antelope-canyon",
+   "title": "Antelope Canyon",
+   "author": "Ashim D'Silva",
+   "license": "CC0 (public domain)",
+   "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "source": "https://unsplash.com/photos/WeYamle9fDM",
+   "sets": [
+    "scenery"
+   ],
+   "full": "collections/antelope-canyon.jpg",
+   "thumb": "collections/thumbs/antelope-canyon.webp",
+   "w": 3072,
+   "h": 2048
+  },
+  {
+   "id": "pier-sunset",
+   "title": "Pier at Sunset",
+   "author": "Unsplash",
+   "license": "CC0 (public domain)",
+   "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "source": "https://unsplash.com/photos/ces8_Bo7bhQ",
+   "sets": [
+    "aesthetic",
+    "scenery"
+   ],
+   "full": "collections/pier-sunset.jpg",
+   "thumb": "collections/thumbs/pier-sunset.webp",
+   "w": 3200,
+   "h": 2133
+  },
+  {
+   "id": "pink-dahlia",
+   "title": "Pink Dahlia",
+   "author": "Tj Holowaychuk",
+   "license": "Unsplash License",
+   "licenseUrl": "https://unsplash.com/license",
+   "source": "https://unsplash.com/photos/iGrsa9rL11o",
+   "sets": [
+    "aesthetic"
+   ],
+   "full": "collections/pink-dahlia.jpg",
+   "thumb": "collections/thumbs/pink-dahlia.webp",
+   "w": 3200,
+   "h": 1799
+  },
+  {
+   "id": "pastel-sky",
+   "title": "Pastel Sky",
+   "author": "Viktor Forgacs",
+   "license": "Unsplash License",
+   "licenseUrl": "https://unsplash.com/license",
+   "source": "https://unsplash.com/photos/q8XSCZYh6D8",
+   "sets": [
+    "aesthetic"
+   ],
+   "full": "collections/pastel-sky.jpg",
+   "thumb": "collections/thumbs/pastel-sky.webp",
+   "w": 3200,
+   "h": 2133
+  },
+  {
+   "id": "ocean-above",
+   "title": "Ocean from Above",
+   "author": "Nattu Adnan",
+   "license": "Unsplash License",
+   "licenseUrl": "https://unsplash.com/license",
+   "source": "https://unsplash.com/photos/Ai2TRdvI6gM",
+   "sets": [
+    "scenery"
+   ],
+   "full": "collections/ocean-above.jpg",
+   "thumb": "collections/thumbs/ocean-above.webp",
+   "w": 3200,
+   "h": 2000
+  },
+  {
+   "id": "alpenglow",
+   "title": "Alpenglow",
+   "author": "Luca Bravo",
+   "license": "CC0 (public domain)",
+   "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "source": "https://unsplash.com/photos/4yta6mU66dE",
+   "sets": [
+    "scenery"
+   ],
+   "full": "collections/alpenglow.jpg",
+   "thumb": "collections/thumbs/alpenglow.webp",
+   "w": 3200,
+   "h": 2133
+  },
+  {
+   "id": "half-dome",
+   "title": "Half Dome at Dusk",
+   "author": "Pexels",
+   "license": "Pexels License",
+   "licenseUrl": "https://www.pexels.com/license/",
+   "source": "https://www.pexels.com/photo/photo-of-snow-capped-mountain-during-evening-2440024/",
+   "sets": [
+    "night",
+    "scenery"
+   ],
+   "full": "collections/half-dome.jpg",
+   "thumb": "collections/thumbs/half-dome.webp",
+   "w": 3200,
+   "h": 2133
+  },
+  {
+   "id": "golden-petals",
+   "title": "Golden Petals",
+   "author": "Martin Adams",
+   "license": "Unsplash License",
+   "licenseUrl": "https://unsplash.com/license",
+   "source": "https://unsplash.com/photos/MpTdvXlAsVE",
+   "sets": [
+    "aesthetic"
+   ],
+   "full": "collections/golden-petals.jpg",
+   "thumb": "collections/thumbs/golden-petals.webp",
+   "w": 3200,
+   "h": 2133
+  },
+  {
+   "id": "valley-view",
+   "title": "Valley View",
+   "author": "Aniket Deole",
+   "license": "Unsplash License",
+   "licenseUrl": "https://unsplash.com/license",
+   "source": "https://unsplash.com/photos/M6XC789HLe8",
+   "sets": [
+    "scenery"
+   ],
+   "full": "collections/valley-view.jpg",
+   "thumb": "collections/thumbs/valley-view.webp",
+   "w": 3200,
+   "h": 2134
+  },
+  {
+   "id": "misty-forest",
+   "title": "Misty Forest",
+   "author": "Carmine De Fazio",
+   "license": "CC0 (public domain)",
+   "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "source": "https://unsplash.com/photos/3ytjETpQMNY",
+   "sets": [
+    "scenery"
+   ],
+   "full": "collections/misty-forest.jpg",
+   "thumb": "collections/thumbs/misty-forest.webp",
+   "w": 3200,
+   "h": 2136
+  },
+  {
+   "id": "tulips",
+   "title": "Tulips",
+   "author": "Leigh Kendell",
+   "license": "CC0 (public domain)",
+   "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "source": "https://github.com/elementary/wallpapers",
+   "sets": [
+    "aesthetic"
+   ],
+   "full": "collections/tulips.jpg",
+   "thumb": "collections/thumbs/tulips.webp",
+   "w": 3200,
+   "h": 2126
+  },
+  {
+   "id": "dune-beach",
+   "title": "Dune Beach",
+   "author": "Rob Bye",
+   "license": "CC0 (public domain)",
+   "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "source": "https://unsplash.com/photos/Kc7xqFTtcc4",
+   "sets": [
+    "scenery"
+   ],
+   "full": "collections/dune-beach.jpg",
+   "thumb": "collections/thumbs/dune-beach.webp",
+   "w": 3200,
+   "h": 2000
+  },
+  {
+   "id": "snow-peak",
+   "title": "Snow Peak",
+   "author": "Ryan Schroeder",
+   "license": "CC0 (public domain)",
+   "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "source": "https://unsplash.com/photos/Gg7uKdHFb_c",
+   "sets": [
+    "scenery"
+   ],
+   "full": "collections/snow-peak.jpg",
+   "thumb": "collections/thumbs/snow-peak.webp",
+   "w": 3200,
+   "h": 2133
+  },
+  {
+   "id": "paper-lantern",
+   "title": "Paper Lantern",
+   "author": "Mr. Lee",
+   "license": "CC0 (public domain)",
+   "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "source": "https://unsplash.com/photos/v7r8kZStqFw",
+   "sets": [
+    "aesthetic"
+   ],
+   "full": "collections/paper-lantern.jpg",
+   "thumb": "collections/thumbs/paper-lantern.webp",
+   "w": 3200,
+   "h": 2133
+  },
+  {
+   "id": "granite-ridges",
+   "title": "Granite Ridges",
+   "author": "Unsplash",
+   "license": "CC0 (public domain)",
+   "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "source": "https://unsplash.com/photos/yrwpJwDNSHE",
+   "sets": [
+    "scenery"
+   ],
+   "full": "collections/granite-ridges.jpg",
+   "thumb": "collections/thumbs/granite-ridges.webp",
+   "w": 3200,
+   "h": 2133
+  },
+  {
+   "id": "mountain-lake",
+   "title": "Mountain Lake",
+   "author": "Peter Thomas",
+   "license": "Unsplash License",
+   "licenseUrl": "https://unsplash.com/license",
+   "source": "https://unsplash.com/photos/Dxod5pdRtsk",
+   "sets": [
+    "scenery"
+   ],
+   "full": "collections/mountain-lake.jpg",
+   "thumb": "collections/thumbs/mountain-lake.webp",
+   "w": 3200,
+   "h": 2134
+  },
+  {
+   "id": "footprints",
+   "title": "Footprints",
+   "author": "David Emrich",
+   "license": "Unsplash License",
+   "licenseUrl": "https://unsplash.com/license",
+   "source": "https://unsplash.com/photos/A9mr3TPoj0k",
+   "sets": [
+    "scenery"
+   ],
+   "full": "collections/footprints.jpg",
+   "thumb": "collections/thumbs/footprints.webp",
+   "w": 3200,
+   "h": 2000
+  },
+  {
+   "id": "amber",
+   "title": "Amber",
+   "author": "GNOME Project",
+   "license": "CC BY-SA 3.0 (cropped and resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://gitlab.gnome.org/GNOME/gnome-backgrounds",
+   "sets": [
+    "aesthetic",
+    "abstract"
+   ],
+   "full": "collections/amber.jpg",
+   "thumb": "collections/thumbs/amber.webp",
+   "w": 3200,
+   "h": 2000
+  },
+  {
+   "id": "blend-pills",
+   "title": "Blend Pills",
+   "author": "GNOME Project",
+   "license": "CC BY-SA 3.0 (cropped and resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://gitlab.gnome.org/GNOME/gnome-backgrounds",
+   "sets": [
+    "abstract"
+   ],
+   "full": "collections/blend-pills.jpg",
+   "thumb": "collections/thumbs/blend-pills.webp",
+   "w": 3200,
+   "h": 2000
+  },
+  {
+   "id": "ribbons",
+   "title": "Ribbons",
+   "author": "GNOME Project",
+   "license": "CC BY-SA 3.0 (cropped and resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://gitlab.gnome.org/GNOME/gnome-backgrounds",
+   "sets": [
+    "abstract"
+   ],
+   "full": "collections/ribbons.jpg",
+   "thumb": "collections/thumbs/ribbons.webp",
+   "w": 3200,
+   "h": 2000
+  },
+  {
+   "id": "fold",
+   "title": "Fold",
+   "author": "GNOME Project",
+   "license": "CC BY-SA 3.0 (cropped and resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://gitlab.gnome.org/GNOME/gnome-backgrounds",
+   "sets": [
+    "aesthetic",
+    "abstract"
+   ],
+   "full": "collections/fold.jpg",
+   "thumb": "collections/thumbs/fold.webp",
+   "w": 3200,
+   "h": 2000
+  },
+  {
+   "id": "glass-chip",
+   "title": "Glass Chip",
+   "author": "GNOME Project",
+   "license": "CC BY-SA 3.0 (cropped and resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://gitlab.gnome.org/GNOME/gnome-backgrounds",
+   "sets": [
+    "abstract"
+   ],
+   "full": "collections/glass-chip.jpg",
+   "thumb": "collections/thumbs/glass-chip.webp",
+   "w": 3200,
+   "h": 2000
+  },
+  {
+   "id": "pills",
+   "title": "Pills",
+   "author": "GNOME Project",
+   "license": "CC BY-SA 3.0 (cropped and resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://gitlab.gnome.org/GNOME/gnome-backgrounds",
+   "sets": [
+    "abstract"
+   ],
+   "full": "collections/pills.jpg",
+   "thumb": "collections/thumbs/pills.webp",
+   "w": 3200,
+   "h": 2000
+  },
+  {
+   "id": "rainbow-ribbons",
+   "title": "Rainbow Ribbons",
+   "author": "GNOME Project",
+   "license": "CC BY-SA 3.0 (cropped and resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://gitlab.gnome.org/GNOME/gnome-backgrounds",
+   "sets": [
+    "abstract"
+   ],
+   "full": "collections/rainbow-ribbons.jpg",
+   "thumb": "collections/thumbs/rainbow-ribbons.webp",
+   "w": 3200,
+   "h": 2000
+  },
+  {
+   "id": "pastel-tubes",
+   "title": "Pastel Tubes",
+   "author": "GNOME Project",
+   "license": "CC BY-SA 3.0 (cropped and resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://gitlab.gnome.org/GNOME/gnome-backgrounds",
+   "sets": [
+    "abstract",
+    "aesthetic"
+   ],
+   "full": "collections/pastel-tubes.jpg",
+   "thumb": "collections/thumbs/pastel-tubes.webp",
+   "w": 3200,
+   "h": 2000
+  },
+  {
+   "id": "violet-sheet",
+   "title": "Violet Sheet",
+   "author": "GNOME Project",
+   "license": "CC BY-SA 3.0 (cropped and resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://gitlab.gnome.org/GNOME/gnome-backgrounds",
+   "sets": [
+    "abstract"
+   ],
+   "full": "collections/violet-sheet.jpg",
+   "thumb": "collections/thumbs/violet-sheet.webp",
+   "w": 3200,
+   "h": 2000
+  },
+  {
+   "id": "marbles",
+   "title": "Marbles",
+   "author": "GNOME Project",
+   "license": "CC BY-SA 3.0 (cropped and resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://gitlab.gnome.org/GNOME/gnome-backgrounds",
+   "sets": [
+    "abstract"
+   ],
+   "full": "collections/marbles.jpg",
+   "thumb": "collections/thumbs/marbles.webp",
+   "w": 3200,
+   "h": 2000
+  },
+  {
+   "id": "glow-balls",
+   "title": "Glow Balls",
+   "author": "GNOME Project",
+   "license": "CC BY-SA 3.0 (cropped and resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://gitlab.gnome.org/GNOME/gnome-backgrounds",
+   "sets": [
+    "abstract",
+    "night"
+   ],
+   "full": "collections/glow-balls.jpg",
+   "thumb": "collections/thumbs/glow-balls.webp",
+   "w": 3200,
+   "h": 2000
+  },
+  {
+   "id": "dithered-sun",
+   "title": "Dithered Sun",
+   "author": "GNOME Project",
+   "license": "CC BY-SA 3.0 (cropped and resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://gitlab.gnome.org/GNOME/gnome-backgrounds",
+   "sets": [
+    "aesthetic",
+    "abstract"
+   ],
+   "full": "collections/dithered-sun.jpg",
+   "thumb": "collections/thumbs/dithered-sun.webp",
+   "w": 3200,
+   "h": 2000
+  },
+  {
+   "id": "blobs",
+   "title": "Blobs",
+   "author": "GNOME Project",
+   "license": "CC BY-SA 3.0 (cropped and resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://gitlab.gnome.org/GNOME/gnome-backgrounds",
+   "sets": [
+    "abstract"
+   ],
+   "full": "collections/blobs.jpg",
+   "thumb": "collections/thumbs/blobs.webp",
+   "w": 3200,
+   "h": 2000
+  },
+  {
+   "id": "drool",
+   "title": "Drool",
+   "author": "GNOME Project",
+   "license": "CC BY-SA 3.0 (cropped and resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+   "source": "https://gitlab.gnome.org/GNOME/gnome-backgrounds",
+   "sets": [
+    "abstract"
+   ],
+   "full": "collections/drool.jpg",
+   "thumb": "collections/thumbs/drool.webp",
+   "w": 3200,
+   "h": 2000
+  },
+  {
+   "id": "scarlet-tree",
+   "title": "Scarlet Tree",
+   "author": "axo1otl",
+   "license": "CC BY-SA 4.0 (resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+   "source": "https://invent.kde.org/plasma/plasma-workspace-wallpapers",
+   "sets": [
+    "illustrated",
+    "aesthetic"
+   ],
+   "full": "collections/scarlet-tree.jpg",
+   "thumb": "collections/thumbs/scarlet-tree.webp",
+   "w": 3200,
+   "h": 1800
+  },
+  {
+   "id": "scarlet-tree-night",
+   "title": "Scarlet Tree at Night",
+   "author": "axo1otl",
+   "license": "CC BY-SA 4.0 (resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+   "source": "https://invent.kde.org/plasma/plasma-workspace-wallpapers",
+   "sets": [
+    "illustrated",
+    "night"
+   ],
+   "full": "collections/scarlet-tree-night.jpg",
+   "thumb": "collections/thumbs/scarlet-tree-night.webp",
+   "w": 3200,
+   "h": 1800
+  },
+  {
+   "id": "safe-landing",
+   "title": "Safe Landing",
+   "author": "Louis Durrant",
+   "license": "CC BY-SA 4.0 (resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+   "source": "https://invent.kde.org/plasma/plasma-workspace-wallpapers",
+   "sets": [
+    "illustrated"
+   ],
+   "full": "collections/safe-landing.jpg",
+   "thumb": "collections/thumbs/safe-landing.webp",
+   "w": 3200,
+   "h": 1800
+  },
+  {
+   "id": "nuvole",
+   "title": "Nuvole",
+   "author": "Krystian Zajdel",
+   "license": "CC BY-SA 4.0 (resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+   "source": "https://invent.kde.org/plasma/plasma-workspace-wallpapers",
+   "sets": [
+    "illustrated",
+    "abstract"
+   ],
+   "full": "collections/nuvole.jpg",
+   "thumb": "collections/thumbs/nuvole.webp",
+   "w": 3200,
+   "h": 1800
+  },
+  {
+   "id": "nuvole-night",
+   "title": "Nuvole at Night",
+   "author": "Krystian Zajdel",
+   "license": "CC BY-SA 4.0 (resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+   "source": "https://invent.kde.org/plasma/plasma-workspace-wallpapers",
+   "sets": [
+    "illustrated",
+    "night"
+   ],
+   "full": "collections/nuvole-night.jpg",
+   "thumb": "collections/thumbs/nuvole-night.webp",
+   "w": 3200,
+   "h": 1800
+  },
+  {
+   "id": "waterfall",
+   "title": "Waterfall",
+   "author": "Krystian Zajdel",
+   "license": "CC BY-SA 4.0 (resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+   "source": "https://invent.kde.org/plasma/plasma-workspace-wallpapers",
+   "sets": [
+    "illustrated",
+    "abstract"
+   ],
+   "full": "collections/waterfall.jpg",
+   "thumb": "collections/thumbs/waterfall.webp",
+   "w": 3200,
+   "h": 1800
+  },
+  {
+   "id": "orionids",
+   "title": "Orionids",
+   "author": "Krystian Zajdel",
+   "license": "CC BY-SA 4.0 (resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+   "source": "https://invent.kde.org/plasma/plasma-workspace-wallpapers",
+   "sets": [
+    "illustrated",
+    "night"
+   ],
+   "full": "collections/orionids.jpg",
+   "thumb": "collections/thumbs/orionids.webp",
+   "w": 3200,
+   "h": 1800
+  },
+  {
+   "id": "shell",
+   "title": "Shell",
+   "author": "Lucas Andrade",
+   "license": "CC BY-SA 4.0 (resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+   "source": "https://invent.kde.org/plasma/plasma-workspace-wallpapers",
+   "sets": [
+    "abstract"
+   ],
+   "full": "collections/shell.jpg",
+   "thumb": "collections/thumbs/shell.webp",
+   "w": 3200,
+   "h": 1800
+  },
+  {
+   "id": "honeywave",
+   "title": "Honeywave",
+   "author": "Ken Vermette",
+   "license": "CC BY-SA 4.0 (resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+   "source": "https://invent.kde.org/plasma/plasma-workspace-wallpapers",
+   "sets": [
+    "abstract"
+   ],
+   "full": "collections/honeywave.jpg",
+   "thumb": "collections/thumbs/honeywave.webp",
+   "w": 3200,
+   "h": 1800
+  },
+  {
+   "id": "milky-way",
+   "title": "Milky Way",
+   "author": "ruvkr",
+   "license": "CC BY-SA 4.0 (resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+   "source": "https://invent.kde.org/plasma/plasma-workspace-wallpapers",
+   "sets": [
+    "night",
+    "illustrated"
+   ],
+   "full": "collections/milky-way.jpg",
+   "thumb": "collections/thumbs/milky-way.webp",
+   "w": 3200,
+   "h": 1800
+  },
+  {
+   "id": "flow",
+   "title": "Flow",
+   "author": "Sandra Smukaste",
+   "license": "CC BY-SA 4.0 (resized)",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+   "source": "https://invent.kde.org/plasma/plasma-workspace-wallpapers",
+   "sets": [
+    "abstract"
+   ],
+   "full": "collections/flow.jpg",
+   "thumb": "collections/thumbs/flow.webp",
+   "w": 3200,
+   "h": 1800
+  }
+ ]
+}

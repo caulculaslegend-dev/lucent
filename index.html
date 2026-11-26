@@ -1,637 +1,476 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lucent</title>
-<meta name="description" content="Live wallpapers, widgets you can drag and a Dynamic Island for Mac and Windows. Free.">
-<meta name="theme-color" content="#0b0b0d">
-<link rel="icon" type="image/png" href="assets/icon-64.png">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="assets/widgets.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lucent: moving wallpapers, a Dynamic Island and a better Dock for Mac and Windows</title>
+<meta name="description" content="Lucent puts moving wallpapers, YouTube and websites on your desktop, adds a Dynamic Island around your MacBook’s notch, widgets you can put anywhere and a dock that replaces yours. Free for Mac and Windows.">
+<meta name="theme-color" content="#120e26">
+<meta property="og:title" content="Lucent">
+<meta property="og:description" content="Moving wallpapers, a Dynamic Island around your notch, widgets anywhere and a dock that replaces yours. Free for Mac and Windows.">
+<meta property="og:image" content="assets/shots/home.webp?v=231">
+<link rel="icon" type="image/png" href="assets/icon-64.png?v=231">
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg?v=231">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=231">
+<link rel="preload" as="image" href="assets/walls/trestle-full.webp?v=231">
 <style>
-/* VOICE   a launch page for a desktop app: confident, quiet, picture-led
-   IDEA    the page behaves like a Lucent desktop; the first screen is one you can touch
-   PICTURE full-bleed wallpaper with real Lucent widgets you can drag and a Dynamic Island you can hover
-   COLOUR  night: ground #0b0b0d, ink #f4f4f6, cyan #5ef0ff from the logo's prism as the main accent; wallpapers bring the colour
-   TYPE    Inter Tight for display, Inter for text
-   LAYOUT  laptop: desktop fills the first screen, title bottom-left, widgets around it; phone: wallpaper, title, download, one widget */
-:root{color-scheme:dark;--bg:#0b0b0d;--bg2:#131316;--bg3:#1c1c21;--line:rgba(255,255,255,.1);--ink:#f4f4f6;--dim:#a3a3ad;--acc:#5ef0ff;--acc2:#8b6bff;--acc3:#ff5fb8;--spring:cubic-bezier(.32,1.35,.45,1)}
-:root[data-theme=light],:root[data-theme=dark]{color-scheme:dark}
-*{box-sizing:border-box;min-width:0}
-html{scroll-behavior:smooth;scroll-padding-top:72px;background:var(--bg)}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
-img,video{max-width:100%;display:block}
-a{color:inherit}
-p{margin:0}
-h1,h2,h3{margin:0;font-family:"Inter Tight",Inter,system-ui,sans-serif;line-height:1.05;letter-spacing:-.025em;text-wrap:balance}
-h2{font-size:clamp(32px,4.4vw,52px);font-weight:600}
-h3{font-size:21px;font-weight:600;letter-spacing:-.015em;line-height:1.2}
-kbd{font:600 .86em Inter,system-ui,sans-serif;padding:2px 7px;border-radius:7px;background:rgba(255,255,255,.1);border:1px solid var(--line);white-space:nowrap}
-:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
-.wrap{max-width:1240px;margin:0 auto}
-.band{padding:clamp(72px,9vw,128px) max(5vw,16px)}
-.lede{font-size:clamp(17px,1.45vw,19px);color:var(--dim);max-width:60ch}
-.lede b,.steps b{color:var(--ink);font-weight:600}
-.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 48px;align-items:end;margin-bottom:clamp(32px,4vw,56px)}
-.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 20px;border-radius:999px;background:#fff;color:#0b0b0d;border:0;text-decoration:none;cursor:pointer;font:600 15px/1 Inter,system-ui,sans-serif;transition:transform .2s,background .2s}
-.btn:hover{transform:translateY(-1px)}
-.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 30%,rgba(62,224,208,.35) 50%,transparent 70%);transform:translateX(-110%);transition:transform .8s}
-.btn:hover::after{transform:translateX(110%)}
-.btn.big{min-height:62px;padding:0 26px 0 20px;gap:14px}
-.btn.big svg{width:26px;height:26px;flex:none}
-.btn .t{display:grid;gap:4px;text-align:left}
-.btn .t small{font:500 12.5px/1 Inter,system-ui,sans-serif;color:#5b5b66}
-.btn.ghost{background:rgba(255,255,255,.12);color:#fff;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
-.btn.ghost:hover{background:rgba(255,255,255,.2)}
+:root {
+  --night: #120e26; --night-2: #1b1634; --night-3: #241e42;
+  --ink: #f4f1ff; --haze: #aaa3c8; --line: rgba(244, 241, 255, .12);
+  --lotus: linear-gradient(110deg, #ffb347 0%, #ff5e7e 34%, #a44dff 68%, #2f62ff 100%);
+  --focus: #ff8ab4;
+  --sys: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --sys-d: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 52px; }
+body { margin: 0; background: var(--night); color: var(--ink); font: 17px/1.55 var(--sys); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+img, video { display: block; max-width: 100%; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2.5px solid var(--focus); outline-offset: 3px; border-radius: 8px; }
+.wrap { width: min(1180px, 100% - 56px); margin: 0 auto; }
 
-/* nav */
-.nav{position:fixed;inset:0 0 auto;z-index:50;height:64px;display:flex;align-items:center;gap:16px;padding:0 max(3vw,16px);border-bottom:1px solid transparent;transition:background .3s,border-color .3s}
-.nav.solid{background:rgba(11,11,13,.74);-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);border-color:var(--line)}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font:600 18px "Inter Tight",Inter,sans-serif;letter-spacing:-.02em}
-.brand img{width:30px;height:30px;border-radius:8px}
-.links{margin-left:auto;display:flex;gap:2px}
-.links a{padding:9px 13px;border-radius:999px;text-decoration:none;color:rgba(255,255,255,.84);font-size:14.5px;font-weight:500;transition:background .2s}
-.links a:hover{background:rgba(255,255,255,.1);color:#fff}
-.nav .btn{min-height:38px;padding:0 16px;font-size:14px}
+/* ---------- menu bar: the page's navigation, with your real time and date ---------- */
+.bar { position: fixed; z-index: 60; inset: 0 0 auto; height: 36px; display: flex; align-items: center; gap: 22px; padding: 0 18px;
+  font: 600 14px/1 var(--sys); background: rgba(14, 11, 30, .42); -webkit-backdrop-filter: blur(22px) saturate(1.5); backdrop-filter: blur(22px) saturate(1.5); transition: background .3s; }
+.bar.solid { background: rgba(18, 14, 38, .9); }
+.bar .me { display: flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 750; }
+.bar .me img { width: 18px; height: 18px; border-radius: 5px; }
+.bar nav { display: flex; gap: 20px; }
+.bar nav a { text-decoration: none; font-weight: 500; opacity: .86; }
+.bar nav a:hover { opacity: 1; }
+.bar .end { margin-left: auto; display: flex; align-items: center; gap: 16px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.bar .get { border: 0; cursor: pointer; padding: 6px 12px; border-radius: 8px; background: #fff; color: #120e26; font-weight: 650; font-size: 13px; }
+.bar .when { white-space: nowrap; opacity: .92; }
 
-/* hero: a live Lucent desktop */
-.hero{position:relative;height:100svh;min-height:680px;max-height:1080px;overflow:hidden;isolation:isolate;background:#0e1424}
-.wall{position:absolute;inset:-3%;background:center/cover no-repeat;transition:opacity 1.1s ease}
-.wall.off{opacity:0}
-.shade{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(85% 75% at 0% 100%,rgba(4,6,12,.82),rgba(4,6,12,.45) 42%,transparent 72%),linear-gradient(rgba(0,0,0,.4),transparent 16%)}
-#wl{position:absolute;inset:0;z-index:2}
-.hero.editing .lw{outline:1.5px dashed rgba(255,255,255,.55);outline-offset:4px}
-.hero-copy{position:absolute;z-index:3;left:max(5vw,16px);bottom:clamp(36px,8vh,96px);width:min(560px,calc(100% - 32px))}
-.hero-copy h1{font-size:clamp(68px,9.4vw,132px);font-weight:700;letter-spacing:-.05em;line-height:.92;text-shadow:0 2px 30px rgba(0,0,0,.35)}
-.hero-copy .lede{color:rgba(255,255,255,.88);margin:18px 0 28px;font-size:clamp(17px,1.6vw,20px);text-shadow:0 1px 16px rgba(0,0,0,.5)}
-.ctas{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-.fine{margin-top:16px;font-size:13.5px;color:rgba(255,255,255,.7)}
-.hint{position:absolute;z-index:3;right:max(5vw,16px);bottom:26px;margin:0;font-size:13px;color:rgba(255,255,255,.75);display:flex;gap:8px;align-items:center;padding:8px 14px;border-radius:999px;background:rgba(0,0,0,.35);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
-.hint i{width:7px;height:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 0 rgba(94,240,255,.6);animation:ping 2s infinite}
-@keyframes ping{70%{box-shadow:0 0 0 9px rgba(62,224,208,0)}100%{box-shadow:0 0 0 0 rgba(62,224,208,0)}}
-.edbar{position:absolute;z-index:4;top:78px;left:50%;translate:-50% 0;display:none;align-items:center;gap:8px;padding:6px 6px 6px 16px;border-radius:999px;background:rgba(10,10,14,.8);border:1px solid var(--line);font-size:13.5px;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);white-space:nowrap}
-.hero.editing .edbar{display:flex}
-.edbar button{min-height:34px;padding:0 14px;border-radius:999px;border:0;font:600 13px Inter,sans-serif;cursor:pointer;background:rgba(255,255,255,.1);color:#fff}
-.edbar .done{background:#0a84ff}
+/* ---------- the first screen is a Lucent desktop ---------- */
+.hero { position: relative; height: 100svh; min-height: 680px; max-height: 1100px; overflow: hidden; }
+.wall { position: absolute; inset: 0; z-index: 0; background: #120e26 center / cover no-repeat; opacity: 0; transition: opacity 1.6s ease; }
+.wall.on { opacity: 1; }
+.hero::before { content: ''; position: absolute; inset: 0; z-index: 1; background:
+  linear-gradient(90deg, rgba(10, 7, 24, .78) 0%, rgba(10, 7, 24, .5) 38%, rgba(10, 7, 24, 0) 68%),
+  linear-gradient(0deg, rgba(10, 7, 24, .55) 0%, rgba(10, 7, 24, 0) 30%); }
+.desk { z-index: 2; position: absolute; left: max(28px, (100% - 1180px) / 2); top: clamp(96px, 15vh, 170px); width: min(560px, 100% - 56px); }
+.clock { font: 700 clamp(88px, 11vw, 168px)/.86 var(--sys-d); letter-spacing: -.055em; font-variant-numeric: tabular-nums; }
+.clock small { font-size: .19em; font-weight: 600; letter-spacing: 0; margin-left: .2em; opacity: .8; }
+.today { margin: 14px 0 0; font-size: 19px; font-weight: 500; color: rgba(244, 241, 255, .82); }
+.desk h1 { margin: clamp(36px, 7vh, 64px) 0 10px; font: 750 clamp(40px, 4.6vw, 60px)/1 var(--sys-d); letter-spacing: -.04em; display: flex; align-items: center; gap: 16px; }
+.desk h1 img { width: 1.05em; height: 1.05em; border-radius: 24%; box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .7); }
+.desk .lede { margin: 0; font-size: 19px; color: rgba(244, 241, 255, .86); max-width: 30em; }
+.ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; margin-top: 26px; }
+.btn { display: inline-flex; align-items: center; gap: 10px; border: 0; cursor: pointer; text-decoration: none; border-radius: 14px; font-weight: 650; }
+.btn.main { height: 54px; padding: 0 24px 0 20px; background: var(--lotus); color: #fff; font-size: 17px; box-shadow: 0 18px 40px -18px rgba(255, 94, 126, .75); text-shadow: 0 1px 6px rgba(0, 0, 0, .2); transition: transform .15s, filter .2s; }
+.btn.main:hover { filter: brightness(1.07); }
+.btn.main:active { transform: scale(.98); }
+.btn.main svg { width: 20px; height: 20px; }
+.btn.main small { display: block; font-size: 12px; font-weight: 550; opacity: .9; margin-top: 1px; }
+.btn.text { background: none; padding: 6px 0; font-size: 16px; color: var(--ink); opacity: .9; }
+.btn.text:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+.btn.text svg { width: 22px; height: 22px; }
+.fine { margin: 16px 0 0; font-size: 14px; color: rgba(244, 241, 255, .66); }
+.credit { z-index: 2; position: absolute; right: 22px; bottom: 16px; font-size: 12px; color: rgba(244, 241, 255, .6); }
 
-/* Dynamic Island, same proportions as the app */
-.island{position:absolute;z-index:60;top:0;left:50%;translate:-50% 0;width:232px;height:36px;border-radius:0 0 19px 19px;background:#000;color:#fff;overflow:hidden;cursor:pointer;font-family:-apple-system,"SF Pro Display",Inter,system-ui,sans-serif;transition:width .55s var(--spring),height .55s var(--spring),border-radius .55s var(--spring),box-shadow .4s}
-.island.open{width:min(484px,calc(100vw - 24px));height:190px;border-radius:0 0 34px 34px;box-shadow:0 24px 60px -16px rgba(0,0,0,.75);cursor:default}
-.row-c{position:absolute;inset:0 14px;display:flex;align-items:center;justify-content:space-between;font-size:12.5px;font-weight:600;transition:opacity .25s}
-.island.open .row-c{opacity:0}
-.row-c .l{display:flex;align-items:center;gap:8px}
-.tiny{width:20px;height:20px;border-radius:6px;background:#222 center/cover}
-.eq{display:flex;gap:2px;align-items:flex-end;height:12px}
-.eq i{width:2.5px;height:30%;border-radius:2px;background:var(--acc)}
-.island.playing .eq i{animation:eq 1s ease-in-out infinite}
-.eq i:nth-child(2){animation-delay:-.35s!important}.eq i:nth-child(3){animation-delay:-.7s!important}.eq i:nth-child(4){animation-delay:-.2s!important}
-@keyframes eq{0%,100%{height:25%}50%{height:100%}}
-.full{position:absolute;inset:0;padding:42px 22px 16px;opacity:0;transform:scale(.92);filter:blur(6px);pointer-events:none;transition:opacity .3s,transform .5s var(--spring),filter .3s}
-.island.open .full{opacity:1;transform:none;filter:none;pointer-events:auto;transition-delay:.08s}
-.np{display:flex;gap:14px;align-items:center}
-.art{width:66px;height:66px;flex:none;border-radius:16px;background:#1c1c22 center/cover;box-shadow:0 8px 22px -8px rgba(0,0,0,.9);transition:transform .6s var(--spring)}
-.island.playing .art{transform:scale(1.04)}
-.meta{flex:1}
-.meta .t{font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.meta .a{font-size:12.5px;opacity:.6;margin-top:2px}
-.bar{height:4px;margin-top:10px;border-radius:2px;background:rgba(255,255,255,.18);overflow:hidden}
-.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2),var(--acc3));transition:width 1s linear}
-.ctl{display:flex;gap:14px;align-items:center}
-.island button{background:none;border:0;color:#fff;padding:0;cursor:pointer;font:inherit;transition:transform .15s}
-.island button:hover{transform:scale(1.12)}
-.island button svg{width:1em;height:1em;display:block}
-.ctl button{font-size:18px}.ctl .pp{font-size:26px}
-.acts{display:flex;gap:8px;margin-top:14px}
-.acts button{flex:1;padding:9px 0;border-radius:12px;background:rgba(255,255,255,.08);font-size:11.5px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px}
-.acts button:hover{background:rgba(255,255,255,.16);transform:translateY(-1px)}
-.acts svg{font-size:14px}
+/* the notch and the island around it */
+.notch { position: absolute; z-index: 70; top: 0; left: 50%; translate: -50% 0; height: 36px; width: 196px; background: #000; border-radius: 0 0 13px 13px; transition: width .45s cubic-bezier(.32, 1.28, .45, 1), height .45s cubic-bezier(.32, 1.28, .45, 1), border-radius .45s; overflow: hidden; }
+.notch::before, .notch::after { content: ''; position: absolute; top: 0; width: 10px; height: 10px; }
+.notch.island { width: 440px; }
+.notch.open { width: 520px; height: 150px; border-radius: 0 0 30px 30px; }
+.notch .wing { position: absolute; top: 0; height: 36px; display: flex; align-items: center; gap: 9px; font: 650 13px/1 var(--sys); opacity: 0; transition: opacity .3s .15s; white-space: nowrap; }
+.notch.island .wing { opacity: 1; }
+.notch.open .wing { opacity: 0; transition-delay: 0s; }
+.notch .wing.l { left: 14px; } .notch .wing.r { right: 16px; }
+.notch .art { width: 22px; height: 22px; border-radius: 6px; background: #222 center / cover; }
+.eq { display: flex; gap: 2.5px; align-items: flex-end; height: 13px; }
+.eq i { width: 3px; height: 100%; border-radius: 2px; background: #3ee0d0; transform-origin: 50% 100%; transform: scaleY(.3); animation: eq 1s ease-in-out infinite; }
+.eq i:nth-child(2) { animation-delay: -.35s; } .eq i:nth-child(3) { animation-delay: -.7s; } .eq i:nth-child(4) { animation-delay: -.2s; }
+@keyframes eq { 0%, 100% { transform: scaleY(.25); } 50% { transform: scaleY(1); } }
+.notch .player { position: absolute; inset: 46px 22px 18px; display: flex; gap: 16px; align-items: center; opacity: 0; transform: translateY(-6px); transition: opacity .2s, transform .35s; }
+.notch.open .player { opacity: 1; transform: none; transition-delay: .12s; }
+.player .big { width: 78px; height: 78px; border-radius: 18px; background: #222 center / cover; flex: none; }
+.player b { display: block; font-size: 17px; }
+.player span { font-size: 14px; color: rgba(255, 255, 255, .6); }
+.player .prog { height: 5px; margin-top: 12px; border-radius: 3px; background: rgba(255, 255, 255, .18); overflow: hidden; }
+.player .prog i { display: block; height: 100%; width: 38%; background: linear-gradient(90deg, #ff8a3d, #e2479d 55%, #6b5cff); }
 
-/* screenshots in window and display frames */
-.win{position:relative;margin:0;border-radius:14px;overflow:hidden;background:#111;container-type:inline-size;box-shadow:0 0 0 1px rgba(255,255,255,.12),0 24px 48px -28px rgba(0,0,0,.9)}
-.win img{width:100%;height:auto}
-.win.mac::before{content:"";position:absolute;z-index:1;left:1.39cqw;top:1.39cqw;width:.86cqw;height:.86cqw;border-radius:50%;background:#ff5f57;box-shadow:1.39cqw 0 0 #febc2e,2.78cqw 0 0 #28c840}
-.win.pc .caps{position:absolute;z-index:1;top:0;right:0;width:9.6cqw;height:5cqw;color:#f5f5f7}
-.screen{margin:0;border-radius:18px;overflow:hidden;background:#000;box-shadow:0 0 0 1px rgba(255,255,255,.12),0 0 0 8px #18181c,0 0 0 9px rgba(255,255,255,.08)}
-.screen img,.screen video{width:100%;height:auto}
-.tilt{transform-origin:50% 0;will-change:transform}
-.rv{opacity:0;translate:0 34px;filter:blur(6px);transition:opacity .9s ease,translate 1s var(--spring),filter .9s ease;transition-delay:var(--d,0s)}
-.rv.in{opacity:1;translate:0 0;filter:none}
-.more.three{grid-template-columns:repeat(3,1fr);margin-top:34px}
-@media (max-width:820px){.more.three{grid-template-columns:1fr}}
-@media (prefers-reduced-motion:reduce){.rv{opacity:1;translate:none;filter:none;transition:none}}
+/* the dock */
+.dock { z-index: 3; position: absolute; left: 50%; bottom: 14px; translate: -50% 0; display: flex; align-items: flex-end; gap: 6px; padding: 8px 10px; border-radius: 24px;
+  background: rgba(30, 26, 48, .38); -webkit-backdrop-filter: blur(26px) saturate(1.6); backdrop-filter: blur(26px) saturate(1.6); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16), 0 18px 40px -16px rgba(0, 0, 0, .55); }
+.dock .it { position: relative; width: 52px; height: 52px; transform-origin: 50% 100%; transition: transform .1s ease-out; }
+.dock .it img { width: 100%; height: 100%; }
+.dock .it.on::after { content: ''; position: absolute; left: 50%; bottom: -6px; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: rgba(255, 255, 255, .85); }
+.dock .sep { width: 1px; align-self: stretch; margin: 4px 3px; background: rgba(255, 255, 255, .2); }
+.dock .np { display: flex; align-items: center; gap: 10px; height: 52px; white-space: nowrap; padding: 0 14px 0 6px; border-radius: 13px; background: linear-gradient(170deg, #26232f, #121117); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); font: 600 13px/1.25 var(--sys); }
+.dock .np .art { width: 40px; height: 40px; border-radius: 9px; background: #222 center / cover; }
+.dock .np span { display: block; font-weight: 500; font-size: 12px; color: rgba(255, 255, 255, .6); }
+.dock .tip { position: absolute; bottom: calc(100% + 10px); left: 50%; translate: -50% 0; padding: 4px 10px; border-radius: 7px; background: rgba(28, 26, 34, .92); font: 600 12px/1.3 var(--sys); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .15s; }
+.dock .it:hover .tip { opacity: 1; }
 
-/* video */
-#video .screen{aspect-ratio:16/9}
-#video video{width:100%;height:100%;object-fit:cover;background:#000}
+/* ---------- sections ---------- */
+section.band { padding: clamp(84px, 12vw, 140px) 0; }
+h2 { margin: 0 0 16px; font: 700 clamp(34px, 4.2vw, 52px)/1.04 var(--sys-d); letter-spacing: -.035em; }
+h3 { margin: 0 0 10px; font: 700 clamp(26px, 2.6vw, 34px)/1.1 var(--sys-d); letter-spacing: -.03em; }
+.lede { color: var(--haze); font-size: 19px; max-width: 36em; margin: 0; }
+.head { margin-bottom: 44px; max-width: 760px; }
 
-/* discover */
-.split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,5vw,72px);align-items:center}
-.split.rev{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
-.copy h2{margin-bottom:20px}
-.points{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:14px}
-.points li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:12px;color:var(--dim)}
-.points li b{color:var(--ink);font-weight:600}
-.points svg{width:20px;height:20px;margin-top:3px;color:var(--acc)}
-.marquee{margin-top:clamp(56px,7vw,96px);display:grid;gap:14px;overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-.mrow{display:flex;gap:14px;width:max-content;animation:slide 70s linear infinite}
-.mrow.rev{animation-direction:reverse;animation-duration:80s}
-.marquee:hover .mrow{animation-play-state:paused}
-@keyframes slide{to{transform:translateX(calc(-50% - 7px))}}
-.mt{position:relative;width:clamp(200px,22vw,300px);aspect-ratio:16/10;border-radius:14px;overflow:hidden;background:var(--bg3);flex:none;transition:transform .35s var(--spring)}
-.mt img{width:100%;height:100%;object-fit:cover}
-.mt figcaption{position:absolute;inset:auto 0 0;padding:28px 12px 10px;font-size:13px;line-height:1.3;background:linear-gradient(transparent,rgba(0,0,0,.75));opacity:0;transition:opacity .25s}
-.mt figcaption span{display:block;color:rgba(255,255,255,.7);font-size:12px}
-.mt:hover{transform:translateY(-4px) scale(1.03)}
-.mt:hover figcaption{opacity:1}
-.small{font-size:13.5px;color:var(--dim);margin-top:18px;padding:0 max(5vw,16px);text-align:right}
+/* tour video */
+.tour { position: relative; border-radius: 22px; overflow: hidden; background: #000; box-shadow: 0 0 0 1px var(--line), 0 50px 120px -50px rgba(0, 0, 0, .9); aspect-ratio: 16 / 9; }
+.tour video { width: 100%; height: 100%; object-fit: cover; }
+.tour .play { position: absolute; inset: 0; display: grid; place-items: center; border: 0; background: rgba(0, 0, 0, .18); cursor: pointer; }
+.tour .play span { display: flex; align-items: center; gap: 12px; padding: 16px 26px 16px 20px; border-radius: 999px; background: rgba(255, 255, 255, .94); color: #120e26; font-weight: 700; font-size: 17px; box-shadow: 0 20px 40px -14px rgba(0, 0, 0, .6); }
+.tour .play svg { width: 22px; height: 22px; }
+.tour.playing .play { display: none; }
+.tour-note { margin: 16px 0 0; font-size: 14px; color: var(--haze); }
 
-/* widgets section */
-.chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:22px 0 0}
-.chips li,.chips button{padding:7px 13px;border-radius:999px;background:var(--bg3);border:1px solid var(--line);font-size:13.5px;color:#d9d9df}
-.chips button{min-height:40px;cursor:pointer;font:500 14px Inter,sans-serif;transition:background .2s,color .2s}
-.chips button[aria-pressed=true]{background:#fff;color:#0b0b0d;border-color:#fff}
+/* features */
+.feature { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+.feature + .feature { margin-top: clamp(80px, 10vw, 128px); }
+.feature.flip { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+.feature.flip .media { order: 2; }
+.media { border-radius: 20px; overflow: hidden; background: #000; box-shadow: 0 0 0 1px var(--line), 0 40px 90px -40px rgba(0, 0, 0, .9); aspect-ratio: 16 / 9; }
+.media video, .media img { width: 100%; height: 100%; object-fit: cover; }
+.feature p { color: var(--haze); margin: 0; max-width: 30em; font-size: 18px; }
+.feature p + p { margin-top: 12px; }
+.feature .note { font-size: 15px; color: rgba(170, 163, 200, .8); }
 
-/* music + studio */
-.duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,3vw,40px)}
-.duo article{display:grid;gap:22px;align-content:start;padding:clamp(18px,2vw,26px);border-radius:24px;background:var(--bg2);border:1px solid var(--line)}
-.duo article p{color:var(--dim)}
-.duo h3{font-size:clamp(22px,2.2vw,28px);margin-bottom:-10px}
-
-/* effects demo */
-.fxbox{position:relative;aspect-ratio:16/10;border-radius:22px;overflow:hidden;background:#111}
-.fxbox img{width:100%;height:100%;object-fit:cover}
-.fxbox canvas{position:absolute;inset:0;width:100%;height:100%}
+/* wallpapers */
+.walls { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.walls figure { margin: 0; }
+.walls img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 12px; background: var(--night-2); }
+.walls figcaption { margin-top: 8px; font-size: 14px; font-weight: 600; }
+.walls figcaption span { display: block; font-weight: 400; color: var(--haze); font-size: 13px; }
+.walls-foot { margin-top: 28px; color: var(--haze); font-size: 15px; }
+.walls-foot a { color: var(--ink); }
 
 /* everything else */
-.more{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 40px;margin:0}
-.more div{padding:22px 0;border-top:1px solid var(--line)}
-.more dt{font:600 17px "Inter Tight",Inter,sans-serif;letter-spacing:-.01em;margin-bottom:6px}
-.more dd{margin:0;color:var(--dim);font-size:15.5px}
+.more { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 34px 48px; margin: 0; }
+.more dt { font-weight: 700; font-size: 18px; margin-bottom: 4px; }
+.more dd { margin: 0; color: var(--haze); font-size: 16px; }
+
+/* install */
+.install { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 90px); }
+.install h3 { font-size: 26px; display: flex; align-items: center; gap: 10px; }
+.install ol { list-style: none; counter-reset: s; padding: 0; margin: 18px 0 0; }
+.install li { counter-increment: s; position: relative; padding: 0 0 22px 46px; }
+.install li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--night-3); font-weight: 700; font-size: 14px; }
+.install li b { display: block; font-size: 17px; }
+.install li span { color: var(--haze); font-size: 16px; }
+.install li img { margin-top: 14px; width: min(100%, 360px); border-radius: 12px; box-shadow: 0 0 0 1px var(--line); }
+.install .go { margin-top: 4px; height: 44px; padding: 0 18px; border-radius: 12px; background: rgba(255, 255, 255, .08); box-shadow: inset 0 0 0 1px var(--line); font-size: 15px; opacity: 1; }
+.install .go:hover { background: rgba(255, 255, 255, .13); text-decoration: none; }
+
+/* questions */
+.faq { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 48px; }
+.faq details { border-top: 1px solid var(--line); padding: 18px 0; }
+.faq summary { cursor: pointer; list-style: none; font-weight: 650; font-size: 18px; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: '+'; color: var(--haze); font-weight: 400; font-size: 22px; line-height: 1; transition: transform .2s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { margin: 10px 0 0; color: var(--haze); font-size: 16px; }
 
 /* download */
-.dlband{position:relative;overflow:hidden;background:radial-gradient(70% 90% at 50% 0%,#14202a,var(--bg) 70%)}
-.dlband canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.dl{position:relative;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,5vw,72px);align-items:center}
-.bigicon{width:112px;height:112px;margin-bottom:26px;filter:drop-shadow(0 18px 30px rgba(0,0,0,.5))}
-.dl .lede{margin-top:16px}
-.opts{display:grid;gap:12px}
-.opt{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:16px;align-items:center;padding:18px 20px;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid var(--line);text-decoration:none;transition:background .2s,border-color .2s,transform .2s}
-.opt:hover{background:rgba(255,255,255,.09);transform:translateY(-1px)}
-.opt.rec{border-color:rgba(62,224,208,.55);background:rgba(62,224,208,.07)}
-.opt .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.08)}
-.opt .ic svg{width:24px;height:24px}
-.opt b{display:block;font-size:17px;font-weight:600}
-.opt small{color:var(--dim);font-size:14px}
-.opt .go{display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px;white-space:nowrap}
-.opt .tag{display:none;font-size:12px;font-weight:600;color:var(--acc);margin-left:8px}
-.opt.rec .tag{display:inline}
-.which{margin-top:6px;color:var(--dim);font-size:15px}
-.which summary{cursor:pointer;color:var(--ink);font-weight:500;padding:8px 0}
-.note{margin-top:14px;padding:12px 16px;border-radius:14px;background:rgba(255,196,0,.08);border:1px solid rgba(255,196,0,.3);color:#f3dfa6;font-size:14.5px}
+.dl { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 6vw, 90px); align-items: center; }
+.dl .icon { width: 120px; height: 120px; margin-bottom: 26px; }
+.opts { display: grid; gap: 12px; }
+.opt { display: flex; align-items: center; gap: 16px; width: 100%; text-align: left; padding: 18px 20px; border-radius: 16px; border: 0; cursor: pointer; background: var(--night-2); box-shadow: inset 0 0 0 1px var(--line); transition: background .15s, box-shadow .15s; }
+.opt:hover { background: var(--night-3); }
+.opt.mine { box-shadow: inset 0 0 0 2px rgba(255, 138, 180, .7); }
+.opt svg { width: 30px; height: 30px; flex: none; }
+.opt b { display: block; font-size: 17px; }
+.opt span { color: var(--haze); font-size: 14px; }
+.opt em { margin-left: auto; font-style: normal; font-weight: 650; font-size: 15px; white-space: nowrap; }
+.ver { margin-top: 14px; color: var(--haze); font-size: 14px; }
 
-/* install guide */
-.tabs{display:inline-flex;gap:4px;padding:4px;border-radius:999px;background:var(--bg2);border:1px solid var(--line);margin-bottom:36px}
-.tabs button{min-height:42px;padding:0 22px;border-radius:999px;border:0;background:none;color:var(--dim);font:600 15px Inter,sans-serif;cursor:pointer}
-.tabs button[aria-selected=true]{background:#fff;color:#0b0b0d}
-.steps{list-style:none;counter-reset:s;padding:0;margin:0;display:grid;gap:14px}
-.steps>li{counter-increment:s;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px 40px;align-items:center;padding:24px;border-radius:22px;background:var(--bg2);border:1px solid var(--line)}
-.steps>li.solo{grid-template-columns:minmax(0,1fr)}
-.st{display:grid;grid-template-columns:40px minmax(0,1fr);gap:16px;align-content:start}
-.st::before{content:counter(s);width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#0b0b0d;font:700 17px "Inter Tight",Inter,sans-serif}
-.st p{color:var(--dim);margin-top:6px}
-.st .tip{font-size:14.5px;margin-top:10px}
-.stfig{margin:0;justify-self:center;max-width:460px;width:100%}
-.stfig img{border-radius:12px;box-shadow:0 0 0 1px var(--line),0 18px 40px -20px #000}
-.mock{border-radius:14px;padding:18px;font-family:-apple-system,"SF Pro Text",Inter,system-ui,sans-serif;font-size:14px;line-height:1.4}
-.mock.mac{background:#242428;border:1px solid rgba(255,255,255,.1)}
-.mock.mac .h{font-weight:700;font-size:17px;margin-bottom:14px}
-.mock.mac .s{color:#98989f;font-size:12px;font-weight:600;margin-bottom:8px}
-.mock.mac .row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:10px;background:#2e2e33}
-.pulse{position:relative;flex:none;padding:6px 12px;border-radius:7px;background:#3a3a40;font-weight:600;font-size:13px;box-shadow:0 0 0 0 rgba(62,224,208,.7);animation:ring 1.8s infinite}
-@keyframes ring{0%{box-shadow:0 0 0 0 rgba(62,224,208,.7)}70%{box-shadow:0 0 0 10px rgba(62,224,208,0)}100%{box-shadow:0 0 0 0 rgba(62,224,208,0)}}
-.mock.win{background:#0f5fa8;color:#fff;font-family:"Segoe UI",Inter,system-ui,sans-serif;padding:22px 22px 0;border-radius:6px}
-.mock.win .h{font-size:22px;font-weight:300;margin-bottom:12px}
-.mock.win u{display:inline-block;margin-top:12px;text-underline-offset:3px}
-.mock.win .f{display:flex;justify-content:flex-end;gap:8px;margin:18px -22px 0;padding:14px 22px;background:#0b4f8e}
-.mock.win .f span{padding:6px 16px;border:1px solid rgba(255,255,255,.6);font-size:13px}
-.mock.win .f .pulse{background:transparent;border-radius:0}
-.first{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 32px;margin-top:56px}
-.first div{padding-top:20px;border-top:1px solid var(--line)}
-.first h3{font-size:18px;margin-bottom:8px}
-.first p{color:var(--dim);font-size:15.5px}
+footer { padding: 56px 0 70px; border-top: 1px solid var(--line); color: var(--haze); font-size: 14px; }
+footer .me { display: flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 700; font-size: 16px; margin-bottom: 14px; }
+footer .me img { width: 26px; height: 26px; border-radius: 7px; }
+footer p { max-width: 80ch; margin: 0 0 10px; }
+footer a { color: var(--ink); }
 
-/* faq */
-.faq{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 40px}
-.faq details{border-top:1px solid var(--line)}
-.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;padding:20px 0;font:600 17px/1.35 "Inter Tight",Inter,sans-serif}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";font:400 24px/1 Inter,sans-serif;color:var(--dim);transition:transform .25s}
-.faq details[open] summary::after{transform:rotate(45deg)}
-.faq details p{color:var(--dim);padding:0 0 22px;max-width:62ch}
+/* ---------- install guide: shown before the download starts ---------- */
+.sheet { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 20px; background: rgba(6, 4, 16, .62); opacity: 0; pointer-events: none; transition: opacity .25s; }
+.sheet.on { opacity: 1; pointer-events: auto; }
+.panel { width: min(780px, 100%); max-height: calc(100svh - 40px); overflow: auto; border-radius: 24px; background: var(--night-2); box-shadow: inset 0 0 0 1px var(--line), 0 40px 120px -30px rgba(0, 0, 0, .9); padding: 26px 28px 22px; transform: translateY(14px) scale(.98); transition: transform .3s cubic-bezier(.2, 1, .3, 1); }
+.sheet.on .panel { transform: none; }
+.panel .top { display: flex; align-items: center; gap: 14px; }
+.panel .top img { width: 44px; height: 44px; }
+.panel .top h2 { font-size: 24px; margin: 0; letter-spacing: -.02em; }
+.panel .top p { margin: 2px 0 0; color: var(--haze); font-size: 15px; }
+.panel .x { margin-left: auto; width: 34px; height: 34px; border-radius: 50%; border: 0; cursor: pointer; background: rgba(255, 255, 255, .08); font-size: 20px; line-height: 1; }
+.oss { display: inline-flex; gap: 4px; margin: 18px 0 6px; padding: 4px; border-radius: 12px; background: rgba(255, 255, 255, .06); }
+.oss button { border: 0; cursor: pointer; padding: 7px 16px; border-radius: 9px; background: none; font-weight: 600; font-size: 14px; color: var(--haze); }
+.oss button[aria-selected="true"] { background: rgba(255, 255, 255, .14); color: var(--ink); }
+.stage { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 26px; align-items: center; min-height: 260px; padding: 14px 0; }
+.stage .n { color: var(--haze); font-size: 14px; font-weight: 600; }
+.stage h3 { font-size: 24px; margin: 6px 0 8px; }
+.stage p { margin: 0; color: var(--haze); font-size: 16px; }
+.stage p b { color: var(--ink); }
+.fig { justify-self: center; width: 100%; max-width: 400px; }
+.fig > img { width: 100%; border-radius: 12px; box-shadow: 0 0 0 1px var(--line); }
+.fileRow { display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 14px; background: #24232b; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); font-size: 14px; }
+.fileRow img { width: 40px; height: 40px; flex: none; }
+.fileRow small { display: block; color: #98989f; }
+.alertM { width: 270px; margin: 0 auto; padding: 18px 16px 14px; border-radius: 18px; background: #ececee; color: #1d1d1f; text-align: center; font-size: 12.5px; line-height: 1.4; box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .7); }
+.alertM img { width: 56px; height: 56px; margin: 0 auto 8px; }
+.alertM b { display: block; font-size: 13.5px; margin-bottom: 4px; }
+.alertM .bt { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+.alertM .bt span { padding: 6px; border-radius: 8px; background: #d9d9de; font-weight: 600; }
+.alertM .bt .blue { background: #0a84ff; color: #fff; }
+.mockM { padding: 16px; border-radius: 14px; background: #1f1f24; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); font-size: 13.5px; }
+.mockM .h { font-weight: 700; font-size: 15px; margin-bottom: 10px; }
+.mockM .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px; border-radius: 10px; background: #2a2a30; color: #d5d5dc; }
+.mockM .row span:last-child { padding: 5px 10px; border-radius: 7px; background: #3a3a42; color: #fff; font-weight: 600; white-space: nowrap; box-shadow: 0 0 0 3px rgba(10, 132, 255, .5); }
+.winM { padding: 18px; border-radius: 6px; background: #1b67b9; color: #fff; font-size: 13.5px; }
+.winM .h { font-size: 19px; font-weight: 600; margin-bottom: 8px; }
+.winM u { display: inline-block; margin: 10px 0 18px; }
+.winM .f { display: flex; justify-content: flex-end; gap: 8px; }
+.winM .f span { padding: 6px 14px; border: 1px solid rgba(255, 255, 255, .7); }
+.winM .f span:first-child { background: #fff; color: #1b67b9; font-weight: 600; box-shadow: 0 0 0 3px rgba(255, 255, 255, .35); }
+.arch { display: inline-flex; gap: 4px; margin-top: 14px; padding: 4px; border-radius: 11px; background: rgba(255, 255, 255, .06); }
+.arch button { border: 0; cursor: pointer; padding: 6px 12px; border-radius: 8px; background: none; font-size: 13.5px; font-weight: 600; color: var(--haze); }
+.arch button[aria-pressed="true"] { background: rgba(255, 255, 255, .14); color: var(--ink); }
+.foot { display: flex; align-items: center; gap: 10px; padding-top: 14px; border-top: 1px solid var(--line); }
+.dots { display: flex; gap: 6px; margin-right: auto; }
+.dots i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255, 255, 255, .22); }
+.dots i.on { background: var(--ink); }
+.foot button { border: 0; cursor: pointer; height: 42px; padding: 0 18px; border-radius: 11px; font-weight: 650; font-size: 15px; }
+.foot .back { background: rgba(255, 255, 255, .08); }
+.foot .next { background: #fff; color: #120e26; }
+.foot .next.dlnow { background: var(--lotus); color: #fff; }
+.done { text-align: center; padding: 26px 0 6px; }
+.done .tick { width: 64px; height: 64px; margin: 0 auto 14px; border-radius: 50%; display: grid; place-items: center; background: var(--lotus); font-size: 30px; font-weight: 800; }
+.done h3 { font-size: 26px; }
+.done p { color: var(--haze); margin: 0 auto; max-width: 30em; }
+.done .row { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+.done .row button { border: 0; cursor: pointer; height: 42px; padding: 0 18px; border-radius: 11px; font-weight: 650; background: rgba(255, 255, 255, .1); }
 
-/* footer */
-.foot{padding:48px max(5vw,16px) 56px;border-top:1px solid var(--line)}
-.foot .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:24px 48px}
-.foot p{color:var(--dim);font-size:14px;margin-top:12px}
-.foot .credits{margin:0;font-size:13.5px;line-height:1.6}
-.foot .credits a{color:var(--ink)}
-
-.toast{position:fixed;z-index:80;left:50%;bottom:24px;translate:-50% 0;max-width:calc(100vw - 32px);padding:14px 18px;border-radius:16px;background:#1d1d22;border:1px solid var(--line);box-shadow:0 18px 40px -16px #000;font-size:14.5px;opacity:0;transform:translateY(12px);transition:opacity .3s,transform .3s;pointer-events:none}
-.toast.on{opacity:1;transform:none}
-
-@media (max-width:1000px){
-  .sec-head,.split,.split.rev,.dl{grid-template-columns:minmax(0,1fr)}
-  .split.rev .copy{order:-1}
-  .more{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .first{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .steps>li{grid-template-columns:minmax(0,1fr)}
+/* ---------- smaller screens ---------- */
+@media (max-width: 1000px) {
+  .bar nav, .bar .when.date, .notch, .dock, .credit { display: none; }
+  .feature, .dl, .install, .faq { grid-template-columns: minmax(0, 1fr); }
+  .feature.flip { grid-template-columns: minmax(0, 1fr); }
+  .feature.flip .media { order: 0; }
+  .walls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .more { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stage { grid-template-columns: minmax(0, 1fr); }
 }
-@media (max-width:760px){
-  .links{display:none}
-  .nav .btn{margin-left:auto}
-  .island,.hint{display:none}
-  .duo,.faq{grid-template-columns:minmax(0,1fr)}
-  .more,.first{grid-template-columns:minmax(0,1fr)}
-  .hero{min-height:620px}
-  .steps>li{padding:18px}
-  .opt{grid-template-columns:40px minmax(0,1fr);padding:16px}
-  .opt .go{display:none}
-  .small{text-align:left}
-  .shade{background:linear-gradient(to top,rgba(4,6,12,.92),rgba(4,6,12,.62) 42%,rgba(4,6,12,.1) 72%),linear-gradient(rgba(0,0,0,.4),transparent 16%)}
-  .foot .wrap{grid-template-columns:minmax(0,1fr)}
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+  .hero { min-height: 640px; }
+  .desk { top: 84px; }
+  .more { grid-template-columns: minmax(0, 1fr); }
+  .walls { gap: 10px; }
+  .panel { padding: 20px 18px 16px; }
 }
-@media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none!important;transition:none!important}
-  html{scroll-behavior:auto}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .wall, .notch, .panel, .sheet { transition: none; }
+  .eq i { animation: none; }
 }
-
-/* ---- 2.3: the video's notch shows the song that's playing */
-.vwrap{position:relative}
-.vnotch{position:fixed;top:0;left:50%;translate:-50% -110%;height:30px;width:150px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 10px;background:#000;border-radius:0 0 14px 14px;transition:width .55s var(--spring),height .55s var(--spring);overflow:visible;pointer-events:none;z-index:2;font:600 13px Inter,system-ui,sans-serif;white-space:nowrap}
-.vnotch::before,.vnotch::after{content:'';position:absolute;top:0;width:10px;height:10px}
-.vnotch::before{left:-9.5px;background:radial-gradient(circle at 0 100%,transparent 9.4px,#000 10px)}
-.vnotch::after{right:-9.5px;background:radial-gradient(circle at 100% 100%,transparent 9.4px,#000 10px)}
-.vnotch .vart{width:20px;height:20px;border-radius:6px;background:url(assets/icon-64.png) center/cover;flex:none;opacity:0;transition:opacity .3s}
-.vnotch .vt{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;opacity:0;transition:opacity .3s}
-.vnotch .vt small{opacity:.55;font-weight:500}
-.vnotch .veq{display:flex;gap:2.5px;align-items:flex-end;height:13px;opacity:0;transition:opacity .3s}
-.vnotch .veq i{width:2.5px;height:30%;border-radius:2px;background:var(--acc)}
-.vnotch .vp{position:absolute;left:14px;right:14px;bottom:4px;height:2px;border-radius:2px;background:rgba(255,255,255,.12);overflow:hidden;opacity:0;transition:opacity .3s}
-.vnotch .vp i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffb347,#ff5e7e,#a44dff)}
-.vnotch{transition:width .55s var(--spring),height .55s var(--spring),translate .5s var(--spring);z-index:60}
-.vnotch.on{width:min(460px,88vw);height:40px;translate:-50% 0}
-.vnotch.on .vart,.vnotch.on .vt,.vnotch.on .veq,.vnotch.on .vp{opacity:1}
-.vnotch.on.playing .veq i{animation:eq 1s ease-in-out infinite}
-.vnotch .veq i:nth-child(2){animation-delay:-.4s}.vnotch .veq i:nth-child(3){animation-delay:-.75s}.vnotch .veq i:nth-child(4){animation-delay:-.2s}
-.vsong{margin:14px auto 0;text-align:center;color:var(--dim);font-size:14px}
-/* ---- 2.3: what's new, with short clips */
-.feats{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;margin-top:34px}
-.feat{border-radius:22px;overflow:hidden;background:var(--bg2);border:1px solid var(--line);display:flex;flex-direction:column}
-.feat video{width:100%;aspect-ratio:16/9;display:block;background:#000 center/cover}
-.feat div{padding:16px 18px 20px}
-.feat h3{margin:0 0 6px;font-size:19px;letter-spacing:-.01em}
-.feat p{margin:0;color:var(--dim);font-size:15px;line-height:1.5}
-.feat .new{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.04em;background:linear-gradient(100deg,#ffb347,#ff5e7e 45%,#a44dff);color:#fff;vertical-align:2px}
-/* ---- direct download links */
-.direct{margin-top:16px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid var(--line);font-size:14px;color:var(--dim)}
-.direct b{color:var(--ink);font-weight:600}
-.direct ul{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:6px}
-.direct a{color:var(--ink);text-decoration:none;word-break:break-all;border-bottom:1px solid rgba(255,255,255,.2)}
-.direct a:hover{border-color:var(--ink)}
-/* ---- download tutorial pop-up */
-.dlm{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:20px;background:rgba(4,4,8,.62);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);opacity:0;pointer-events:none;transition:opacity .25s}
-.dlm.on{opacity:1;pointer-events:auto}
-.dlm .box{width:min(760px,100%);max-height:calc(100vh - 40px);overflow:auto;border-radius:26px;background:#151519;border:1px solid var(--line);box-shadow:0 40px 100px -30px #000;transform:translateY(16px) scale(.98);transition:transform .45s var(--spring)}
-.dlm.on .box{transform:none}
-.dlm .hd{display:flex;align-items:center;gap:14px;padding:20px 22px 0}
-.dlm .hd img{width:44px;height:44px}
-.dlm .hd h2{margin:0;font-size:22px;letter-spacing:-.02em}
-.dlm .hd p{margin:2px 0 0;color:var(--dim);font-size:14px}
-.dlm .x{margin-left:auto;width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,.08);color:var(--ink);font-size:20px;cursor:pointer}
-.dlm .ostabs{display:flex;gap:6px;padding:16px 22px 0}
-.dlm .ostabs button{border:0;padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.07);color:var(--dim);font:600 14px Inter,system-ui,sans-serif;cursor:pointer}
-.dlm .ostabs button.on{background:var(--ink);color:#111}
-.dlm .stage{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:22px;align-items:center;padding:22px}
-.dlm .num{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:linear-gradient(120deg,#ffb347,#ff5e7e 45%,#a44dff);font-weight:700;font-size:14px;margin-bottom:10px}
-.dlm .stage h3{margin:0 0 8px;font-size:21px;letter-spacing:-.015em}
-.dlm .stage p{margin:0 0 8px;color:var(--dim);font-size:15.5px;line-height:1.55}
-.dlm .stage p b{color:var(--ink)}
-.dlm .fig{justify-self:center;width:100%;max-width:400px}
-.dlm .fig img{width:100%;border-radius:12px;box-shadow:0 0 0 1px var(--line)}
-.dlm .ft{display:flex;align-items:center;gap:10px;padding:0 22px 22px}
-.dlm .dots{display:flex;gap:6px;margin-right:auto}
-.dlm .dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.18);transition:background .2s,width .3s}
-.dlm .dots i.on{width:22px;border-radius:4px;background:var(--ink)}
-.dlm .ft button{border:0;padding:11px 18px;border-radius:12px;font:600 15px Inter,system-ui,sans-serif;cursor:pointer}
-.dlm .back{background:rgba(255,255,255,.08);color:var(--ink)}
-.dlm .next{background:var(--ink);color:#111}
-.dlm .again{display:block;padding:0 22px 18px;color:var(--dim);font-size:13.5px}
-.dlm .again a{color:var(--ink)}
-.alert{border-radius:16px;padding:20px 20px 16px;background:#2a2a2e;border:1px solid rgba(255,255,255,.12);text-align:center;font-family:-apple-system,"SF Pro Text",Inter,system-ui,sans-serif;font-size:13.5px;line-height:1.45}
-.dlm .fig .alert img,.alert img{width:56px;height:56px;margin-bottom:8px;border-radius:0;box-shadow:none;object-fit:contain}
-.alert b{display:block;font-size:15px;margin-bottom:6px}
-.alert .bt{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
-.alert .bt span{padding:7px;border-radius:8px;background:rgba(255,255,255,.1);font-weight:600}
-.alert .bt span.blue{background:#0a84ff}
-.dlrow{display:flex;align-items:center;gap:12px;padding:14px;border-radius:14px;background:#242428;border:1px solid rgba(255,255,255,.1);font-family:-apple-system,"SF Pro Text",Inter,system-ui,sans-serif;font-size:14px}
-.dlm .fig .dlrow img,.dlrow img{width:40px;height:40px;flex:none;border-radius:0;box-shadow:none;object-fit:contain}
-.dlrow small{display:block;color:#98989f}
-@media (max-width:700px){.dlm .stage{grid-template-columns:1fr}.vnotch.on{width:92%}}
 </style>
 </head>
 <body>
 
-<header class="nav" id="nav">
-  <a class="brand" href="#top"><img src="assets/icon-64.png" alt="" width="30" height="30"><span>Lucent</span></a>
-  <nav class="links" aria-label="Sections"><a href="#new">What’s new</a><a href="#install">Install</a><a href="#faq">FAQ</a></nav>
-  <a class="btn" href="#download" data-dl="auto">Download</a>
+<header class="bar" id="bar">
+  <a class="me" href="#top"><img src="assets/icon-64.png?v=231" alt="">Lucent</a>
+  <nav aria-label="Sections"><a href="#features">Features</a><a href="#wallpapers">Wallpapers</a><a href="#install">Install</a><a href="#faq">Questions</a></nav>
+  <div class="end"><button class="get" type="button" data-dl="auto">Download</button><span class="when date" id="barDate"></span><span class="when" id="barTime"></span></div>
 </header>
 
-<div class="vnotch" id="vNotch" aria-hidden="true"><i class="vart"></i><span class="vt"><b id="vTitle">Afterglow</b> <small>· Lucent Originals</small></span><span class="veq"><i></i><i></i><i></i><i></i></span><span class="vp"><i id="vProg"></i></span></div>
-<section class="hero" id="top" aria-label="A live Lucent desktop">
-  <div class="wall" id="wallA" style="background-image:url('assets/walls/city-full.webp')"></div>
-  <div class="wall off" id="wallB"></div>
-  <div class="shade"></div>
-  <div id="wl"></div>
-  <div class="edbar" id="edbar"><span>Editing desktop: drag widgets anywhere</span><button type="button" id="addW">+ Widget</button><button type="button" class="done" id="doneW">Done</button></div>
-
-  <div class="island playing" id="island" tabindex="0" role="group" aria-label="Dynamic Island, hover or tap to open">
-    <div class="row-c"><div class="l"><i class="tiny" id="iTiny"></i><span id="iMini">Slow Tide</span></div><div class="eq"><i></i><i></i><i></i><i></i></div></div>
-    <div class="full">
-      <div class="np">
-        <div class="art" id="iArt"></div>
-        <div class="meta"><div class="t" id="iT">Slow Tide</div><div class="a" id="iA">Lucent Demo</div><div class="bar"><i id="iBar"></i></div></div>
-        <div class="ctl">
-          <button type="button" data-m="prev" aria-label="Previous track"><svg viewBox="0 0 24 24"><path d="M20 5.5v13a1 1 0 0 1-1.55.83l-9.2-6.5a1 1 0 0 1 0-1.66l9.2-6.5A1 1 0 0 1 20 5.5Z" fill="currentColor"/><rect x="4" y="5" width="3" height="14" rx="1.2" fill="currentColor"/></svg></button>
-          <button type="button" class="pp" data-m="pp" aria-label="Play or pause" id="iPP"></button>
-          <button type="button" data-m="next" aria-label="Next track"><svg viewBox="0 0 24 24"><path d="M4 5.5v13a1 1 0 0 0 1.55.83l9.2-6.5a1 1 0 0 0 0-1.66l-9.2-6.5A1 1 0 0 0 4 5.5Z" fill="currentColor"/><rect x="17" y="5" width="3" height="14" rx="1.2" fill="currentColor"/></svg></button>
-        </div>
-      </div>
-      <div class="acts">
-        <button type="button" data-a="wall"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="m10 9 3 2-3 2"/></svg>Next wall</button>
-        <button type="button" data-a="pause" id="iPz">Pause</button>
-        <button type="button" data-a="edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4Z"/></svg>Edit desktop</button>
-        <button type="button" data-a="get"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M7 12h10"/></svg>Lucent</button>
-      </div>
-    </div>
+<section class="hero" id="top" aria-label="Lucent on a desktop">
+  <div class="wall on" id="wallA"></div>
+  <div class="wall" id="wallB"></div>
+  <div class="notch island" id="notch" tabindex="0" aria-label="Dynamic Island: Slow Tide is playing. Hover or focus to open.">
+    <div class="wing l"><i class="art" style="background-image:url('assets/walls/pier.webp?v=231')"></i>Slow Tide</div>
+    <div class="wing r"><span class="eq"><i></i><i></i><i></i><i></i></span></div>
+    <div class="player"><i class="big" style="background-image:url('assets/walls/pier.webp?v=231')"></i><div style="flex:1;min-width:0"><b>Slow Tide</b><span>Lucent Demo</span><div class="prog"><i></i></div></div></div>
   </div>
 
-  <div class="hero-copy">
-    <h1>Lucent</h1>
-    <p class="lede">Live wallpapers, a Dynamic Island, widgets you can drag anywhere and a dock that replaces yours. For Mac and Windows.</p>
+  <div class="desk">
+    <div class="clock" id="clock" aria-label="The time where you are"></div>
+    <p class="today" id="today"></p>
+    <h1><img src="assets/icon-256.png?v=231" alt="">Lucent</h1>
+    <p class="lede">Wallpapers that move, a Dynamic Island around your notch, widgets you can put anywhere and a dock that replaces yours.</p>
     <div class="ctas">
-      <a class="btn big" href="#download" data-dl="auto" id="heroDl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 19h16"/></svg><span class="t"><b id="heroDlT">Download Lucent</b><small id="heroDlS">For Mac and Windows</small></span></a>
-      <a class="btn ghost" href="#video">Watch the video</a>
+      <button class="btn main" type="button" data-dl="auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 19h16"/></svg><span><span id="heroDl">Download Lucent</span><small id="heroDlS">For Mac and Windows</small></span></button>
+      <a class="btn text" href="#tour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9.5"/><path d="M10 8.5v7l6-3.5Z" fill="currentColor" stroke="none"/></svg>Watch the 55-second tour</a>
     </div>
-    <p class="fine">Free. Needs macOS 12 or later, or Windows 10 or 11.</p>
+    <p class="fine">Free. Works on macOS 12 or later and Windows 10 or 11.</p>
   </div>
-  <p class="hint"><i></i>Drag the widgets, or hover the island at the top</p>
+
+  <div class="dock" id="dock" aria-hidden="true">
+    <div class="it"><img src="assets/dock/files.png?v=231" alt=""><span class="tip">Files</span></div>
+    <div class="it on"><img src="assets/dock/browser.png?v=231" alt=""><span class="tip">Browser</span></div>
+    <div class="it on"><img src="assets/dock/chat.png?v=231" alt=""><span class="tip">Chat</span></div>
+    <div class="it on"><img src="assets/dock/music.png?v=231" alt=""><span class="tip">Music</span></div>
+    <div class="it"><img src="assets/dock/photos.png?v=231" alt=""><span class="tip">Photos</span></div>
+    <div class="it"><img src="assets/dock/notes.png?v=231" alt=""><span class="tip">Notes</span></div>
+    <div class="it on"><img src="assets/dock/code.png?v=231" alt=""><span class="tip">Code</span></div>
+    <div class="it"><img src="assets/dock/games.png?v=231" alt=""><span class="tip">Games</span></div>
+    <span class="sep"></span>
+    <div class="np"><i class="art" style="background-image:url('assets/walls/pier.webp?v=231')"></i><div>Slow Tide<span>Lucent Demo</span></div><span class="eq" style="margin-left:6px"><i></i><i></i><i></i><i></i></span></div>
+    <span class="sep"></span>
+    <div class="it"><img src="assets/dock/downloads.png?v=231" alt=""><span class="tip">Downloads</span></div>
+    <div class="it"><img src="assets/dock/trash.png?v=231" alt=""><span class="tip">Trash</span></div>
+  </div>
+  <p class="credit" id="credit"></p>
 </section>
 
-<section class="band" id="video">
+<main>
+<section class="band" id="tour">
   <div class="wrap">
-    <div class="sec-head"><h2>Take the 55-second tour</h2><p class="lede">YouTube and websites as wallpapers, two wallpapers at once, a dock that replaces yours, and a Dynamic Island that wraps around your MacBook’s notch. Turn the sound on: the notch shows what’s playing.</p></div>
-    <div class="screen tilt vwrap"><video id="promo" src="assets/lucent-promo.mp4" poster="assets/video-poster.webp" muted loop playsinline controls preload="metadata"></video></div>
-    <p class="vsong" id="vSong">Music: “Afterglow”, made for Lucent. While the video plays, the notch at the top of this page shows it, just like Lucent does.</p>
-  </div>
-</section>
-
-<section class="band" id="features">
-  <div class="wrap split">
-    <div class="copy">
-      <h2>The good wallpapers, already found</h2>
-      <p class="lede">Home and Explore bring you the community’s top-rated wallpapers from Wallhaven: anime, games, cyberpunk, space and scenery. One click puts it on your desktop.</p>
-      <ul class="points">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Sorted for you.</b> Top this month, this year or of all time, by category.</span></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Safe for work only.</b> Lucent never shows anything else.</span></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Artists credited.</b> Every wallpaper links back to where it came from.</span></li>
-      </ul>
+    <div class="head"><h2>See it in 55 seconds</h2><p class="lede">YouTube and websites as wallpapers, two wallpapers at once, the island around your notch and the dock that takes over from yours.</p></div>
+    <div class="tour" id="tourBox">
+      <video id="promo" src="assets/lucent-promo.mp4?v=231" poster="assets/video-poster.webp?v=231" playsinline preload="metadata"></video>
+      <button class="play" type="button" id="playTour"><span><svg viewBox="0 0 24 24"><path d="M7 4.8v14.4L19 12Z" fill="currentColor"/></svg>Play with sound</span></button>
     </div>
-    <figure class="win mac tilt"><img src="assets/shots/home.webp" alt="Lucent’s Home screen with a featured wallpaper and rows of picks" width="2200" height="1375" loading="lazy"></figure>
+    <p class="tour-note">Music: “Afterglow”, made for Lucent.</p>
   </div>
-  <div class="marquee" id="marquee" aria-label="Example wallpapers"></div>
-  <p class="small">Wallpapers on this page are free-licensed examples. Credits are at the bottom of the page.</p>
 </section>
 
-<section class="band" id="new">
+<section class="band" id="features" style="padding-top:0">
   <div class="wrap">
-    <div class="sec-head"><h2>New in Lucent 2.3</h2><p class="lede">The biggest update yet. Everything here is free and already in the download.</p></div>
-    <div class="feats">
-      <article class="feat"><video data-clip="assets/clips/youtube.mp4" poster="assets/clips/youtube.webp" muted loop playsinline preload="none"></video><div><h3>YouTube wallpapers<span class="new">NEW</span></h3><p>Your feed, playing on your desktop. Pick a video and the next one starts by itself, like your For You page. Its song shows up in the island.</p></div></article>
-      <article class="feat"><video data-clip="assets/clips/websites.mp4" poster="assets/clips/websites.webp" muted loop playsinline preload="none"></video><div><h3>Websites as wallpapers<span class="new">NEW</span></h3><p>Put any site on your desktop, your bio page, your server list, anything, then click right into it. Press Esc when you’re done.</p></div></article>
-      <article class="feat"><video data-clip="assets/clips/two.mp4" poster="assets/clips/two.webp" muted loop playsinline preload="none"></video><div><h3>Two wallpapers at once<span class="new">NEW</span></h3><p>Side by side, in a corner or blended together. One click to use a wallpaper, another to unequip it.</p></div></article>
-      <article class="feat"><video data-clip="assets/clips/notch.mp4" poster="assets/clips/notch.webp" muted loop playsinline preload="none"></video><div><h3>An island that fits your notch</h3><p>On a MacBook the Dynamic Island now wraps around the camera, with your song on one side and the beat on the other.</p></div></article>
-      <article class="feat"><video data-clip="assets/clips/looks.mp4" poster="assets/clips/looks.webp" muted loop playsinline preload="none"></video><div><h3>Make the island yours<span class="new">NEW</span></h3><p>Notch, floating or slim. Size, corners, colours, a rainbow outline, fonts, animation and what each side shows.</p></div></article>
-      <article class="feat"><video data-clip="assets/clips/dock.mp4" poster="assets/clips/dock.webp" muted loop playsinline preload="none"></video><div><h3>It replaces your Dock<span class="new">NEW</span></h3><p>Lucent’s dock takes over from the Mac Dock. Your apps come with it, open apps get a dot, and you can add a clock, weather and what’s playing. Turn it off and the normal Dock comes back. On Windows it tucks the taskbar away.</p></div></article>
-      <article class="feat"><video data-clip="assets/clips/widgets.mp4" poster="assets/clips/widgets.webp" muted loop playsinline preload="none"></video><div><h3>Right-click any widget</h3><p>Every widget has its own options. Now Playing hides itself until music is playing, and you can turn that off.</p></div></article>
-    </div>
-    <dl class="more three" style="margin-top:28px">
-      <div><dt>New sounds</dt><dd>Soft, Glass or Retro clicks, toggles and chimes as you use Lucent. Turn them off in Settings any time.</dd></div>
-      <div><dt>A new look</dt><dd>A new lotus icon, a sharper featured banner with full-resolution pictures, and better wallpaper names.</dd></div>
-      <div><dt>Updates itself</dt><dd>Already on 2.2? Lucent downloads 2.3 in the background and asks before restarting.</dd></div>
-    </dl>
-  </div>
-</section>
-
-<section class="band" id="island">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2>Make the island yours</h2>
-      <div>
-        <p class="lede">The Dynamic Island at the top of your screen wraps around your MacBook’s notch and opens into a whole toolbox. Pick its shape and look, what goes in it, and whether it opens when you hover or click. Tap the mirror to turn the camera off.</p>
-        <ul class="chips"><li>Notch, floating or slim</li><li>Any size</li><li>Tinted or glass</li><li>Rainbow outline</li><li>Fonts</li><li>Music</li><li>Calendar</li><li>Notes</li><li>AI chat</li><li>Timer</li><li>Weather</li><li>File shelf</li><li>Apps</li><li>Mirror</li></ul>
-      </div>
-    </div>
-    <figure class="screen tilt"><img src="assets/shots/island.webp" alt="Edit Desktop with the Dynamic Island settings: modules you can switch on and reorder" width="2200" height="1375" loading="lazy"></figure>
-    <dl class="more three">
-      <div><dt>A dock that replaces yours</dt><dd>Your Dock’s apps, folders and the Trash, plus widgets, magnify and bounce. Glass, solid, neon or clear, on any edge.</dd></div>
-      <div><dt>Text that moves</dt><dd>Typewriter, wave, glow, neon, rainbow, shimmer and glitch styles for any text on your desktop.</dd></div>
-      <div><dt>AI in the island</dt><dd>Ask Gemini, ChatGPT, Claude or OpenRouter from the top of your screen with your own key.</dd></div>
-    </dl>
-  </div>
-</section>
-
-<section class="band" id="widgets">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2>Widgets you can put anywhere</h2>
-      <div>
-        <p class="lede">They sit right on your wallpaper. Press <kbd>⌥⌘E</kbd> on a Mac or <kbd>Ctrl+Alt+E</kbd> on Windows, then drag, resize and restyle them.</p>
-        <ul class="chips"><li>Clock</li><li>Date</li><li>Greeting</li><li>Weather</li><li>Now Playing</li><li>Calendar</li><li>To-do</li><li>Sticky note</li><li>Countdown</li><li>Focus timer</li><li>Photo</li><li>Quick links</li><li>System</li><li>Battery</li><li>Profile card</li><li>Text</li></ul>
-      </div>
-    </div>
-    <figure class="screen tilt"><img src="assets/shots/editdesk.webp" alt="A desktop in edit mode with clock, weather, music and calendar widgets" width="2200" height="1375" loading="lazy"></figure>
-  </div>
-</section>
-
-<section class="band" id="music-studio">
-  <div class="wrap duo">
-    <article>
-      <figure class="screen"><img src="assets/shots/nowplaying.webp" alt="The Now Playing wallpaper showing album art and playback controls" width="2200" height="1375" loading="lazy"></figure>
-      <h3>Your music becomes the wallpaper</h3>
-      <p>Play something in Spotify or Apple Music and the Now Playing wallpaper fills your desktop with the album art and big controls. The island and the music widget control it from anywhere. Mac only for now.</p>
+    <article class="feature">
+      <div class="media"><video data-clip src="assets/clips/dock.mp4?v=231" poster="assets/clips/dock.webp?v=231" muted loop playsinline preload="none"></video></div>
+      <div><h3>A dock that replaces yours</h3><p>Lucent hides the Mac Dock and brings your apps into its own, with open apps marked, plus a clock, the weather and what’s playing right next to them.</p><p>Turn it off and the normal Dock comes straight back. On Windows it tucks the taskbar away instead.</p></div>
     </article>
-    <article>
-      <figure class="win mac"><img src="assets/shots/studio.webp" alt="The Studio editor with text added over a wallpaper" width="2200" height="1375" loading="lazy"></figure>
-      <h3>Make your own in the Studio</h3>
-      <p>Text, shapes, stickers, photos and filters on a canvas the size of your screen. Start blank or edit the wallpaper you have, then apply it in one click.</p>
+    <article class="feature flip">
+      <div class="media"><video data-clip src="assets/clips/notch.mp4?v=231" poster="assets/clips/notch.webp?v=231" muted loop playsinline preload="none"></video></div>
+      <div><h3>An island around your notch</h3><p>The top of your screen shows the song that’s playing, the time and your battery. Hover over it for music controls, a calendar, notes, a timer and more.</p><p>Pick its shape, size, colours and what each side shows.</p></div>
+    </article>
+    <article class="feature">
+      <div class="media"><video data-clip src="assets/clips/youtube.mp4?v=231" poster="assets/clips/youtube.webp?v=231" muted loop playsinline preload="none"></video></div>
+      <div><h3>YouTube as your wallpaper</h3><p>Pick a video and it plays behind your windows. When it ends the next one starts, like your For You page, and the island shows what’s on.</p></div>
+    </article>
+    <article class="feature flip">
+      <div class="media"><video data-clip src="assets/clips/websites.mp4?v=231" poster="assets/clips/websites.webp?v=231" muted loop playsinline preload="none"></video></div>
+      <div><h3>Any website, live on your desktop</h3><p>Your bio page, your server list or anything else. Click into it when you want to use it, and press Esc when you’re done.</p></div>
+    </article>
+    <article class="feature">
+      <div class="media"><video data-clip src="assets/clips/two.mp4?v=231" poster="assets/clips/two.webp?v=231" muted loop playsinline preload="none"></video></div>
+      <div><h3>Two wallpapers at once</h3><p>Side by side, one in a corner or blended together. One click to use a wallpaper, another to take it off.</p></div>
+    </article>
+    <article class="feature flip">
+      <div class="media"><video data-clip src="assets/clips/widgets.mp4?v=231" poster="assets/clips/widgets.webp?v=231" muted loop playsinline preload="none"></video></div>
+      <div><h3>Widgets you can put anywhere</h3><p>Clock, weather, music, calendar, to-dos and more, right on your wallpaper. Drag them where you want them and right-click any of them for its options.</p></div>
+    </article>
+    <article class="feature">
+      <div class="media"><img src="assets/shots/standby.webp?v=231" alt="StandBy: a big clock over the Neon Bridge wallpaper, with the song that’s playing" loading="lazy" width="1600" height="1000"></div>
+      <div><h3>StandBy when you step away</h3><p>Leave your Mac for a few minutes and the desktop turns into a big clock over your wallpaper, with what’s playing. Move the mouse and you’re back.</p><p class="note">It never covers a video or a call. Mac only for now.</p></div>
     </article>
   </div>
 </section>
 
-<section class="band" id="share">
-  <div class="wrap split rev">
-    <figure class="win mac tilt"><img src="assets/shots/profile.webp" alt="The Your page screen with a live link and a preview of the shared home screen" width="2200" height="1375" loading="lazy"></figure>
-    <div class="copy">
-      <h2>Your setup, at your own link</h2>
-      <p class="lede">Make an account and pick a username. It’s yours for good, and your link shows your whole home screen: wallpaper, widgets, dock and profile card. No account? Share it as a link or a single web page instead.</p>
-      <ul class="points">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Like a link in bio,</b> for your desktop.</span></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>One click to update.</b> Change your setup, press Update my page.</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="band" id="effects">
-  <div class="wrap split">
-    <div class="copy">
-      <h2>Add weather to any wallpaper</h2>
-      <p class="lede">Particles drift over whatever wallpaper you choose and move out of your cursor’s way. Fireflies follow it instead. Try them here.</p>
-      <div class="chips" id="fxChips" role="group" aria-label="Effect"></div>
-    </div>
-    <div class="fxbox" id="fxBox"><img src="assets/walls/sherburne-full.webp" alt="" loading="lazy"><canvas id="fxDemo"></canvas></div>
+<section class="band" id="wallpapers" style="background:var(--night-2)">
+  <div class="wrap">
+    <div class="head"><h2>56 free wallpapers, built in</h2><p class="lede">Collections picked from GNOME, KDE, Budgie and elementary OS, each credited to who made it. Explore also brings you the community’s favourites from Wallhaven every month.</p></div>
+    <div class="walls" id="walls"></div>
+    <p class="walls-foot">Free to use under their own licenses. <a href="#credits">See who made them</a>.</p>
   </div>
 </section>
 
 <section class="band" id="more">
   <div class="wrap">
-    <div class="sec-head"><h2>Everything else you’d expect</h2><p class="lede">The small things that make it feel like part of your computer.</p></div>
+    <div class="head"><h2>And the rest</h2></div>
     <dl class="more">
-      <div><dt>Live wallpapers</dt><dd>Use your own videos, or free clips from NASA and Pexels.</dd></div>
-      <div><dt>Your own files</dt><dd>Drop images, videos or a web page onto Lucent to add them.</dd></div>
-      <div><dt>Updates itself</dt><dd>New versions download in the background and install when you quit, or when you say so.</dd></div>
-      <div><dt>Every display</dt><dd>Put a different wallpaper on each monitor.</dd></div>
-      <div><dt>Easy on battery</dt><dd>Moving wallpapers pause on battery power, and one click pauses everything.</dd></div>
-      <div><dt>Slideshows</dt><dd>Rotate through your favourites or your whole library on a timer.</dd></div>
-      <div><dt>Parallax</dt><dd>Your wallpaper shifts gently as the mouse moves.</dd></div>
-      <div><dt>Shortcuts</dt><dd><kbd>⌥⌘E</kbd> edit desktop, <kbd>⌥⌘→</kbd> next wallpaper, <kbd>⌥⌘P</kbd> pause. Ctrl+Alt on Windows.</dd></div>
-      <div><dt>Free license mode</dt><dd>Only want openly licensed images? Explore can switch to Wikimedia Commons, NASA and Openverse.</dd></div>
+      <div><dt>Make your own</dt><dd>Text, shapes, stickers and photos on a canvas the size of your screen, then apply it in one click.</dd></div>
+      <div><dt>Your own page</dt><dd>Pick a username and share your whole setup, wallpaper, widgets and dock included.</dd></div>
+      <div><dt>Weather on any wallpaper</dt><dd>Snow, rain, sakura, fireflies and embers drift over whatever you’re using.</dd></div>
+      <div><dt>Your music, full screen</dt><dd>The Now Playing wallpaper turns your desktop into the album cover with big controls.</dd></div>
+      <div><dt>Every display</dt><dd>A different wallpaper on each monitor if you like.</dd></div>
+      <div><dt>Easy on battery</dt><dd>Moving wallpapers pause on battery, and one click pauses everything.</dd></div>
+      <div><dt>Updates itself</dt><dd>New versions download in the background and install when you say so.</dd></div>
+      <div><dt>Sounds</dt><dd>Soft clicks and chimes as you use it. Off in Settings if you’d rather not.</dd></div>
+      <div><dt>Clock that matches yours</dt><dd>12 or 24 hours, whatever your computer uses.</dd></div>
     </dl>
   </div>
 </section>
 
-<section class="band dlband" id="download">
-  <canvas id="stars"></canvas>
-  <div class="wrap dl">
-    <div>
-      <img class="bigicon" src="assets/icon-512.png" alt="Lucent app icon" width="112" height="112">
-      <h2>Download Lucent</h2>
-      <p class="lede">Version <span class="ver">2.3.0</span>. Free, no ads, and it updates itself.</p>
-      <details class="which"><summary>Which Mac do I have?</summary><p>Open the Apple menu and choose About This Mac. If it says <b>Chip</b> with Apple M1, M2, M3 or M4, pick Apple Silicon. If it says <b>Processor</b> with Intel, pick Intel.</p></details>
-    </div>
-    <div>
-      <div class="opts">
-        <a class="opt" data-dl="mac" href="#download"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="11" rx="1.6"/><path d="M2 19h20"/></svg></span><span><b>Mac with Apple Silicon<span class="tag">Your computer</span></b><small>M1 to M4 chips. 116 MB disk image.</small></span><span class="go">Download</span></a>
-        <a class="opt" data-dl="intel" href="#download"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="11" rx="1.6"/><path d="M2 19h20"/></svg></span><span><b>Mac with Intel<span class="tag">Your computer</span></b><small>Older Macs. 120 MB disk image.</small></span><span class="go">Download</span></a>
-        <a class="opt" data-dl="win" href="#download"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="1.6"/><path d="M9 20h6M12 16v4"/></svg></span><span><b>Windows 10 or 11 (beta)<span class="tag">Your computer</span></b><small>64-bit. 117 MB installer.</small></span><span class="go">Download</span></a>
-      </div>
-      <div class="direct" id="direct"><b>Direct download links</b> (always the newest version)
-        <ul><li>Mac, Apple Silicon: <a data-direct="mac" href="#"></a></li><li>Mac, Intel: <a data-direct="intel" href="#"></a></li><li>Windows: <a data-direct="win" href="#"></a></li></ul></div>
-      <p class="note" id="dlNote" hidden>The download links aren’t connected yet. Put your GitHub repository in <b>LUCENT_RELEASES</b> at the bottom of index.html (see README.txt).</p>
-    </div>
-  </div>
-</section>
-
-<section class="band" id="install">
+<section class="band" id="install" style="background:var(--night-2)">
   <div class="wrap">
-    <div class="sec-head"><h2>Install in under a minute</h2><p class="lede">Lucent doesn’t come from an app store, so your computer asks you to confirm it once. Here is exactly what you’ll see.</p></div>
-    <div class="tabs" role="tablist" aria-label="Your computer">
-      <button type="button" role="tab" id="tab-mac" aria-controls="p-mac" aria-selected="true">Mac</button>
-      <button type="button" role="tab" id="tab-win" aria-controls="p-win" aria-selected="false">Windows</button>
-    </div>
-
-    <div id="p-mac" role="tabpanel" aria-labelledby="tab-mac">
-      <ol class="steps">
-        <li class="solo"><div class="st"><div><h3>Open the download</h3><p>Double-click <b>Lucent-mac-apple-silicon.dmg</b> (or the Intel one) in your Downloads folder.</p></div></div></li>
-        <li><div class="st"><div><h3>Drag Lucent into Applications</h3><p>A window like this opens. Drag the Lucent icon onto the Applications folder, the same as any other Mac app.</p></div></div><figure class="stfig"><img src="assets/shots/dmg-window.webp" alt="The Lucent installer window: drag Lucent into Applications" width="660" height="448" loading="lazy"></figure></li>
-        <li class="solo"><div class="st"><div><h3>Open Lucent</h3><p>Open it from Launchpad or your Applications folder. The first time, macOS says it can’t check Lucent for malware. Click <b>Done</b> (or <b>Cancel</b>).</p></div></div></li>
-        <li><div class="st"><div><h3>Click Open Anyway</h3><p>Open <b>System Settings</b>, choose <b>Privacy &amp; Security</b>, scroll down and click <b>Open Anyway</b> next to Lucent. Confirm with your password or Touch ID.</p><p class="tip">On macOS 14 or earlier you can instead right-click Lucent in Applications and choose Open.</p></div></div>
-          <div class="stfig"><div class="mock mac"><div class="h">Privacy &amp; Security</div><div class="s">Security</div><div class="row"><span>“Lucent” was blocked to protect your Mac.</span><span class="pulse">Open Anyway</span></div></div></div></li>
-        <li class="solo"><div class="st"><div><h3>That’s it</h3><p>From now on Lucent opens like any other app. You can eject the Lucent disk in Finder and delete the .dmg.</p></div></div></li>
-      </ol>
-    </div>
-
-    <div id="p-win" role="tabpanel" aria-labelledby="tab-win" hidden>
-      <ol class="steps">
-        <li class="solo"><div class="st"><div><h3>Run the installer</h3><p>Open <b>Lucent-windows-setup.exe</b> from your Downloads. If your browser asks whether to keep the file, choose <b>Keep</b>.</p></div></div></li>
-        <li><div class="st"><div><h3>Click More info, then Run anyway</h3><p>Windows shows this screen for new apps it hasn’t seen many times yet. Click <b>More info</b>, then <b>Run anyway</b>.</p></div></div>
-          <div class="stfig"><div class="mock win"><div class="h">Windows protected your PC</div><p>Microsoft Defender SmartScreen prevented an unrecognised app from starting.</p><u>More info</u><div class="f"><span class="pulse">Run anyway</span><span>Don’t run</span></div></div></div></li>
-        <li class="solo"><div class="st"><div><h3>Done in seconds</h3><p>Lucent installs without asking for an admin password and opens straight away. Next time, find it in the Start menu or on your desktop.</p></div></div></li>
-      </ol>
-    </div>
-
-    <div class="first">
-      <div><h3>Set a wallpaper</h3><p>Pick anything on Home or Explore and click <b>Set as wallpaper</b>.</p></div>
-      <div><h3>Move your widgets</h3><p>Press <kbd>⌥⌘E</kbd> (<kbd>Ctrl+Alt+E</kbd> on Windows), drag them where you like, then click Done.</p></div>
-      <div><h3>Remove a wallpaper</h3><p>In Library, hover over it and click the bin. Quit Lucent from the menu bar to get your normal wallpaper back.</p></div>
-      <div><h3>Uninstall</h3><p>Mac: drag Lucent from Applications to the Bin. Windows: Settings, Apps, Lucent, Uninstall.</p></div>
+    <div class="head"><h2>Installing takes a minute</h2><p class="lede">Lucent doesn’t come from an app store, so your computer asks you to confirm it once. Here’s exactly what you’ll see.</p></div>
+    <div class="install">
+      <div>
+        <h3>On a Mac</h3>
+        <ol>
+          <li><b>Open the file you downloaded</b><span>It’s in your Downloads folder.</span></li>
+          <li><b>Drag Lucent into Applications</b><span>The same as any other Mac app.</span><img src="assets/shots/dmg-window.webp?v=231" alt="The Lucent installer window: drag the Lucent icon onto the Applications folder" width="660" height="448" loading="lazy"></li>
+          <li><b>Open Lucent, then click Done</b><span>The first time, macOS says it can’t check it, because it isn’t from the App Store.</span></li>
+          <li><b>Click Open Anyway</b><span>In System Settings, Privacy &amp; Security, scroll down and click Open Anyway next to Lucent.</span></li>
+          <li><b>Confirm once</b><span>Click Open Anyway again. After that it opens like any other app.</span></li>
+        </ol>
+        <button class="btn text go" type="button" data-dl="mac-auto">Download for Mac</button>
+      </div>
+      <div>
+        <h3>On Windows</h3>
+        <ol>
+          <li><b>Run the installer</b><span>Open Lucent-windows-setup.exe from your Downloads. If your browser asks, choose Keep.</span></li>
+          <li><b>Click More info, then Run anyway</b><span>Windows shows this for new apps it hasn’t seen many times yet.</span></li>
+          <li><b>That’s it</b><span>Lucent installs in seconds, no admin password needed, and opens straight away.</span></li>
+        </ol>
+        <button class="btn text go" type="button" data-dl="win">Download for Windows</button>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="band" id="faq">
   <div class="wrap">
-    <div class="sec-head"><h2>Questions</h2><p class="lede">If yours isn’t here, the answer is probably in the app’s Settings.</p></div>
+    <div class="head"><h2>Questions</h2></div>
     <div class="faq">
       <div>
-        <details><summary>Is Lucent free?</summary><p>Yes. No subscription and no ads. An account is optional: you only need one to claim a username and your own link.</p></details>
-        <details><summary>Does it update itself?</summary><p>Yes. Lucent checks for new versions and asks before updating, or does it quietly when you quit if you pick Automatic in Settings, Updates.</p></details>
-        <details><summary>Why does my Mac say it can’t check Lucent?</summary><p>Apple checks apps that come from paid developer accounts, and Lucent isn’t notarized by Apple yet. It’s a one-time step: System Settings, Privacy &amp; Security, Open Anyway. After that it opens normally.</p></details>
+        <details><summary>Is Lucent free?</summary><p>Yes. No subscription and no ads. An account is optional: you only need one to claim a username and your own page.</p></details>
+        <details><summary>Does it update itself?</summary><p>Yes. Lucent checks for new versions and asks before updating. Pick Automatic in Settings and it updates quietly when you quit.</p></details>
+        <details><summary>Why does my Mac say it can’t check Lucent?</summary><p>Lucent isn’t from the App Store, so macOS asks you to confirm it once: System Settings, Privacy &amp; Security, Open Anyway. After that it opens normally.</p></details>
         <details><summary>Why does Windows say it protected my PC?</summary><p>SmartScreen warns about apps that haven’t been downloaded many times yet. Click More info, then Run anyway.</p></details>
-        <details><summary>Where do the wallpapers come from?</summary><p>Home and Explore show the community’s top-rated, safe-for-work wallpapers from Wallhaven, credited to their artists and for personal use. Explore can also switch to free-license sources: Wikimedia Commons, NASA and Openverse. You can add your own files too.</p></details>
-        <details><summary>Will it slow my computer down?</summary><p>Still images use almost nothing. Video and interactive wallpapers pause on battery power (you can turn that off), and you can pause everything from the island or the menu bar.</p></details>
+        <details><summary>How do I get the normal Dock back?</summary><p>Turn the Lucent dock off in Settings, or quit Lucent, and the Mac Dock comes back the way you had it.</p></details>
       </div>
       <div>
+        <details><summary>Will it slow my computer down?</summary><p>Still wallpapers use almost nothing. Moving ones pause on battery (you can turn that off) and you can pause everything from the island or the menu bar.</p></details>
+        <details><summary>Where do the wallpapers come from?</summary><p>The built-in collections come from GNOME, KDE, Budgie and elementary OS, free to use and credited. Explore shows the community’s top-rated, safe-for-work wallpapers from Wallhaven, and you can add your own files.</p></details>
         <details><summary>Does it work with more than one display?</summary><p>Yes. Each display can have its own wallpaper.</p></details>
-        <details><summary>Can I use a YouTube video or a website as my wallpaper?</summary><p>Yes. Open the YouTube tab, pick a video and it plays on your desktop, then the next one starts by itself. For a website, add it in Library (Import, then paste the link). To click and scroll it, choose <b>Use it</b> in Library or press <kbd>⌥⌘I</kbd> (<kbd>Ctrl+Alt+I</kbd> on Windows), and press Esc when you’re done.</p></details>
-        <details><summary>How do I get my normal wallpaper back?</summary><p>Quit Lucent from its menu bar icon (or the tray icon on Windows) and your usual wallpaper is back.</p></details>
-        <details><summary>Does everything work on Windows?</summary><p>Almost. Windows support is new, so it’s marked beta, and music controls (Now Playing) are Mac-only for now.</p></details>
-        <details><summary>Which Mac should I download for?</summary><p>Open the Apple menu and choose About This Mac. Apple M1, M2, M3 or M4 means Apple Silicon. Intel means the Intel download.</p></details>
+        <details><summary>Which Mac should I download for?</summary><p>Open the Apple menu and choose About This Mac. Apple M1, M2, M3 or M4 means Apple Silicon. Intel means the Intel version. The download picks the right one for you when it can.</p></details>
         <details><summary>How do I uninstall it?</summary><p>On a Mac, quit Lucent and drag it from Applications to the Bin. On Windows, open Settings, then Apps, find Lucent and click Uninstall.</p></details>
       </div>
     </div>
   </div>
 </section>
 
-<footer class="foot">
+<section class="band" id="download" style="background:var(--night-2)">
+  <div class="wrap dl">
+    <div>
+      <img class="icon" src="assets/icon-256.png?v=231" alt="" width="120" height="120">
+      <h2>Download Lucent</h2>
+      <p class="lede">Free, no ads, and it keeps itself up to date.</p>
+      <p class="ver" id="ver"></p>
+    </div>
+    <div class="opts">
+      <button class="opt" type="button" data-dl="mac"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.9-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.8ZM14.1 5.8c.6-.8 1.1-1.8.9-2.9-.9 0-2 .6-2.7 1.4-.6.7-1.1 1.8-1 2.8 1 .1 2.1-.5 2.8-1.3Z"/></svg><div><b>Mac with Apple Silicon</b><span>M1, M2, M3 and M4</span></div><em>Download</em></button>
+      <button class="opt" type="button" data-dl="intel"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.9-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.8ZM14.1 5.8c.6-.8 1.1-1.8.9-2.9-.9 0-2 .6-2.7 1.4-.6.7-1.1 1.8-1 2.8 1 .1 2.1-.5 2.8-1.3Z"/></svg><div><b>Mac with Intel</b><span>Older Macs</span></div><em>Download</em></button>
+      <button class="opt" type="button" data-dl="win"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5 10.4 4.5v7H3Zm8.4-1.1L21 3v8.5h-9.6ZM3 12.5h7.4v7L3 18.5Zm8.4 0H21V21l-9.6-1.4Z"/></svg><div><b>Windows 10 or 11</b><span>64-bit</span></div><em>Download</em></button>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
   <div class="wrap">
-    <div><a class="brand" href="#top"><img src="assets/icon-64.png" alt="" width="30" height="30"><span>Lucent</span></a><p>Live wallpapers for Mac and Windows. © 2026 Lucent.</p><p id="ghLink" hidden><a href="#">Releases on GitHub</a></p></div>
-    <p class="credits">Wallpapers shown on this page: photos by Ashim D’Silva, Luca Bravo, Leigh Kendell and the “Sunset by the Pier” photographer (public domain), Viktor Forgacs, Tj Holowaychuk, Nattu Adnan, Martin Adams and Aniket Deole (Unsplash License), a Pexels photo of Half Dome (Pexels License), and images from the Budgie Backgrounds collection, including NASA’s Saturn (CC0). The app icons in the dock demo are placeholders made for this page. Wallpapers you find inside the app belong to their artists. Spotify and Apple Music are trademarks of their owners.</p>
+    <div class="me"><img src="assets/icon-64.png?v=231" alt="">Lucent</div>
+    <p>Moving wallpapers, a Dynamic Island, widgets and a better dock for Mac and Windows. © 2026 Lucent.</p>
+    <p id="credits">Wallpapers on this page and in the app’s collections: photos by Ashim D’Silva, Luca Bravo, Leigh Kendell, Carmine De Fazio, Rob Bye, Ryan Schroeder and Mr. Lee (public domain), Viktor Forgacs, Tj Holowaychuk, Nattu Adnan, Martin Adams, Aniket Deole, Peter Thomas and David Emrich (Unsplash License), a Pexels photo of Half Dome (Pexels License) and the Budgie Backgrounds collection, including NASA’s Saturn (CC0). Artwork from the GNOME Project (<a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="noopener">CC BY-SA 3.0</a>) and KDE Plasma by axo1otl, Louis Durrant, Krystian Zajdel, Lucas Andrade, Ken Vermette, ruvkr and Sandra Smukaste (<a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">CC BY-SA 4.0</a>), resized for the web. The app icons in the dock on this page are placeholders. Spotify and Apple Music are trademarks of their owners.</p>
   </div>
 </footer>
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-<div class="dlm" id="dlm" role="dialog" aria-modal="true" aria-labelledby="dlmT">
-  <div class="box">
-    <div class="hd"><img src="assets/icon-64.png" alt=""><div><h2 id="dlmT">Your download has started</h2><p id="dlmS">Here’s how to open Lucent the first time.</p></div><button type="button" class="x" id="dlmX" aria-label="Close">×</button></div>
-    <div class="ostabs" role="tablist"><button type="button" data-os="mac">Mac</button><button type="button" data-os="win">Windows</button></div>
-    <div class="stage" id="dlmStage"></div>
-    <div class="ft"><div class="dots" id="dlmDots"></div><button type="button" class="back" id="dlmBack">Back</button><button type="button" class="next" id="dlmNext">Next</button></div>
-    <p class="again">Download didn’t start? <a href="#" id="dlmAgain">Click here</a> to try again.</p>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetT" hidden>
+  <div class="panel">
+    <div class="top"><img src="assets/icon-64.png?v=231" alt=""><div><h2 id="sheetT">Install Lucent on your Mac</h2><p id="sheetS">Have a look at the steps first. The download starts at the end.</p></div><button class="x" type="button" id="sheetX" aria-label="Close">×</button></div>
+    <div class="oss" role="tablist" aria-label="Your computer"><button type="button" role="tab" data-os="mac">Mac</button><button type="button" role="tab" data-os="win">Windows</button></div>
+    <div id="sheetBody"></div>
   </div>
 </div>
 
-<script src="assets/widgets.js"></script>
-<script src="assets/effects.js"></script>
 <script>
-// Where the installers live: your GitHub "username/repository" with a release holding
-// Lucent-mac-apple-silicon.dmg, Lucent-mac-intel.dmg and Lucent-windows-setup.exe.
+// Where the installers are kept: the newest published release of this repository.
 window.LUCENT_RELEASES = 'caulculaslegend-dev/lucent';
 </script>
 <script>
@@ -639,284 +478,213 @@ window.LUCENT_RELEASES = 'caulculaslegend-dev/lucent';
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const repo = String(window.LUCENT_RELEASES || '').trim().replace(/^https?:\/\/github\.com\//, '').replace(/\/+$/, '');
-  const FILES = { mac: 'Lucent-mac-apple-silicon.dmg', intel: 'Lucent-mac-intel.dmg', win: 'Lucent-windows-setup.exe' };
-  const LABEL = { mac: ['Download for Mac', 'Apple Silicon'], intel: ['Download for Mac', 'Intel'], win: ['Download for Windows', 'Windows 10 and 11'] };
-  const urlFor = (k) => (repo ? `https://github.com/${repo}/releases/latest/download/${FILES[k]}` : '');
 
-  // ---- which computer is this?
+  // ---------- the time and date where you are, in your own 12/24-hour format ----------
+  const hc = new Intl.DateTimeFormat(undefined, { hour: 'numeric' }).resolvedOptions().hourCycle;
+  const h24 = hc === 'h23' || hc === 'h24';
+  const tFmt = new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' });
+  const dFmt = new Intl.DateTimeFormat(undefined, { weekday: 'short', day: 'numeric', month: 'short' });
+  const longD = new Intl.DateTimeFormat(undefined, { weekday: 'long', day: 'numeric', month: 'long' });
+  function tick() {
+    const now = new Date();
+    const parts = new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit', hourCycle: h24 ? 'h23' : 'h12' }).formatToParts(now);
+    const p = (t) => (parts.find((x) => x.type === t) || {}).value || '';
+    const hour = h24 ? String(now.getHours()).padStart(2, '0') : p('hour');
+    const per = h24 ? '' : p('dayPeriod');
+    $('#clock').innerHTML = `${hour}:${p('minute')}${per ? `<small>${per.toLowerCase()}</small>` : ''}`;
+    $('#today').textContent = longD.format(now);
+    $('#barDate').textContent = dFmt.format(now);
+    $('#barTime').textContent = tFmt.format(now).replace(/\s?(AM|PM)$/i, (m) => m.toLowerCase());
+    clearTimeout(tick.t); tick.t = setTimeout(tick, 1000 - (now.getMilliseconds()));
+  }
+  tick();
+
+  // ---------- the wallpaper behind it, changing every few seconds ----------
+  const WALLS = [
+    ['trestle', 'Neon Bridge', 'Budgie Backgrounds (CC0)'],
+    ['antelope', 'Antelope Canyon', 'Ashim D’Silva (public domain)'],
+    ['city', 'Marina Bay Lights', 'Budgie Backgrounds (CC0)'],
+    ['pastel', 'Pastel Sky', 'Viktor Forgacs (Unsplash License)'],
+    ['pier', 'Pier at Sunset', 'Unsplash (public domain)']
+  ];
+  const url = (k) => `assets/walls/${k}-full.webp?v=231`;
+  let wi = 0; let front = $('#wallA'); let back = $('#wallB');
+  front.style.backgroundImage = `url('${url(WALLS[0][0])}')`;
+  const credit = () => { $('#credit').textContent = `Wallpaper: ${WALLS[wi][1]}, ${WALLS[wi][2]}`; };
+  credit();
+  if (!calm) {
+    setInterval(() => {
+      const next = (wi + 1) % WALLS.length;
+      const img = new Image();
+      img.onload = () => {
+        back.style.backgroundImage = `url('${img.src}')`;
+        back.classList.add('on'); front.classList.remove('on');
+        [front, back] = [back, front]; wi = next; credit();
+      };
+      img.src = url(WALLS[next][0]);
+    }, 7000);
+  }
+
+  // ---------- the island opens when you hover it, like in Lucent ----------
+  const notch = $('#notch');
+  const openI = (v) => notch.classList.toggle('open', v);
+  notch.addEventListener('mouseenter', () => openI(true));
+  notch.addEventListener('mouseleave', () => openI(false));
+  notch.addEventListener('focus', () => openI(true));
+  notch.addEventListener('blur', () => openI(false));
+
+  // ---------- the dock magnifies under your cursor ----------
+  const dock = $('#dock'); const its = $$('.it', dock);
+  let raf = 0; let mx = null;
+  dock.addEventListener('mousemove', (e) => { mx = e.clientX; if (!raf) raf = requestAnimationFrame(mag); });
+  dock.addEventListener('mouseleave', () => { mx = null; mag(); });
+  function mag() {
+    raf = 0;
+    for (const el of its) {
+      let s = 1;
+      if (mx != null && !calm) { const r = el.getBoundingClientRect(); const d = Math.abs(mx - (r.left + r.width / 2)); s = 1 + 0.55 * Math.max(0, Math.cos(Math.min(1, d / 150) * Math.PI / 2)); }
+      el.style.transform = `scale(${s.toFixed(3)})`;
+      el.style.margin = `0 ${((s - 1) * 26).toFixed(1)}px`;
+    }
+  }
+
+  // ---------- the menu bar turns solid once you scroll past the desktop ----------
+  const bar = $('#bar');
+  const solid = () => bar.classList.toggle('solid', scrollY > innerHeight * 0.7);
+  addEventListener('scroll', solid, { passive: true }); solid();
+
+  // ---------- the tour video (with sound) and the feature clips (silent, while on screen) ----------
+  const promo = $('#promo');
+  $('#playTour').addEventListener('click', () => { promo.muted = false; promo.controls = true; promo.play(); $('#tourBox').classList.add('playing'); });
+  const clips = $$('video[data-clip]');
+  if (calm) clips.forEach((v) => { v.controls = true; });
+  else {
+    const io = new IntersectionObserver((ents) => ents.forEach((en) => {
+      const v = en.target;
+      if (en.isIntersecting) { if (v.preload === 'none') v.preload = 'auto'; v.play().catch(() => {}); } else v.pause();
+    }), { threshold: 0.35 });
+    clips.forEach((v) => io.observe(v));
+  }
+
+  // ---------- wallpapers from the built-in collections ----------
+  const PICK = ['scarlet-tree', 'neon-bridge', 'glass-chip', 'antelope-canyon', 'pastel-tubes', 'saturn', 'pink-dahlia', 'orionids', 'fold', 'safe-landing', 'red-dune', 'blend-pills'];
+  fetch('collections.json?v=231').then((r) => r.json()).then((j) => {
+    const by = Object.fromEntries((j.items || []).map((x) => [x.id, x]));
+    $('#walls').innerHTML = PICK.map((k) => by[k]).filter(Boolean).map((x) =>
+      `<figure><img src="${x.thumb}?v=231" alt="${x.title}" loading="lazy" width="640" height="400"><figcaption>${x.title}<span>${x.author}</span></figcaption></figure>`).join('');
+  }).catch(() => { $('#wallpapers .walls-foot').hidden = true; });
+
+  // ---------- downloads: the steps first, then the file ----------
+  const repo = String(window.LUCENT_RELEASES || '').trim();
+  const FILES = { mac: 'Lucent-mac-apple-silicon.dmg', intel: 'Lucent-mac-intel.dmg', win: 'Lucent-windows-setup.exe' };
+  const fileUrl = (k) => `https://github.com/${repo}/releases/latest/download/${FILES[k]}`;
   const ua = navigator.userAgent;
   const plat = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || '';
-  const mobile = /iPhone|iPad|Android|Mobile/i.test(ua);
-  let os = mobile ? 'other' : /mac/i.test(plat + ua) ? 'mac' : /win/i.test(plat + ua) ? 'win' : 'other';
-  let mac = 'mac';
+  const phone = /iPhone|iPad|Android|Mobile/i.test(ua) || (/Mac/.test(plat) && navigator.maxTouchPoints > 1);
+  const os = phone ? 'other' : /mac/i.test(plat + ua) ? 'mac' : /win/i.test(plat + ua) ? 'win' : 'other';
+  let macKind = 'mac';
   try {
     const gl = document.createElement('canvas').getContext('webgl');
     const ext = gl && gl.getExtension('WEBGL_debug_renderer_info');
     const r = ext ? String(gl.getParameter(ext.UNMASKED_RENDERER_WEBGL)) : '';
-    if (/intel|amd|radeon|nvidia/i.test(r) && !/apple/i.test(r)) mac = 'intel';
-  } catch (e) { /* keep Apple Silicon */ }
-  const mine = () => (os === 'mac' ? mac : os === 'win' ? 'win' : '');
-
-  function paintDownloads() {
-    const k = mine();
-    $$('[data-dl]').forEach((a) => {
-      const key = a.dataset.dl === 'auto' ? k : a.dataset.dl;
-      const u = key ? urlFor(key) : '';
-      a.href = u || '#download';
-      a.dataset.key = key || '';
-    });
-    $$('.opt').forEach((o) => o.classList.toggle('rec', o.dataset.dl === k));
-    if (k) { $('#heroDlT').textContent = LABEL[k][0]; $('#heroDlS').textContent = LABEL[k][1]; }
-    if (repo) { const g = $('#ghLink'); g.hidden = false; g.firstElementChild.href = `https://github.com/${repo}/releases/latest`; }
-    $$('[data-direct]').forEach((a) => { const u = urlFor(a.dataset.direct); a.href = u || '#download'; a.textContent = u || 'not connected yet'; a.dataset.dl = a.dataset.direct; a.dataset.key = a.dataset.direct; });
-  }
-  paintDownloads();
+    if (/intel|amd|radeon|nvidia/i.test(r) && !/apple/i.test(r)) macKind = 'intel';
+  } catch (e) { /* Apple Silicon is the safe guess */ }
   if (os === 'mac' && navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
-    navigator.userAgentData.getHighEntropyValues(['architecture']).then((v) => { if (v.architecture === 'x86') { mac = 'intel'; paintDownloads(); } }).catch(() => {});
+    navigator.userAgentData.getHighEntropyValues(['architecture']).then((v) => { if (v.architecture === 'x86') { macKind = 'intel'; paintMine(); } }).catch(() => {});
   }
+  function paintMine() {
+    if (os === 'mac') { $('#heroDl').textContent = 'Download for Mac'; $('#heroDlS').textContent = macKind === 'intel' ? 'Intel' : 'Apple Silicon'; }
+    if (os === 'win') { $('#heroDl').textContent = 'Download for Windows'; $('#heroDlS').textContent = 'Windows 10 and 11'; }
+    const mine = os === 'mac' ? macKind : os === 'win' ? 'win' : '';
+    $$('.opt').forEach((b) => b.classList.toggle('mine', b.dataset.dl === mine));
+  }
+  paintMine();
 
-  const toast = (msg) => { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('on'), 5200); };
-  document.addEventListener('click', (e) => {
-    const a = e.target.closest('[data-dl]'); if (!a) return;
-    const key = a.dataset.key;
-    if (!key || !repo) { if (!repo && key) { e.preventDefault(); $('#dlNote').hidden = false; $('#download').scrollIntoView({ behavior: calm ? 'auto' : 'smooth' }); } return; }
-    selectTab(key === 'win' ? 'win' : 'mac');
-    openGuide(key);
-  });
+  // Version and size of what the download gives you right now.
+  if (repo) fetch(`https://api.github.com/repos/${repo}/releases/latest`).then((r) => (r.ok ? r.json() : null)).then((j) => {
+    if (!j || !j.tag_name) return;
+    $('#ver').textContent = `Version ${String(j.tag_name).replace(/^v/, '')}`;
+  }).catch(() => {});
 
-  // ---- after clicking Download: a step-by-step guide, including Open Anyway on a Mac and Run anyway on Windows
-  const GUIDE = {
+  const STEPS = {
     mac: (k) => [
-      { h: 'Open the download', p: `Open <b>${FILES[k] || FILES.mac}</b> from your Downloads (click it in your browser’s downloads list, or find it in the Downloads folder).`, fig: `<div class="dlrow"><img src="assets/icon-64.png" alt=""><div><b>${FILES[k] || FILES.mac}</b><small>Downloads · Lucent installer</small></div></div>` },
-      { h: 'Drag Lucent into Applications', p: 'A window opens. Drag the Lucent icon onto the <b>Applications</b> folder, like any other Mac app.', fig: '<img src="assets/shots/dmg-window.webp" alt="Drag Lucent into Applications">' },
-      { h: 'Open Lucent, then click Done', p: 'Open Lucent from Applications or Launchpad. The first time, macOS says it couldn’t check it for malware, because Lucent isn’t from the App Store. Click <b>Done</b>.', fig: '<div class="alert"><img src="assets/icon-64.png" alt=""><b>“Lucent” Not Opened</b>Apple could not verify “Lucent” is free of malware that may harm your Mac or compromise your privacy.<div class="bt"><span>Move to Bin</span><span class="blue">Done</span></div></div>' },
-      { h: 'Click Open Anyway in Settings', p: 'Open <b>System Settings</b> and go to <b>Privacy &amp; Security</b>. Scroll down to the Security part and click <b>Open Anyway</b> next to Lucent. Enter your password or use Touch ID.', fig: '<div class="mock mac"><div class="h">Privacy &amp; Security</div><div class="s">Security</div><div class="row"><span>“Lucent” was blocked to protect your Mac.</span><span class="pulse">Open Anyway</span></div></div>' },
-      { h: 'Confirm, and you’re in', p: 'macOS asks one last time. Click <b>Open Anyway</b>. From now on Lucent opens like any other app, and it updates itself.', fig: '<div class="alert"><img src="assets/icon-64.png" alt=""><b>Open “Lucent”?</b>Only open it if you trust where it came from.<div class="bt"><span>Move to Bin</span><span class="blue">Open Anyway</span></div></div>' }
+      { h: 'Open the file you downloaded', p: `When the download finishes, open <b>${FILES[k]}</b> from your Downloads folder.`, fig: `<div class="fileRow"><img src="assets/icon-64.png?v=231" alt=""><div><b>${FILES[k]}</b><small>Downloads</small></div></div>` },
+      { h: 'Drag Lucent into Applications', p: 'A window opens. Drag the Lucent icon onto the <b>Applications</b> folder, like any other Mac app.', fig: '<img src="assets/shots/dmg-window.webp?v=231" alt="Drag Lucent into Applications">' },
+      { h: 'Open Lucent, then click Done', p: 'Open Lucent from Applications or Launchpad. The first time, macOS says it couldn’t check it, because it isn’t from the App Store. Click <b>Done</b>.', fig: '<div class="alertM"><img src="assets/icon-256.png?v=231" alt=""><b>“Lucent” Not Opened</b>Apple could not verify “Lucent” is free of malware that may harm your Mac or compromise your privacy.<div class="bt"><span>Move to Bin</span><span class="blue">Done</span></div></div>' },
+      { h: 'Click Open Anyway', p: 'Open <b>System Settings</b>, then <b>Privacy &amp; Security</b>. Scroll down and click <b>Open Anyway</b> next to Lucent, then use your password or Touch ID.', fig: '<div class="mockM"><div class="h">Privacy &amp; Security</div><div class="row"><span>“Lucent” was blocked to protect your Mac.</span><span>Open Anyway</span></div></div>' },
+      { h: 'Confirm, and you’re in', p: 'macOS asks once more. Click <b>Open Anyway</b>. From then on Lucent opens like any other app and keeps itself up to date.', fig: '<div class="alertM"><img src="assets/icon-256.png?v=231" alt=""><b>Open “Lucent”?</b>Only open it if you trust where it came from.<div class="bt"><span>Move to Bin</span><span class="blue">Open Anyway</span></div></div>' }
     ],
     win: () => [
-      { h: 'Run the installer', p: `Open <b>${FILES.win}</b> from your Downloads. If your browser asks whether to keep the file, choose <b>Keep</b>.`, fig: `<div class="dlrow"><img src="assets/icon-64.png" alt=""><div><b>${FILES.win}</b><small>Downloads · Lucent installer</small></div></div>` },
-      { h: 'Click More info, then Run anyway', p: 'Windows shows this for new apps it hasn’t seen much yet. Click <b>More info</b>, then <b>Run anyway</b>.', fig: '<div class="mock win"><div class="h">Windows protected your PC</div><p>Microsoft Defender SmartScreen prevented an unrecognised app from starting.</p><u>More info</u><div class="f"><span class="pulse">Run anyway</span><span>Don’t run</span></div></div>' },
-      { h: 'That’s it', p: 'Lucent installs in a few seconds, no admin password needed, and opens straight away. Next time, find it in the Start menu. It updates itself.', fig: '<div class="dlrow"><img src="assets/icon-64.png" alt=""><div><b>Lucent</b><small>Start menu · App</small></div></div>' }
+      { h: 'Run the installer', p: `When the download finishes, open <b>${FILES.win}</b> from your Downloads. If your browser asks whether to keep it, choose <b>Keep</b>.`, fig: `<div class="fileRow"><img src="assets/icon-64.png?v=231" alt=""><div><b>${FILES.win}</b><small>Downloads</small></div></div>` },
+      { h: 'Click More info, then Run anyway', p: 'Windows shows this for new apps it hasn’t seen many times yet. Click <b>More info</b>, then <b>Run anyway</b>.', fig: '<div class="winM"><div class="h">Windows protected your PC</div>Microsoft Defender SmartScreen prevented an unrecognised app from starting.<br><u>More info</u><div class="f"><span>Run anyway</span><span>Don’t run</span></div></div>' },
+      { h: 'That’s it', p: 'Lucent installs in a few seconds, without an admin password, and opens straight away. Next time, find it in the Start menu.', fig: `<div class="fileRow"><img src="assets/icon-64.png?v=231" alt=""><div><b>Lucent</b><small>Start menu</small></div></div>` }
     ]
   };
-  let gOs = 'mac'; let gKey = 'mac'; let gStep = 0; let lastFocus = null;
-  function paintGuide() {
-    const steps = GUIDE[gOs](gKey); const st = steps[gStep];
-    $('#dlmStage').innerHTML = `<div><span class="num">${gStep + 1}</span><h3>${st.h}</h3><p>${st.p}</p></div><div class="fig">${st.fig}</div>`;
-    $('#dlmDots').innerHTML = steps.map((_, i) => `<i class="${i === gStep ? 'on' : ''}"></i>`).join('');
-    $('#dlmBack').style.visibility = gStep ? 'visible' : 'hidden';
-    $('#dlmNext').textContent = gStep === steps.length - 1 ? 'Done' : 'Next';
-    $$('.dlm .ostabs button').forEach((b) => b.classList.toggle('on', b.dataset.os === gOs));
-    $('#dlmS').textContent = gOs === 'win' ? 'Here’s how to install Lucent on Windows.' : 'Here’s how to open Lucent the first time on your Mac.';
+  const sheet = $('#sheet');
+  let gOs = 'mac'; let step = 0; let started = false; let lastFocus = null;
+  const kindNow = () => (gOs === 'win' ? 'win' : macKind);
+  function startDownload() {
+    const a = document.createElement('a');
+    a.href = fileUrl(kindNow()); a.rel = 'noopener'; a.style.display = 'none';
+    document.body.appendChild(a); a.click(); a.remove();
   }
-  function openGuide(key) {
-    gKey = key; gOs = key === 'win' ? 'win' : 'mac'; gStep = 0;
-    $('#dlmT').textContent = 'Your download has started';
-    $('#dlmS').textContent = gOs === 'win' ? 'Here’s how to install Lucent on Windows.' : 'Here’s how to open Lucent the first time on your Mac.';
-    $('#dlmAgain').href = urlFor(key);
-    lastFocus = document.activeElement; paintGuide();
-    $('#dlm').classList.add('on'); setTimeout(() => $('#dlmNext').focus(), 50);
-  }
-  function closeGuide() { $('#dlm').classList.remove('on'); if (lastFocus && lastFocus.focus) lastFocus.focus(); }
-  $('#dlmNext').addEventListener('click', () => { const n = GUIDE[gOs](gKey).length; if (gStep < n - 1) { gStep++; paintGuide(); } else closeGuide(); });
-  $('#dlmBack').addEventListener('click', () => { if (gStep) { gStep--; paintGuide(); } });
-  $('#dlmX').addEventListener('click', closeGuide);
-  $('#dlm').addEventListener('click', (e) => { if (e.target.id === 'dlm') closeGuide(); });
-  $$('.dlm .ostabs button').forEach((b) => b.addEventListener('click', () => { gOs = b.dataset.os; if (gOs === 'mac' && gKey === 'win') gKey = mac; if (gOs === 'win') gKey = 'win'; gStep = 0; paintGuide(); }));
-  addEventListener('keydown', (e) => { if (!$('#dlm').classList.contains('on')) return; if (e.key === 'Escape') closeGuide(); if (e.key === 'ArrowRight') $('#dlmNext').click(); if (e.key === 'ArrowLeft') $('#dlmBack').click(); });
-
-  // ---- install tabs
-  function selectTab(which) {
-    $$('[role=tab]').forEach((b) => b.setAttribute('aria-selected', String(b.id === `tab-${which}`)));
-    $('#p-mac').hidden = which !== 'mac'; $('#p-win').hidden = which !== 'win';
-  }
-  $$('[role=tab]').forEach((b) => b.addEventListener('click', () => selectTab(b.id.slice(4))));
-  $('.tabs').addEventListener('keydown', (e) => { if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { const n = $('#tab-mac').getAttribute('aria-selected') === 'true' ? 'win' : 'mac'; selectTab(n); $(`#tab-${n}`).focus(); } });
-  if (os === 'win') selectTab('win');
-
-  // ---- nav
-  const nav = $('#nav');
-  const onScroll = () => nav.classList.toggle('solid', scrollY > 40);
-  addEventListener('scroll', onScroll, { passive: true }); onScroll();
-
-  // ---- hero wallpapers + parallax
-  const WALLS = ['city', 'antelope', 'pastel', 'trestle', 'pier'].map((k) => `assets/walls/${k}-full.webp`);
-  let wi = 0; let front = $('#wallA'); let back = $('#wallB');
-  function nextWall() {
-    wi = (wi + 1) % WALLS.length;
-    const img = new Image();
-    img.onload = () => { back.style.backgroundImage = `url('${WALLS[wi]}')`; back.classList.remove('off'); front.classList.add('off'); [front, back] = [back, front]; };
-    img.src = WALLS[wi];
-  }
-  const hero = $('#top');
-  let px = 0; let py = 0; let tx = 0; let ty = 0;
-  if (!calm) {
-    hero.addEventListener('pointermove', (e) => { const r = hero.getBoundingClientRect(); tx = ((e.clientX - r.left) / r.width - 0.5) * -18; ty = ((e.clientY - r.top) / r.height - 0.5) * -12; });
-    const loop = () => { px += (tx - px) * 0.06; py += (ty - py) * 0.06; $$('.wall', hero).forEach((w) => { w.style.transform = `translate(${px.toFixed(2)}px,${py.toFixed(2)}px)`; }); requestAnimationFrame(loop); };
-    requestAnimationFrame(loop);
-  }
-
-  // ---- music (shared by the island and the Now Playing widget)
-  const TRACKS = [
-    { title: 'Slow Tide', artist: 'Lucent Demo', art: 'assets/walls/pier.webp', duration: 214 },
-    { title: 'Pink Haze', artist: 'Lucent Demo', art: 'assets/walls/dahlia.webp', duration: 187 },
-    { title: 'Night Drive', artist: 'Lucent Demo', art: 'assets/walls/trestle.webp', duration: 236 }
-  ];
-  let ti = 0; let playing = true; let pos = 83; let at = Date.now();
-  const position = () => Math.min(TRACKS[ti].duration, playing ? pos + (Date.now() - at) / 1000 : pos);
-  const media = () => ({ ...TRACKS[ti], playing, position: position(), at: Date.now(), source: 'spotify' });
-
-  // ---- real Lucent widgets, draggable
-  const BASE = { theme: 'glass', bg: '#0d0f16', color: '#ffffff', accent: '', opacity: 0.55, blur: 22, radius: 22, scale: 1, font: 'system', shadow: true };
-  const wide = () => innerWidth >= 900;
-  function layout() {
-    if (wide()) return { screenW: 1440, widgets: [
-      { id: 'clock', type: 'clock', x: 0.05, y: 0.15, w: 340, h: 160, style: { ...BASE, theme: 'clear' }, props: { mode: 'digital', seconds: false, h12: false, showDate: true } },
-      { id: 'cal', type: 'calendar', x: 0.79, y: 0.15, w: 250, h: 222, style: BASE, props: {} },
-      { id: 'np', type: 'nowplaying', x: 0.665, y: 0.72, w: 380, h: 140, style: BASE, props: {} }
-    ] };
-    return { screenW: 560, widgets: [{ id: 'clock', type: 'clock', x: 0.06, y: 0.12, w: 340, h: 160, style: { ...BASE, theme: 'clear' }, props: { mode: 'digital', seconds: false, h12: false, showDate: true } }] };
-  }
-  let ctl = null; let mode = null;
-  function mountWidgets() {
-    if (!window.LucentWidgets) return;
-    const m = wide();
-    if (ctl && m === mode) return;
-    if (ctl) ctl.destroy();
-    mode = m;
-    const L = layout();
-    ctl = window.LucentWidgets.mount($('#wl'), { widgets: L.widgets, screenW: L.screenW, screenH: 900, editable: true, accent: '#5ef0ff', ctx: { media: media() } });
-  }
-  mountWidgets();
-  addEventListener('resize', () => mountWidgets());
-  const EXTRA = [
-    { type: 'todo', w: 260, h: 200, props: { title: 'Today', items: [{ t: 'Download Lucent', done: false }, { t: 'Pick a wallpaper', done: true }, { t: 'Move the widgets', done: true }] } },
-    { type: 'date', w: 180, h: 180, props: {} },
-    { type: 'text', w: 420, h: 100, props: { text: 'stay creative.', size: 48, weight: 700, align: 'left' } },
-    { type: 'pomodoro', w: 220, h: 160, props: { work: 25, rest: 5 } }
-  ];
-  let ei = 0;
-  $('#addW').addEventListener('click', () => {
-    if (!ctl) return;
-    const spec = EXTRA[ei % EXTRA.length]; ei++;
-    const list = ctl.widgets.concat({ id: `x${ei}`, x: 0.36 + (ei % 3) * 0.05, y: 0.2 + (ei % 2) * 0.12, style: BASE, ...spec });
-    ctl.update(list);
-  });
-  const setEditing = (on) => hero.classList.toggle('editing', on);
-  $('#doneW').addEventListener('click', () => setEditing(false));
-
-  // ---- Dynamic Island
-  const isl = $('#island');
-  const IC = {
-    play: '<svg viewBox="0 0 24 24"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5Z" fill="currentColor"/></svg>',
-    pause: '<svg viewBox="0 0 24 24"><rect x="6" y="4" width="4.2" height="16" rx="1.4" fill="currentColor"/><rect x="13.8" y="4" width="4.2" height="16" rx="1.4" fill="currentColor"/></svg>'
-  };
-  function paintMusic() {
-    const t = TRACKS[ti];
-    $('#iT').textContent = t.title; $('#iA').textContent = t.artist; $('#iMini').textContent = t.title;
-    $('#iArt').style.backgroundImage = `url('${t.art}')`; $('#iTiny').style.backgroundImage = `url('${t.art}')`;
-    $('#iBar').style.width = `${(position() / t.duration) * 100}%`;
-    $('#iPP').innerHTML = playing ? IC.pause : IC.play;
-    $('#iPz').textContent = playing ? 'Pause' : 'Resume';
-    isl.classList.toggle('playing', playing);
-    if (ctl) ctl.setData({ media: media() });
-  }
-  function control(cmd) {
-    if (cmd === 'pp') { pos = position(); at = Date.now(); playing = !playing; }
-    if (cmd === 'next' || cmd === 'prev') { ti = (ti + (cmd === 'next' ? 1 : TRACKS.length - 1)) % TRACKS.length; pos = 0; at = Date.now(); playing = true; }
-    paintMusic();
-  }
-  setInterval(() => { if (playing && position() >= TRACKS[ti].duration) control('next'); else { $('#iBar').style.width = `${(position() / TRACKS[ti].duration) * 100}%`; } }, 1000);
-  isl.addEventListener('mouseenter', () => isl.classList.add('open'));
-  isl.addEventListener('mouseleave', () => isl.classList.remove('open'));
-  isl.addEventListener('focusin', () => isl.classList.add('open'));
-  isl.addEventListener('focusout', (e) => { if (!isl.contains(e.relatedTarget)) isl.classList.remove('open'); });
-  isl.addEventListener('click', (e) => {
-    if (!isl.classList.contains('open')) { isl.classList.add('open'); return; }
-    const m = e.target.closest('[data-m]'); if (m) return control(m.dataset.m);
-    const a = e.target.closest('[data-a]'); if (!a) return;
-    if (a.dataset.a === 'wall') nextWall();
-    if (a.dataset.a === 'pause') control('pp');
-    if (a.dataset.a === 'edit') { setEditing(!hero.classList.contains('editing')); isl.classList.remove('open'); }
-    if (a.dataset.a === 'get') { isl.classList.remove('open'); $('#download').scrollIntoView({ behavior: calm ? 'auto' : 'smooth' }); }
-  });
-  paintMusic();
-
-  // ---- screenshots lean back, then settle as they scroll in
-  const tilts = $$('.tilt');
-  if (!calm) {
-    const settle = () => {
-      const vh = innerHeight;
-      for (const el of tilts) {
-        const r = el.getBoundingClientRect();
-        if (r.bottom < 0 || r.top > vh) continue;
-        const p = Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.75)));
-        el.style.transform = `perspective(1800px) rotateX(${((1 - p) * 14).toFixed(2)}deg) scale(${(0.94 + p * 0.06).toFixed(3)})`;
-      }
-    };
-    addEventListener('scroll', () => requestAnimationFrame(settle), { passive: true }); settle();
-  }
-
-  // ---- sections float in as they scroll into view
-  if (!calm && 'IntersectionObserver' in window) {
-    const els = $$('.band .sec-head, .band .copy, .band figure, .duo article, .more > div, .dl > div, #install ol > li, #faq details');
-    const groups = new Map();
-    els.forEach((el) => {
-      const k = el.parentElement; const i = groups.get(k) || 0; groups.set(k, i + 1);
-      el.style.setProperty('--d', `${Math.min(i, 5) * 0.07}s`); el.classList.add('rv');
-    });
-    const io = new IntersectionObserver((ents) => { for (const en of ents) if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }, { rootMargin: '0px 0px -8% 0px' });
-    els.forEach((el) => io.observe(el));
-  }
-
-  // ---- wallpaper marquee
-  const WP = [
-    ['city', 'Marina Bay Lights', 'Budgie Backgrounds'], ['antelope', 'Antelope Canyon', "Ashim D'Silva"], ['pastel', 'Pastel Sky', 'Viktor Forgacs'], ['trestle', 'Neon Bridge', 'Budgie Backgrounds'],
-    ['saturn', 'Saturn', 'NASA'], ['pier', 'Pier at Sunset', 'Unsplash'], ['dahlia', 'Pink Dahlia', 'Tj Holowaychuk'], ['waves', 'Midnight Waves', 'Budgie Backgrounds'],
-    ['alpenglow', 'Alpenglow', 'Luca Bravo'], ['ocean', 'Ocean from Above', 'Nattu Adnan'], ['red-dune', 'Red Dune', 'Budgie Backgrounds'], ['halfdome', 'Half Dome at Dusk', 'Pexels'],
-    ['casa', 'Golden Courtyard', 'Budgie Backgrounds'], ['beacon', 'City Sunrise', 'Budgie Backgrounds'], ['valley-mid', 'Midnight Valley', 'Budgie Backgrounds'], ['sherburne', 'Glacier Lake', 'Budgie Backgrounds'],
-    ['petals', 'Golden Petals', 'Martin Adams'], ['great-wave', 'Great Wave', 'Budgie Backgrounds'], ['tulips', 'Tulips', 'Leigh Kendell'], ['spiral', 'Spiral', 'Budgie Backgrounds']
-  ];
-  const card = ([k, t, a]) => `<figure class="mt"><img src="assets/walls/${k}.webp" alt="${t}" decoding="async" width="640" height="400"><figcaption>${t}<span>${a}</span></figcaption></figure>`;
-  const half = (list) => { const h = list.map(card).join(''); return h + h.replace(/alt="[^"]*"/g, 'alt="" aria-hidden="true"'); };
-  $('#marquee').innerHTML = `<div class="mrow">${half(WP.slice(0, 10))}</div><div class="mrow rev">${half(WP.slice(10))}</div>`;
-
-  // ---- Lucent's own particle effects, live
-  const FX = [['snow', 'Snow'], ['sakura', 'Sakura'], ['rain', 'Rain'], ['fireflies', 'Fireflies'], ['embers', 'Embers'], ['bubbles', 'Bubbles'], ['sparkles', 'Sparkles']];
-  $('#fxChips').innerHTML = FX.map(([k, n], i) => `<button type="button" data-fx="${k}" aria-pressed="${i === 0}">${n}</button>`).join('');
-  const box = $('#fxBox');
-  if (window.LucentFX) {
-    const demo = window.LucentFX.create($('#fxDemo'), { type: 'snow', density: 0.6, color: '#ffffff', cursor: true });
-    const stars = window.LucentFX.create($('#stars'), { type: 'stars', density: 0.5, color: '#ffffff', cursor: false });
-    $('#fxChips').addEventListener('click', (e) => {
-      const b = e.target.closest('[data-fx]'); if (!b) return;
-      $$('[data-fx]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
-      demo.set({ type: b.dataset.fx, color: b.dataset.fx === 'embers' ? '#ffb36b' : '#ffffff' });
-    });
-    box.addEventListener('pointermove', (e) => { const r = box.getBoundingClientRect(); demo.cursor((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height); });
-    box.addEventListener('pointerleave', () => demo.cursor(-1, -1));
-    const seen = new IntersectionObserver((ents) => { for (const en of ents) (en.target.id === 'fxBox' ? demo : stars).pause(!en.isIntersecting || calm); });
-    seen.observe(box); seen.observe($('#download'));
-  }
-
-  // ---- play the video only while it is on screen
-  const vid = $('#promo');
-  const vidSeen = new IntersectionObserver((ents) => { for (const en of ents) { if (en.isIntersecting && !calm) vid.play().catch(() => {}); else vid.pause(); } }, { threshold: 0.35 });
-  vidSeen.observe(vid);
-  // the notch on top of the video shows the song it's playing, like Lucent's island does
-  const vn = $('#vNotch');
-  const paintNotch = () => { vn.classList.toggle('on', !vid.paused); vn.classList.toggle('playing', !vid.paused); if (vid.duration) $('#vProg').style.width = `${(vid.currentTime / vid.duration) * 100}%`; };
-  ['play', 'pause', 'timeupdate', 'volumechange', 'ended'].forEach((ev) => vid.addEventListener(ev, paintNotch));
-
-  // ---- the "New in 2.3" clips play while they're on screen
-  const clipSeen = new IntersectionObserver((ents) => {
-    for (const en of ents) {
-      const v = en.target;
-      if (en.isIntersecting && !calm) { if (!v.src) v.src = v.dataset.clip; v.play().catch(() => {}); } else if (v.src) v.pause();
+  function paint() {
+    $('#sheetT').textContent = phone ? 'Lucent is for Mac and Windows' : gOs === 'win' ? 'Install Lucent on Windows' : 'Install Lucent on your Mac';
+    $('#sheetS').textContent = phone ? 'Open this page on your computer to download it.' : started ? 'Your download has started.' : 'Have a look at the steps first. The download starts at the end.';
+    $$('.oss button').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.os === gOs)));
+    const body = $('#sheetBody');
+    if (phone) {
+      body.innerHTML = `<div class="done"><p>Lucent runs on Mac and Windows computers, not on phones or tablets. Send yourself this page and download it from there.</p><div class="row"><button type="button" id="copyLink">Copy the link</button></div></div>`;
+      $('#copyLink').onclick = async () => { try { await navigator.clipboard.writeText(location.origin + location.pathname); $('#copyLink').textContent = 'Link copied'; } catch (e) { $('#copyLink').textContent = location.href; } };
+      return;
     }
-  }, { threshold: 0.4 });
-  $$('video[data-clip]').forEach((v) => clipSeen.observe(v));
+    if (started) {
+      body.innerHTML = `<div class="done"><div class="tick">✓</div><h3>Your download has started</h3><p>When it finishes, follow the steps you just saw. If nothing happened, start it again.</p><div class="row"><button type="button" id="again">Download again</button><button type="button" id="review">See the steps</button></div></div>`;
+      $('#again').onclick = startDownload;
+      $('#review').onclick = () => { started = false; step = 0; paint(); };
+      return;
+    }
+    const steps = STEPS[gOs](kindNow()); const s = steps[step]; const last = step === steps.length - 1;
+    const arch = gOs === 'mac' && last ? `<div class="arch" role="group" aria-label="Which Mac"><button type="button" data-k="mac" aria-pressed="${macKind === 'mac'}">Apple Silicon (M1 to M4)</button><button type="button" data-k="intel" aria-pressed="${macKind === 'intel'}">Intel</button></div>` : '';
+    body.innerHTML = `<div class="stage"><div><span class="n">Step ${step + 1} of ${steps.length}</span><h3>${s.h}</h3><p>${s.p}</p>${arch}</div><div class="fig">${s.fig}</div></div>
+      <div class="foot"><div class="dots">${steps.map((_, i) => `<i class="${i === step ? 'on' : ''}"></i>`).join('')}</div>
+      ${step ? '<button type="button" class="back" id="back">Back</button>' : ''}<button type="button" class="next${last ? ' dlnow' : ''}" id="next">${last ? (gOs === 'win' ? 'Download for Windows' : 'Download for Mac') : 'Next'}</button></div>`;
+    $$('.arch button', body).forEach((b) => { b.onclick = () => { macKind = b.dataset.k; paintMine(); paint(); }; });
+    if ($('#back')) $('#back').onclick = () => { step--; paint(); };
+    $('#next').onclick = () => { if (!last) { step++; paint(); $('#next').focus(); return; } started = true; startDownload(); paint(); };
+  }
+  function openSheet(k) {
+    gOs = k === 'win' ? 'win' : (os === 'win' && (k === 'auto') ? 'win' : 'mac');
+    if (k === 'intel' || k === 'mac') macKind = k;
+    step = 0; started = false; lastFocus = document.activeElement;
+    sheet.hidden = false; paint();
+    requestAnimationFrame(() => sheet.classList.add('on'));
+    setTimeout(() => { const n = $('#next') || $('#copyLink'); if (n) n.focus(); }, 60);
+  }
+  function closeSheet() {
+    sheet.classList.remove('on');
+    setTimeout(() => { sheet.hidden = true; }, 250);
+    if (lastFocus) lastFocus.focus();
+  }
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-dl]'); if (!b) return;
+    e.preventDefault();
+    const k = b.dataset.dl;
+    openSheet(k === 'mac-auto' ? (os === 'mac' ? macKind : 'mac') : k);
+  });
+  $$('.oss button').forEach((b) => { b.onclick = () => { gOs = b.dataset.os; step = 0; started = false; paint(); }; });
+  $('#sheetX').onclick = closeSheet;
+  sheet.addEventListener('click', (e) => { if (e.target === sheet) closeSheet(); });
+  document.addEventListener('keydown', (e) => {
+    if (sheet.hidden) return;
+    if (e.key === 'Escape') closeSheet();
+    if (e.key === 'Tab') {
+      const f = $$('button, a[href]', sheet).filter((x) => !x.disabled && x.offsetParent);
+      if (!f.length) return;
+      if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+      else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+    }
+  });
 }
 </script>
 </body>

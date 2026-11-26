@@ -333,13 +333,13 @@ kbd{font:600 .86em Inter,system-ui,sans-serif;padding:2px 7px;border-radius:7px;
 .dlm .again{display:block;padding:0 22px 18px;color:var(--dim);font-size:13.5px}
 .dlm .again a{color:var(--ink)}
 .alert{border-radius:16px;padding:20px 20px 16px;background:#2a2a2e;border:1px solid rgba(255,255,255,.12);text-align:center;font-family:-apple-system,"SF Pro Text",Inter,system-ui,sans-serif;font-size:13.5px;line-height:1.45}
-.alert img{width:56px;height:56px;margin-bottom:8px}
+.dlm .fig .alert img,.alert img{width:56px;height:56px;margin-bottom:8px;border-radius:0;box-shadow:none;object-fit:contain}
 .alert b{display:block;font-size:15px;margin-bottom:6px}
 .alert .bt{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
 .alert .bt span{padding:7px;border-radius:8px;background:rgba(255,255,255,.1);font-weight:600}
 .alert .bt span.blue{background:#0a84ff}
 .dlrow{display:flex;align-items:center;gap:12px;padding:14px;border-radius:14px;background:#242428;border:1px solid rgba(255,255,255,.1);font-family:-apple-system,"SF Pro Text",Inter,system-ui,sans-serif;font-size:14px}
-.dlrow img{width:40px;height:40px}
+.dlm .fig .dlrow img,.dlrow img{width:40px;height:40px;flex:none;border-radius:0;box-shadow:none;object-fit:contain}
 .dlrow small{display:block;color:#98989f}
 @media (max-width:700px){.dlm .stage{grid-template-columns:1fr}.vnotch.on{width:92%}}
 </style>
@@ -354,7 +354,7 @@ kbd{font:600 .86em Inter,system-ui,sans-serif;padding:2px 7px;border-radius:7px;
 
 <div class="vnotch" id="vNotch" aria-hidden="true"><i class="vart"></i><span class="vt"><b id="vTitle">Afterglow</b> <small>· Lucent Originals</small></span><span class="veq"><i></i><i></i><i></i><i></i></span><span class="vp"><i id="vProg"></i></span></div>
 <section class="hero" id="top" aria-label="A live Lucent desktop">
-  <div class="wall" id="wallA" style="background-image:url('assets/walls/ice-cave-full.webp')"></div>
+  <div class="wall" id="wallA" style="background-image:url('assets/walls/city-full.webp')"></div>
   <div class="wall off" id="wallB"></div>
   <div class="shade"></div>
   <div id="wl"></div>
@@ -383,7 +383,7 @@ kbd{font:600 .86em Inter,system-ui,sans-serif;padding:2px 7px;border-radius:7px;
 
   <div class="hero-copy">
     <h1>Lucent</h1>
-    <p class="lede">Live wallpapers, widgets you can drag anywhere and a Dynamic Island, for Mac and Windows.</p>
+    <p class="lede">Live wallpapers, a Dynamic Island, widgets you can drag anywhere and a dock that replaces yours. For Mac and Windows.</p>
     <div class="ctas">
       <a class="btn big" href="#download" data-dl="auto" id="heroDl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 19h16"/></svg><span class="t"><b id="heroDlT">Download Lucent</b><small id="heroDlS">For Mac and Windows</small></span></a>
       <a class="btn ghost" href="#video">Watch the video</a>
@@ -395,7 +395,7 @@ kbd{font:600 .86em Inter,system-ui,sans-serif;padding:2px 7px;border-radius:7px;
 
 <section class="band" id="video">
   <div class="wrap">
-    <div class="sec-head"><h2>Take the 55-second tour</h2><p class="lede">YouTube and websites as wallpapers, two wallpapers at once, a dock with widgets, and a Dynamic Island that wraps around your MacBook’s notch. Turn the sound on: the notch shows what’s playing.</p></div>
+    <div class="sec-head"><h2>Take the 55-second tour</h2><p class="lede">YouTube and websites as wallpapers, two wallpapers at once, a dock that replaces yours, and a Dynamic Island that wraps around your MacBook’s notch. Turn the sound on: the notch shows what’s playing.</p></div>
     <div class="screen tilt vwrap"><video id="promo" src="assets/lucent-promo.mp4" poster="assets/video-poster.webp" muted loop playsinline controls preload="metadata"></video></div>
     <p class="vsong" id="vSong">Music: “Afterglow”, made for Lucent. While the video plays, the notch at the top of this page shows it, just like Lucent does.</p>
   </div>
@@ -427,7 +427,7 @@ kbd{font:600 .86em Inter,system-ui,sans-serif;padding:2px 7px;border-radius:7px;
       <article class="feat"><video data-clip="assets/clips/two.mp4" poster="assets/clips/two.webp" muted loop playsinline preload="none"></video><div><h3>Two wallpapers at once<span class="new">NEW</span></h3><p>Side by side, in a corner or blended together. One click to use a wallpaper, another to unequip it.</p></div></article>
       <article class="feat"><video data-clip="assets/clips/notch.mp4" poster="assets/clips/notch.webp" muted loop playsinline preload="none"></video><div><h3>An island that fits your notch</h3><p>On a MacBook the Dynamic Island now wraps around the camera, with your song on one side and the beat on the other.</p></div></article>
       <article class="feat"><video data-clip="assets/clips/looks.mp4" poster="assets/clips/looks.webp" muted loop playsinline preload="none"></video><div><h3>Make the island yours<span class="new">NEW</span></h3><p>Notch, floating or slim. Size, corners, colours, a rainbow outline, fonts, animation and what each side shows.</p></div></article>
-      <article class="feat"><video data-clip="assets/clips/dock.mp4" poster="assets/clips/dock.webp" muted loop playsinline preload="none"></video><div><h3>Dock widgets<span class="new">NEW</span></h3><p>Clock, date, weather, battery, CPU, now playing and a next-wallpaper button, right in your dock. Right-click anything in it for options.</p></div></article>
+      <article class="feat"><video data-clip="assets/clips/dock.mp4" poster="assets/clips/dock.webp" muted loop playsinline preload="none"></video><div><h3>It replaces your Dock<span class="new">NEW</span></h3><p>Lucent’s dock takes over from the Mac Dock. Your apps come with it, open apps get a dot, and you can add a clock, weather and what’s playing. Turn it off and the normal Dock comes back. On Windows it tucks the taskbar away.</p></div></article>
       <article class="feat"><video data-clip="assets/clips/widgets.mp4" poster="assets/clips/widgets.webp" muted loop playsinline preload="none"></video><div><h3>Right-click any widget</h3><p>Every widget has its own options. Now Playing hides itself until music is playing, and you can turn that off.</p></div></article>
     </div>
     <dl class="more three" style="margin-top:28px">
@@ -449,7 +449,7 @@ kbd{font:600 .86em Inter,system-ui,sans-serif;padding:2px 7px;border-radius:7px;
     </div>
     <figure class="screen tilt"><img src="assets/shots/island.webp" alt="Edit Desktop with the Dynamic Island settings: modules you can switch on and reorder" width="2200" height="1375" loading="lazy"></figure>
     <dl class="more three">
-      <div><dt>Your own dock</dt><dd>Apps, folders, websites and widgets with magnify and bounce. Dots under open apps. Glass, solid, neon or clear, on any edge.</dd></div>
+      <div><dt>A dock that replaces yours</dt><dd>Your Dock’s apps, folders and the Trash, plus widgets, magnify and bounce. Glass, solid, neon or clear, on any edge.</dd></div>
       <div><dt>Text that moves</dt><dd>Typewriter, wave, glow, neon, rainbow, shimmer and glitch styles for any text on your desktop.</dd></div>
       <div><dt>AI in the island</dt><dd>Ask Gemini, ChatGPT, Claude or OpenRouter from the top of your screen with your own key.</dd></div>
     </dl>
@@ -505,7 +505,7 @@ kbd{font:600 .86em Inter,system-ui,sans-serif;padding:2px 7px;border-radius:7px;
       <p class="lede">Particles drift over whatever wallpaper you choose and move out of your cursor’s way. Fireflies follow it instead. Try them here.</p>
       <div class="chips" id="fxChips" role="group" aria-label="Effect"></div>
     </div>
-    <div class="fxbox" id="fxBox"><img src="assets/walls/lake-full.webp" alt="" loading="lazy"><canvas id="fxDemo"></canvas></div>
+    <div class="fxbox" id="fxBox"><img src="assets/walls/sherburne-full.webp" alt="" loading="lazy"><canvas id="fxDemo"></canvas></div>
   </div>
 </section>
 
@@ -612,7 +612,7 @@ kbd{font:600 .86em Inter,system-ui,sans-serif;padding:2px 7px;border-radius:7px;
 <footer class="foot">
   <div class="wrap">
     <div><a class="brand" href="#top"><img src="assets/icon-64.png" alt="" width="30" height="30"><span>Lucent</span></a><p>Live wallpapers for Mac and Windows. © 2026 Lucent.</p><p id="ghLink" hidden><a href="#">Releases on GitHub</a></p></div>
-    <p class="credits">Wallpapers shown on this page come from the Pop!_OS wallpaper collection: illustrations by Nick Nazzaro and Kate Hazen for System76, licensed CC BY-SA 4.0; photos by NASA, SpaceX, Ahmadreza Sajadi, Benjamin Voros, Jad Limcaco, Jared Evans, Jasper van der Meij, Ricardo Gomez Angel, Sean Afnan, Tim McCartney and Tony Webster via Unsplash, public domain. Wallpapers you find inside the app belong to their artists. Spotify and Apple Music are trademarks of their owners.</p>
+    <p class="credits">Wallpapers shown on this page: photos by Ashim D’Silva, Luca Bravo, Leigh Kendell and the “Sunset by the Pier” photographer (public domain), Viktor Forgacs, Tj Holowaychuk, Nattu Adnan, Martin Adams and Aniket Deole (Unsplash License), a Pexels photo of Half Dome (Pexels License), and images from the Budgie Backgrounds collection, including NASA’s Saturn (CC0). The app icons in the dock demo are placeholders made for this page. Wallpapers you find inside the app belong to their artists. Spotify and Apple Music are trademarks of their owners.</p>
   </div>
 </footer>
 
@@ -741,7 +741,7 @@ window.LUCENT_RELEASES = 'caulculaslegend-dev/lucent';
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
   // ---- hero wallpapers + parallax
-  const WALLS = ['ice-cave', 'space-blue', 'lake', 'tunnel', 'nebula'].map((k) => `assets/walls/${k}-full.webp`);
+  const WALLS = ['city', 'antelope', 'pastel', 'trestle', 'pier'].map((k) => `assets/walls/${k}-full.webp`);
   let wi = 0; let front = $('#wallA'); let back = $('#wallB');
   function nextWall() {
     wi = (wi + 1) % WALLS.length;
@@ -759,9 +759,9 @@ window.LUCENT_RELEASES = 'caulculaslegend-dev/lucent';
 
   // ---- music (shared by the island and the Now Playing widget)
   const TRACKS = [
-    { title: 'Slow Tide', artist: 'Lucent Demo', art: 'assets/walls/lake.webp', duration: 214 },
-    { title: 'Glass Room', artist: 'Lucent Demo', art: 'assets/walls/jellyfish.webp', duration: 187 },
-    { title: 'Night Drive', artist: 'Lucent Demo', art: 'assets/walls/tunnel.webp', duration: 236 }
+    { title: 'Slow Tide', artist: 'Lucent Demo', art: 'assets/walls/pier.webp', duration: 214 },
+    { title: 'Pink Haze', artist: 'Lucent Demo', art: 'assets/walls/dahlia.webp', duration: 187 },
+    { title: 'Night Drive', artist: 'Lucent Demo', art: 'assets/walls/trestle.webp', duration: 236 }
   ];
   let ti = 0; let playing = true; let pos = 83; let at = Date.now();
   const position = () => Math.min(TRACKS[ti].duration, playing ? pos + (Date.now() - at) / 1000 : pos);
@@ -872,11 +872,11 @@ window.LUCENT_RELEASES = 'caulculaslegend-dev/lucent';
 
   // ---- wallpaper marquee
   const WP = [
-    ['ice-cave', 'Ice Cave', 'Nick Nazzaro'], ['nebula', 'Nebula Clouds', 'NASA'], ['lake', 'Mountain Lake', 'Sean Afnan'], ['space-blue', 'Observation Deck', 'Nick Nazzaro'],
-    ['monument', 'Monument Valley', 'Jasper van der Meij'], ['tunnel', 'Neon Tunnel', 'Tony Webster'], ['underwater', 'Underwater', 'Nick Nazzaro'], ['earth-night', 'City Lights from Orbit', 'NASA'],
-    ['desert', 'Desert Outpost', 'Nick Nazzaro'], ['bubble', 'Bubble Nebula', 'NASA'], ['jungle-green', 'Jungle', 'Nick Nazzaro'], ['star-trails', 'Star Trails', 'Ahmadreza Sajadi'],
-    ['peaks', 'Snowy Peaks', 'Benjamin Voros'], ['canyon', 'Canyon at Dusk', 'Jad Limcaco'], ['planets', 'Planets', 'Kate Hazen'], ['jellyfish', 'Jellyfish', 'Unsplash'],
-    ['teal', 'Teal Scales', 'Ricardo Gomez Angel'], ['dunes', 'Dunes', 'Jared Evans'], ['dragon', 'Dragon over Earth', 'SpaceX'], ['full-moon', 'Full Moon', 'Tim McCartney']
+    ['city', 'Marina Bay Lights', 'Budgie Backgrounds'], ['antelope', 'Antelope Canyon', "Ashim D'Silva"], ['pastel', 'Pastel Sky', 'Viktor Forgacs'], ['trestle', 'Neon Bridge', 'Budgie Backgrounds'],
+    ['saturn', 'Saturn', 'NASA'], ['pier', 'Pier at Sunset', 'Unsplash'], ['dahlia', 'Pink Dahlia', 'Tj Holowaychuk'], ['waves', 'Midnight Waves', 'Budgie Backgrounds'],
+    ['alpenglow', 'Alpenglow', 'Luca Bravo'], ['ocean', 'Ocean from Above', 'Nattu Adnan'], ['red-dune', 'Red Dune', 'Budgie Backgrounds'], ['halfdome', 'Half Dome at Dusk', 'Pexels'],
+    ['casa', 'Golden Courtyard', 'Budgie Backgrounds'], ['beacon', 'City Sunrise', 'Budgie Backgrounds'], ['valley-mid', 'Midnight Valley', 'Budgie Backgrounds'], ['sherburne', 'Glacier Lake', 'Budgie Backgrounds'],
+    ['petals', 'Golden Petals', 'Martin Adams'], ['great-wave', 'Great Wave', 'Budgie Backgrounds'], ['tulips', 'Tulips', 'Leigh Kendell'], ['spiral', 'Spiral', 'Budgie Backgrounds']
   ];
   const card = ([k, t, a]) => `<figure class="mt"><img src="assets/walls/${k}.webp" alt="${t}" decoding="async" width="640" height="400"><figcaption>${t}<span>${a}</span></figcaption></figure>`;
   const half = (list) => { const h = list.map(card).join(''); return h + h.replace(/alt="[^"]*"/g, 'alt="" aria-hidden="true"'); };

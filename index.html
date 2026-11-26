@@ -7,7 +7,8 @@
 <meta name="description" content="Live wallpapers, widgets you can drag and a Dynamic Island for Mac and Windows. Free.">
 <meta name="theme-color" content="#0b0b0d">
 <link rel="icon" type="image/png" href="assets/icon-64.png">
-<link rel="apple-touch-icon" href="assets/icon-256.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap">
@@ -268,16 +269,90 @@ kbd{font:600 .86em Inter,system-ui,sans-serif;padding:2px 7px;border-radius:7px;
   *,*::before,*::after{animation:none!important;transition:none!important}
   html{scroll-behavior:auto}
 }
+
+/* ---- 2.3: the video's notch shows the song that's playing */
+.vwrap{position:relative}
+.vnotch{position:fixed;top:0;left:50%;translate:-50% -110%;height:30px;width:150px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 10px;background:#000;border-radius:0 0 14px 14px;transition:width .55s var(--spring),height .55s var(--spring);overflow:visible;pointer-events:none;z-index:2;font:600 13px Inter,system-ui,sans-serif;white-space:nowrap}
+.vnotch::before,.vnotch::after{content:'';position:absolute;top:0;width:10px;height:10px}
+.vnotch::before{left:-9.5px;background:radial-gradient(circle at 0 100%,transparent 9.4px,#000 10px)}
+.vnotch::after{right:-9.5px;background:radial-gradient(circle at 100% 100%,transparent 9.4px,#000 10px)}
+.vnotch .vart{width:20px;height:20px;border-radius:6px;background:url(assets/icon-64.png) center/cover;flex:none;opacity:0;transition:opacity .3s}
+.vnotch .vt{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;opacity:0;transition:opacity .3s}
+.vnotch .vt small{opacity:.55;font-weight:500}
+.vnotch .veq{display:flex;gap:2.5px;align-items:flex-end;height:13px;opacity:0;transition:opacity .3s}
+.vnotch .veq i{width:2.5px;height:30%;border-radius:2px;background:var(--acc)}
+.vnotch .vp{position:absolute;left:14px;right:14px;bottom:4px;height:2px;border-radius:2px;background:rgba(255,255,255,.12);overflow:hidden;opacity:0;transition:opacity .3s}
+.vnotch .vp i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffb347,#ff5e7e,#a44dff)}
+.vnotch{transition:width .55s var(--spring),height .55s var(--spring),translate .5s var(--spring);z-index:60}
+.vnotch.on{width:min(460px,88vw);height:40px;translate:-50% 0}
+.vnotch.on .vart,.vnotch.on .vt,.vnotch.on .veq,.vnotch.on .vp{opacity:1}
+.vnotch.on.playing .veq i{animation:eq 1s ease-in-out infinite}
+.vnotch .veq i:nth-child(2){animation-delay:-.4s}.vnotch .veq i:nth-child(3){animation-delay:-.75s}.vnotch .veq i:nth-child(4){animation-delay:-.2s}
+.vsong{margin:14px auto 0;text-align:center;color:var(--dim);font-size:14px}
+/* ---- 2.3: what's new, with short clips */
+.feats{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;margin-top:34px}
+.feat{border-radius:22px;overflow:hidden;background:var(--bg2);border:1px solid var(--line);display:flex;flex-direction:column}
+.feat video{width:100%;aspect-ratio:16/9;display:block;background:#000 center/cover}
+.feat div{padding:16px 18px 20px}
+.feat h3{margin:0 0 6px;font-size:19px;letter-spacing:-.01em}
+.feat p{margin:0;color:var(--dim);font-size:15px;line-height:1.5}
+.feat .new{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.04em;background:linear-gradient(100deg,#ffb347,#ff5e7e 45%,#a44dff);color:#fff;vertical-align:2px}
+/* ---- direct download links */
+.direct{margin-top:16px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid var(--line);font-size:14px;color:var(--dim)}
+.direct b{color:var(--ink);font-weight:600}
+.direct ul{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:6px}
+.direct a{color:var(--ink);text-decoration:none;word-break:break-all;border-bottom:1px solid rgba(255,255,255,.2)}
+.direct a:hover{border-color:var(--ink)}
+/* ---- download tutorial pop-up */
+.dlm{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:20px;background:rgba(4,4,8,.62);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);opacity:0;pointer-events:none;transition:opacity .25s}
+.dlm.on{opacity:1;pointer-events:auto}
+.dlm .box{width:min(760px,100%);max-height:calc(100vh - 40px);overflow:auto;border-radius:26px;background:#151519;border:1px solid var(--line);box-shadow:0 40px 100px -30px #000;transform:translateY(16px) scale(.98);transition:transform .45s var(--spring)}
+.dlm.on .box{transform:none}
+.dlm .hd{display:flex;align-items:center;gap:14px;padding:20px 22px 0}
+.dlm .hd img{width:44px;height:44px}
+.dlm .hd h2{margin:0;font-size:22px;letter-spacing:-.02em}
+.dlm .hd p{margin:2px 0 0;color:var(--dim);font-size:14px}
+.dlm .x{margin-left:auto;width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,.08);color:var(--ink);font-size:20px;cursor:pointer}
+.dlm .ostabs{display:flex;gap:6px;padding:16px 22px 0}
+.dlm .ostabs button{border:0;padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.07);color:var(--dim);font:600 14px Inter,system-ui,sans-serif;cursor:pointer}
+.dlm .ostabs button.on{background:var(--ink);color:#111}
+.dlm .stage{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:22px;align-items:center;padding:22px}
+.dlm .num{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:linear-gradient(120deg,#ffb347,#ff5e7e 45%,#a44dff);font-weight:700;font-size:14px;margin-bottom:10px}
+.dlm .stage h3{margin:0 0 8px;font-size:21px;letter-spacing:-.015em}
+.dlm .stage p{margin:0 0 8px;color:var(--dim);font-size:15.5px;line-height:1.55}
+.dlm .stage p b{color:var(--ink)}
+.dlm .fig{justify-self:center;width:100%;max-width:400px}
+.dlm .fig img{width:100%;border-radius:12px;box-shadow:0 0 0 1px var(--line)}
+.dlm .ft{display:flex;align-items:center;gap:10px;padding:0 22px 22px}
+.dlm .dots{display:flex;gap:6px;margin-right:auto}
+.dlm .dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.18);transition:background .2s,width .3s}
+.dlm .dots i.on{width:22px;border-radius:4px;background:var(--ink)}
+.dlm .ft button{border:0;padding:11px 18px;border-radius:12px;font:600 15px Inter,system-ui,sans-serif;cursor:pointer}
+.dlm .back{background:rgba(255,255,255,.08);color:var(--ink)}
+.dlm .next{background:var(--ink);color:#111}
+.dlm .again{display:block;padding:0 22px 18px;color:var(--dim);font-size:13.5px}
+.dlm .again a{color:var(--ink)}
+.alert{border-radius:16px;padding:20px 20px 16px;background:#2a2a2e;border:1px solid rgba(255,255,255,.12);text-align:center;font-family:-apple-system,"SF Pro Text",Inter,system-ui,sans-serif;font-size:13.5px;line-height:1.45}
+.alert img{width:56px;height:56px;margin-bottom:8px}
+.alert b{display:block;font-size:15px;margin-bottom:6px}
+.alert .bt{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.alert .bt span{padding:7px;border-radius:8px;background:rgba(255,255,255,.1);font-weight:600}
+.alert .bt span.blue{background:#0a84ff}
+.dlrow{display:flex;align-items:center;gap:12px;padding:14px;border-radius:14px;background:#242428;border:1px solid rgba(255,255,255,.1);font-family:-apple-system,"SF Pro Text",Inter,system-ui,sans-serif;font-size:14px}
+.dlrow img{width:40px;height:40px}
+.dlrow small{display:block;color:#98989f}
+@media (max-width:700px){.dlm .stage{grid-template-columns:1fr}.vnotch.on{width:92%}}
 </style>
 </head>
 <body>
 
 <header class="nav" id="nav">
   <a class="brand" href="#top"><img src="assets/icon-64.png" alt="" width="30" height="30"><span>Lucent</span></a>
-  <nav class="links" aria-label="Sections"><a href="#features">Features</a><a href="#install">Install</a><a href="#faq">FAQ</a></nav>
+  <nav class="links" aria-label="Sections"><a href="#new">What’s new</a><a href="#install">Install</a><a href="#faq">FAQ</a></nav>
   <a class="btn" href="#download" data-dl="auto">Download</a>
 </header>
 
+<div class="vnotch" id="vNotch" aria-hidden="true"><i class="vart"></i><span class="vt"><b id="vTitle">Afterglow</b> <small>· Lucent Originals</small></span><span class="veq"><i></i><i></i><i></i><i></i></span><span class="vp"><i id="vProg"></i></span></div>
 <section class="hero" id="top" aria-label="A live Lucent desktop">
   <div class="wall" id="wallA" style="background-image:url('assets/walls/ice-cave-full.webp')"></div>
   <div class="wall off" id="wallB"></div>
@@ -320,8 +395,9 @@ kbd{font:600 .86em Inter,system-ui,sans-serif;padding:2px 7px;border-radius:7px;
 
 <section class="band" id="video">
   <div class="wrap">
-    <div class="sec-head"><h2>Take the 52-second tour</h2><p class="lede">A quick tour: finding a wallpaper, the Steam Workshop, moving widgets, your own Dynamic Island, the Studio and your own link.</p></div>
-    <div class="screen tilt"><video id="promo" src="assets/lucent-promo.mp4" poster="assets/video-poster.webp" muted loop playsinline controls preload="metadata"></video></div>
+    <div class="sec-head"><h2>Take the 55-second tour</h2><p class="lede">YouTube and websites as wallpapers, two wallpapers at once, a dock with widgets, and a Dynamic Island that wraps around your MacBook’s notch. Turn the sound on: the notch shows what’s playing.</p></div>
+    <div class="screen tilt vwrap"><video id="promo" src="assets/lucent-promo.mp4" poster="assets/video-poster.webp" muted loop playsinline controls preload="metadata"></video></div>
+    <p class="vsong" id="vSong">Music: “Afterglow”, made for Lucent. While the video plays, the notch at the top of this page shows it, just like Lucent does.</p>
   </div>
 </section>
 
@@ -342,18 +418,23 @@ kbd{font:600 .86em Inter,system-ui,sans-serif;padding:2px 7px;border-radius:7px;
   <p class="small">Wallpapers on this page are free-licensed examples. Credits are at the bottom of the page.</p>
 </section>
 
-<section class="band" id="workshop">
-  <div class="wrap split rev">
-    <figure class="win mac tilt"><img src="assets/shots/workshop.webp" alt="Lucent’s Steam Workshop tab: a grid of community wallpapers with Get buttons" width="2200" height="1375" loading="lazy"></figure>
-    <div class="copy">
-      <h2>The Steam Workshop, right inside Lucent</h2>
-      <p class="lede">Browse the Wallpaper Engine and ScreenPlay Workshops without leaving the app: trending, top rated, most popular, by tag or by search. Hit Get, click Subscribe in Steam, and the wallpaper lands in your library on its own.</p>
-      <ul class="points">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Hover to preview.</b> Every card plays its animated preview.</span></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Works on a Mac too.</b> ScreenPlay is free on Steam and downloads on Mac and Windows. Wallpaper Engine’s Workshop needs Wallpaper Engine, which runs on Windows.</span></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Through your own Steam account.</b> Creators keep their subscribers and updates arrive automatically.</span></li>
-      </ul>
+<section class="band" id="new">
+  <div class="wrap">
+    <div class="sec-head"><h2>New in Lucent 2.3</h2><p class="lede">The biggest update yet. Everything here is free and already in the download.</p></div>
+    <div class="feats">
+      <article class="feat"><video data-clip="assets/clips/youtube.mp4" poster="assets/clips/youtube.webp" muted loop playsinline preload="none"></video><div><h3>YouTube wallpapers<span class="new">NEW</span></h3><p>Your feed, playing on your desktop. Pick a video and the next one starts by itself, like your For You page. Its song shows up in the island.</p></div></article>
+      <article class="feat"><video data-clip="assets/clips/websites.mp4" poster="assets/clips/websites.webp" muted loop playsinline preload="none"></video><div><h3>Websites as wallpapers<span class="new">NEW</span></h3><p>Put any site on your desktop, your bio page, your server list, anything, then click right into it. Press Esc when you’re done.</p></div></article>
+      <article class="feat"><video data-clip="assets/clips/two.mp4" poster="assets/clips/two.webp" muted loop playsinline preload="none"></video><div><h3>Two wallpapers at once<span class="new">NEW</span></h3><p>Side by side, in a corner or blended together. One click to use a wallpaper, another to unequip it.</p></div></article>
+      <article class="feat"><video data-clip="assets/clips/notch.mp4" poster="assets/clips/notch.webp" muted loop playsinline preload="none"></video><div><h3>An island that fits your notch</h3><p>On a MacBook the Dynamic Island now wraps around the camera, with your song on one side and the beat on the other.</p></div></article>
+      <article class="feat"><video data-clip="assets/clips/looks.mp4" poster="assets/clips/looks.webp" muted loop playsinline preload="none"></video><div><h3>Make the island yours<span class="new">NEW</span></h3><p>Notch, floating or slim. Size, corners, colours, a rainbow outline, fonts, animation and what each side shows.</p></div></article>
+      <article class="feat"><video data-clip="assets/clips/dock.mp4" poster="assets/clips/dock.webp" muted loop playsinline preload="none"></video><div><h3>Dock widgets<span class="new">NEW</span></h3><p>Clock, date, weather, battery, CPU, now playing and a next-wallpaper button, right in your dock. Right-click anything in it for options.</p></div></article>
+      <article class="feat"><video data-clip="assets/clips/widgets.mp4" poster="assets/clips/widgets.webp" muted loop playsinline preload="none"></video><div><h3>Right-click any widget</h3><p>Every widget has its own options. Now Playing hides itself until music is playing, and you can turn that off.</p></div></article>
     </div>
+    <dl class="more three" style="margin-top:28px">
+      <div><dt>New sounds</dt><dd>Soft, Glass or Retro clicks, toggles and chimes as you use Lucent. Turn them off in Settings any time.</dd></div>
+      <div><dt>A new look</dt><dd>A new lotus icon, a sharper featured banner with full-resolution pictures, and better wallpaper names.</dd></div>
+      <div><dt>Updates itself</dt><dd>Already on 2.2? Lucent downloads 2.3 in the background and asks before restarting.</dd></div>
+    </dl>
   </div>
 </section>
 
@@ -362,13 +443,13 @@ kbd{font:600 .86em Inter,system-ui,sans-serif;padding:2px 7px;border-radius:7px;
     <div class="sec-head">
       <h2>Make the island yours</h2>
       <div>
-        <p class="lede">The Dynamic Island at the top of your screen is now a whole toolbox. Pick what goes in it, put it in any order, and choose whether it opens when you hover or click.</p>
-        <ul class="chips"><li>Music</li><li>Calendar</li><li>Notes</li><li>AI chat</li><li>Timer</li><li>Weather</li><li>File shelf</li><li>Apps</li><li>Mirror</li></ul>
+        <p class="lede">The Dynamic Island at the top of your screen wraps around your MacBook’s notch and opens into a whole toolbox. Pick its shape and look, what goes in it, and whether it opens when you hover or click. Tap the mirror to turn the camera off.</p>
+        <ul class="chips"><li>Notch, floating or slim</li><li>Any size</li><li>Tinted or glass</li><li>Rainbow outline</li><li>Fonts</li><li>Music</li><li>Calendar</li><li>Notes</li><li>AI chat</li><li>Timer</li><li>Weather</li><li>File shelf</li><li>Apps</li><li>Mirror</li></ul>
       </div>
     </div>
     <figure class="screen tilt"><img src="assets/shots/island.webp" alt="Edit Desktop with the Dynamic Island settings: modules you can switch on and reorder" width="2200" height="1375" loading="lazy"></figure>
     <dl class="more three">
-      <div><dt>Your own dock</dt><dd>Apps, folders and websites with magnify and bounce. Glass, solid, neon or clear, on any edge.</dd></div>
+      <div><dt>Your own dock</dt><dd>Apps, folders, websites and widgets with magnify and bounce. Dots under open apps. Glass, solid, neon or clear, on any edge.</dd></div>
       <div><dt>Text that moves</dt><dd>Typewriter, wave, glow, neon, rainbow, shimmer and glitch styles for any text on your desktop.</dd></div>
       <div><dt>AI in the island</dt><dd>Ask Gemini, ChatGPT, Claude or OpenRouter from the top of your screen with your own key.</dd></div>
     </dl>
@@ -451,7 +532,7 @@ kbd{font:600 .86em Inter,system-ui,sans-serif;padding:2px 7px;border-radius:7px;
     <div>
       <img class="bigicon" src="assets/icon-512.png" alt="Lucent app icon" width="112" height="112">
       <h2>Download Lucent</h2>
-      <p class="lede">Version <span class="ver">2.2.0</span>. Free, no ads, and it updates itself.</p>
+      <p class="lede">Version <span class="ver">2.3.0</span>. Free, no ads, and it updates itself.</p>
       <details class="which"><summary>Which Mac do I have?</summary><p>Open the Apple menu and choose About This Mac. If it says <b>Chip</b> with Apple M1, M2, M3 or M4, pick Apple Silicon. If it says <b>Processor</b> with Intel, pick Intel.</p></details>
     </div>
     <div>
@@ -460,6 +541,8 @@ kbd{font:600 .86em Inter,system-ui,sans-serif;padding:2px 7px;border-radius:7px;
         <a class="opt" data-dl="intel" href="#download"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="11" rx="1.6"/><path d="M2 19h20"/></svg></span><span><b>Mac with Intel<span class="tag">Your computer</span></b><small>Older Macs. 120 MB disk image.</small></span><span class="go">Download</span></a>
         <a class="opt" data-dl="win" href="#download"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="1.6"/><path d="M9 20h6M12 16v4"/></svg></span><span><b>Windows 10 or 11 (beta)<span class="tag">Your computer</span></b><small>64-bit. 117 MB installer.</small></span><span class="go">Download</span></a>
       </div>
+      <div class="direct" id="direct"><b>Direct download links</b> (always the newest version)
+        <ul><li>Mac, Apple Silicon: <a data-direct="mac" href="#"></a></li><li>Mac, Intel: <a data-direct="intel" href="#"></a></li><li>Windows: <a data-direct="win" href="#"></a></li></ul></div>
       <p class="note" id="dlNote" hidden>The download links aren’t connected yet. Put your GitHub repository in <b>LUCENT_RELEASES</b> at the bottom of index.html (see README.txt).</p>
     </div>
   </div>
@@ -516,7 +599,7 @@ kbd{font:600 .86em Inter,system-ui,sans-serif;padding:2px 7px;border-radius:7px;
       </div>
       <div>
         <details><summary>Does it work with more than one display?</summary><p>Yes. Each display can have its own wallpaper.</p></details>
-        <details><summary>How do Steam Workshop wallpapers work?</summary><p>Open the Workshop tab, hit Get, and click Subscribe in Steam. Steam downloads it with your account and Lucent adds it to your library. Wallpaper Engine’s Workshop needs Wallpaper Engine (Windows). ScreenPlay’s is free and works on Mac too.</p></details>
+        <details><summary>Can I use a YouTube video or a website as my wallpaper?</summary><p>Yes. Open the YouTube tab, pick a video and it plays on your desktop, then the next one starts by itself. For a website, add it in Library (Import, then paste the link). To click and scroll it, choose <b>Use it</b> in Library or press <kbd>⌥⌘I</kbd> (<kbd>Ctrl+Alt+I</kbd> on Windows), and press Esc when you’re done.</p></details>
         <details><summary>How do I get my normal wallpaper back?</summary><p>Quit Lucent from its menu bar icon (or the tray icon on Windows) and your usual wallpaper is back.</p></details>
         <details><summary>Does everything work on Windows?</summary><p>Almost. Windows support is new, so it’s marked beta, and music controls (Now Playing) are Mac-only for now.</p></details>
         <details><summary>Which Mac should I download for?</summary><p>Open the Apple menu and choose About This Mac. Apple M1, M2, M3 or M4 means Apple Silicon. Intel means the Intel download.</p></details>
@@ -534,6 +617,15 @@ kbd{font:600 .86em Inter,system-ui,sans-serif;padding:2px 7px;border-radius:7px;
 </footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="dlm" id="dlm" role="dialog" aria-modal="true" aria-labelledby="dlmT">
+  <div class="box">
+    <div class="hd"><img src="assets/icon-64.png" alt=""><div><h2 id="dlmT">Your download has started</h2><p id="dlmS">Here’s how to open Lucent the first time.</p></div><button type="button" class="x" id="dlmX" aria-label="Close">×</button></div>
+    <div class="ostabs" role="tablist"><button type="button" data-os="mac">Mac</button><button type="button" data-os="win">Windows</button></div>
+    <div class="stage" id="dlmStage"></div>
+    <div class="ft"><div class="dots" id="dlmDots"></div><button type="button" class="back" id="dlmBack">Back</button><button type="button" class="next" id="dlmNext">Next</button></div>
+    <p class="again">Download didn’t start? <a href="#" id="dlmAgain">Click here</a> to try again.</p>
+  </div>
+</div>
 
 <script src="assets/widgets.js"></script>
 <script src="assets/effects.js"></script>
@@ -549,7 +641,7 @@ window.LUCENT_RELEASES = 'caulculaslegend-dev/lucent';
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const repo = String(window.LUCENT_RELEASES || '').trim().replace(/^https?:\/\/github\.com\//, '').replace(/\/+$/, '');
   const FILES = { mac: 'Lucent-mac-apple-silicon.dmg', intel: 'Lucent-mac-intel.dmg', win: 'Lucent-windows-setup.exe' };
-  const LABEL = { mac: ['Download for Mac', 'Apple Silicon, 116 MB'], intel: ['Download for Mac', 'Intel, 120 MB'], win: ['Download for Windows', 'Beta, 117 MB'] };
+  const LABEL = { mac: ['Download for Mac', 'Apple Silicon'], intel: ['Download for Mac', 'Intel'], win: ['Download for Windows', 'Windows 10 and 11'] };
   const urlFor = (k) => (repo ? `https://github.com/${repo}/releases/latest/download/${FILES[k]}` : '');
 
   // ---- which computer is this?
@@ -577,6 +669,7 @@ window.LUCENT_RELEASES = 'caulculaslegend-dev/lucent';
     $$('.opt').forEach((o) => o.classList.toggle('rec', o.dataset.dl === k));
     if (k) { $('#heroDlT').textContent = LABEL[k][0]; $('#heroDlS').textContent = LABEL[k][1]; }
     if (repo) { const g = $('#ghLink'); g.hidden = false; g.firstElementChild.href = `https://github.com/${repo}/releases/latest`; }
+    $$('[data-direct]').forEach((a) => { const u = urlFor(a.dataset.direct); a.href = u || '#download'; a.textContent = u || 'not connected yet'; a.dataset.dl = a.dataset.direct; a.dataset.key = a.dataset.direct; });
   }
   paintDownloads();
   if (os === 'mac' && navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
@@ -589,9 +682,49 @@ window.LUCENT_RELEASES = 'caulculaslegend-dev/lucent';
     const key = a.dataset.key;
     if (!key || !repo) { if (!repo && key) { e.preventDefault(); $('#dlNote').hidden = false; $('#download').scrollIntoView({ behavior: calm ? 'auto' : 'smooth' }); } return; }
     selectTab(key === 'win' ? 'win' : 'mac');
-    toast(key === 'win' ? 'Downloading Lucent for Windows. The steps below show what to click next.' : 'Downloading Lucent for Mac. Open the .dmg and drag Lucent into Applications.');
-    setTimeout(() => $('#install').scrollIntoView({ behavior: calm ? 'auto' : 'smooth' }), 700);
+    openGuide(key);
   });
+
+  // ---- after clicking Download: a step-by-step guide, including Open Anyway on a Mac and Run anyway on Windows
+  const GUIDE = {
+    mac: (k) => [
+      { h: 'Open the download', p: `Open <b>${FILES[k] || FILES.mac}</b> from your Downloads (click it in your browser’s downloads list, or find it in the Downloads folder).`, fig: `<div class="dlrow"><img src="assets/icon-64.png" alt=""><div><b>${FILES[k] || FILES.mac}</b><small>Downloads · Lucent installer</small></div></div>` },
+      { h: 'Drag Lucent into Applications', p: 'A window opens. Drag the Lucent icon onto the <b>Applications</b> folder, like any other Mac app.', fig: '<img src="assets/shots/dmg-window.webp" alt="Drag Lucent into Applications">' },
+      { h: 'Open Lucent, then click Done', p: 'Open Lucent from Applications or Launchpad. The first time, macOS says it couldn’t check it for malware, because Lucent isn’t from the App Store. Click <b>Done</b>.', fig: '<div class="alert"><img src="assets/icon-64.png" alt=""><b>“Lucent” Not Opened</b>Apple could not verify “Lucent” is free of malware that may harm your Mac or compromise your privacy.<div class="bt"><span>Move to Bin</span><span class="blue">Done</span></div></div>' },
+      { h: 'Click Open Anyway in Settings', p: 'Open <b>System Settings</b> and go to <b>Privacy &amp; Security</b>. Scroll down to the Security part and click <b>Open Anyway</b> next to Lucent. Enter your password or use Touch ID.', fig: '<div class="mock mac"><div class="h">Privacy &amp; Security</div><div class="s">Security</div><div class="row"><span>“Lucent” was blocked to protect your Mac.</span><span class="pulse">Open Anyway</span></div></div>' },
+      { h: 'Confirm, and you’re in', p: 'macOS asks one last time. Click <b>Open Anyway</b>. From now on Lucent opens like any other app, and it updates itself.', fig: '<div class="alert"><img src="assets/icon-64.png" alt=""><b>Open “Lucent”?</b>Only open it if you trust where it came from.<div class="bt"><span>Move to Bin</span><span class="blue">Open Anyway</span></div></div>' }
+    ],
+    win: () => [
+      { h: 'Run the installer', p: `Open <b>${FILES.win}</b> from your Downloads. If your browser asks whether to keep the file, choose <b>Keep</b>.`, fig: `<div class="dlrow"><img src="assets/icon-64.png" alt=""><div><b>${FILES.win}</b><small>Downloads · Lucent installer</small></div></div>` },
+      { h: 'Click More info, then Run anyway', p: 'Windows shows this for new apps it hasn’t seen much yet. Click <b>More info</b>, then <b>Run anyway</b>.', fig: '<div class="mock win"><div class="h">Windows protected your PC</div><p>Microsoft Defender SmartScreen prevented an unrecognised app from starting.</p><u>More info</u><div class="f"><span class="pulse">Run anyway</span><span>Don’t run</span></div></div>' },
+      { h: 'That’s it', p: 'Lucent installs in a few seconds, no admin password needed, and opens straight away. Next time, find it in the Start menu. It updates itself.', fig: '<div class="dlrow"><img src="assets/icon-64.png" alt=""><div><b>Lucent</b><small>Start menu · App</small></div></div>' }
+    ]
+  };
+  let gOs = 'mac'; let gKey = 'mac'; let gStep = 0; let lastFocus = null;
+  function paintGuide() {
+    const steps = GUIDE[gOs](gKey); const st = steps[gStep];
+    $('#dlmStage').innerHTML = `<div><span class="num">${gStep + 1}</span><h3>${st.h}</h3><p>${st.p}</p></div><div class="fig">${st.fig}</div>`;
+    $('#dlmDots').innerHTML = steps.map((_, i) => `<i class="${i === gStep ? 'on' : ''}"></i>`).join('');
+    $('#dlmBack').style.visibility = gStep ? 'visible' : 'hidden';
+    $('#dlmNext').textContent = gStep === steps.length - 1 ? 'Done' : 'Next';
+    $$('.dlm .ostabs button').forEach((b) => b.classList.toggle('on', b.dataset.os === gOs));
+    $('#dlmS').textContent = gOs === 'win' ? 'Here’s how to install Lucent on Windows.' : 'Here’s how to open Lucent the first time on your Mac.';
+  }
+  function openGuide(key) {
+    gKey = key; gOs = key === 'win' ? 'win' : 'mac'; gStep = 0;
+    $('#dlmT').textContent = 'Your download has started';
+    $('#dlmS').textContent = gOs === 'win' ? 'Here’s how to install Lucent on Windows.' : 'Here’s how to open Lucent the first time on your Mac.';
+    $('#dlmAgain').href = urlFor(key);
+    lastFocus = document.activeElement; paintGuide();
+    $('#dlm').classList.add('on'); setTimeout(() => $('#dlmNext').focus(), 50);
+  }
+  function closeGuide() { $('#dlm').classList.remove('on'); if (lastFocus && lastFocus.focus) lastFocus.focus(); }
+  $('#dlmNext').addEventListener('click', () => { const n = GUIDE[gOs](gKey).length; if (gStep < n - 1) { gStep++; paintGuide(); } else closeGuide(); });
+  $('#dlmBack').addEventListener('click', () => { if (gStep) { gStep--; paintGuide(); } });
+  $('#dlmX').addEventListener('click', closeGuide);
+  $('#dlm').addEventListener('click', (e) => { if (e.target.id === 'dlm') closeGuide(); });
+  $$('.dlm .ostabs button').forEach((b) => b.addEventListener('click', () => { gOs = b.dataset.os; if (gOs === 'mac' && gKey === 'win') gKey = mac; if (gOs === 'win') gKey = 'win'; gStep = 0; paintGuide(); }));
+  addEventListener('keydown', (e) => { if (!$('#dlm').classList.contains('on')) return; if (e.key === 'Escape') closeGuide(); if (e.key === 'ArrowRight') $('#dlmNext').click(); if (e.key === 'ArrowLeft') $('#dlmBack').click(); });
 
   // ---- install tabs
   function selectTab(which) {
@@ -771,6 +904,19 @@ window.LUCENT_RELEASES = 'caulculaslegend-dev/lucent';
   const vid = $('#promo');
   const vidSeen = new IntersectionObserver((ents) => { for (const en of ents) { if (en.isIntersecting && !calm) vid.play().catch(() => {}); else vid.pause(); } }, { threshold: 0.35 });
   vidSeen.observe(vid);
+  // the notch on top of the video shows the song it's playing, like Lucent's island does
+  const vn = $('#vNotch');
+  const paintNotch = () => { vn.classList.toggle('on', !vid.paused); vn.classList.toggle('playing', !vid.paused); if (vid.duration) $('#vProg').style.width = `${(vid.currentTime / vid.duration) * 100}%`; };
+  ['play', 'pause', 'timeupdate', 'volumechange', 'ended'].forEach((ev) => vid.addEventListener(ev, paintNotch));
+
+  // ---- the "New in 2.3" clips play while they're on screen
+  const clipSeen = new IntersectionObserver((ents) => {
+    for (const en of ents) {
+      const v = en.target;
+      if (en.isIntersecting && !calm) { if (!v.src) v.src = v.dataset.clip; v.play().catch(() => {}); } else if (v.src) v.pause();
+    }
+  }, { threshold: 0.4 });
+  $$('video[data-clip]').forEach((v) => clipSeen.observe(v));
 }
 </script>
 </body>
